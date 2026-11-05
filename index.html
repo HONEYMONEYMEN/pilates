@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F5F1EA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Пилатес">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Пилатес · Мой кабинет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1EA;--card:#FFFFFF;--ink:#2A2724;--mute:#8C857B;--line:#ECE5DA;
+  --sage:#6F8F76;--sage-d:#4B6853;--sage-l:#E5EDE6;
+  --terra:#C2694F;--terra-l:#F8E4DC;
+  --gray:#9A948B;--gray-l:#EFECE7;
+  --amber:#B9802A;--amber-l:#FBEFD9;
+  --blue:#5B7FA6;--blue-l:#E4ECF5;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.35}
+#app{max-width:640px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px 170px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+input,textarea,select{font:inherit;font-size:16px;width:100%;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none;-webkit-appearance:none;appearance:none}
+input:focus,textarea:focus{border-color:var(--sage)}
+textarea{min-height:76px;resize:vertical}
+h1{font-size:26px;font-weight:800;margin:0;letter-spacing:-.4px}
+h2{font-size:22px;font-weight:800;margin:0 0 14px;letter-spacing:-.3px}
+h3{font-size:15px;font-weight:700;margin:22px 0 10px;color:var(--mute);text-transform:uppercase;letter-spacing:.6px}
+.mute{color:var(--mute)}
+.small{font-size:13px}
+.mt8{margin-top:8px}.mt16{margin-top:16px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .dot{width:40px;height:40px;border-radius:13px;background:var(--sage-d);color:#fff;display:grid;place-items:center;font-size:20px}
+.logo b{font-size:17px;font-weight:800;display:block}
+.logo span{font-size:12px;color:var(--mute)}
+.pill{background:var(--card);border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;box-shadow:0 1px 0 var(--line)}
+.pill small{color:var(--mute);font-weight:600;margin-right:4px}
+
+/* cards */
+.card{background:var(--card);border-radius:20px;padding:16px;box-shadow:0 1px 0 var(--line),0 6px 20px rgba(60,50,40,.04)}
+.card+.card{margin-top:12px}
+
+/* week strip */
+.week{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.week .arr{width:34px;height:52px;border-radius:12px;font-size:20px;color:var(--mute);flex:none}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;flex:1}
+.dayb{background:var(--card);border-radius:14px;padding:7px 0 6px;text-align:center;box-shadow:0 1px 0 var(--line);position:relative}
+.dayb .w{font-size:11px;color:var(--mute);font-weight:700;text-transform:uppercase}
+.dayb .n{font-size:17px;font-weight:800}
+.dayb .c{position:absolute;top:-5px;right:-3px;background:var(--sage);color:#fff;font-size:10px;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.dayb.today .n{color:var(--sage-d)}
+.dayb.on{background:var(--sage-d);color:#fff}
+.dayb.on .w{color:rgba(255,255,255,.75)}
+.dayb.on .n{color:#fff}
+.dayb.on .c{background:#fff;color:var(--sage-d)}
+.dayhead{display:flex;align-items:baseline;justify-content:space-between;margin:18px 2px 12px}
+.dayhead h1{font-size:23px}
+.linkb{color:var(--sage-d);font-weight:700;font-size:14px;padding:6px 2px}
+
+/* session */
+.slot{background:var(--card);border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 6px 20px rgba(60,50,40,.04)}
+.slothead{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#FBF9F5;border-bottom:1px solid var(--line)}
+.slothead .t{font-size:19px;font-weight:800}
+.tag{font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--gray-l);color:var(--ink)}
+.tag.ind{background:#EEE7F3;color:#6B4E85}
+.tag.grp{background:var(--blue-l);color:var(--blue)}
+.vrow{padding:14px 16px;border-top:1px solid var(--line)}
+.vrow:first-of-type{border-top:0}
+.vname{font-weight:800;font-size:17px}
+.vsub{font-size:13px;color:var(--mute);margin-top:2px}
+.vsub.warn{color:var(--terra);font-weight:700}
+.btns3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:11px}
+.sb{border-radius:14px;padding:11px 4px 10px;font-weight:700;font-size:13px;line-height:1.15;display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid transparent}
+.sb .e{font-size:21px}
+.sb.came{background:var(--sage-l);color:var(--sage-d)}
+.sb.noshow{background:var(--terra-l);color:var(--terra)}
+.sb.cancel{background:var(--gray-l);color:#6E685F}
+.sb:active{transform:scale(.97)}
+.done{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px}
+.st{font-weight:800;font-size:14px;padding:9px 12px;border-radius:12px}
+.st.came{background:var(--sage-l);color:var(--sage-d)}
+.st.noshow{background:var(--terra-l);color:var(--terra)}
+.st.cancel{background:var(--gray-l);color:#6E685F}
+.st.booked{background:var(--blue-l);color:var(--blue)}
+.mini{font-size:13px;font-weight:700;color:var(--mute);padding:8px 6px}
+.addto{display:block;width:100%;padding:12px;border-top:1px dashed var(--line);color:var(--sage-d);font-weight:700;font-size:14px}
+
+/* empty */
+.empty{text-align:center;padding:34px 18px;color:var(--mute)}
+.empty .big{font-size:44px;margin-bottom:6px}
+.empty b{color:var(--ink);display:block;font-size:17px;margin-bottom:4px}
+
+/* attention */
+.attn{background:var(--amber-l);border-radius:20px;padding:14px 16px;margin-bottom:16px}
+.attn .h{font-weight:800;color:var(--amber);margin-bottom:8px;font-size:15px}
+.attn button{display:flex;width:100%;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid rgba(185,128,42,.18);font-size:15px;text-align:left;gap:8px}
+.attn button:first-of-type{border-top:0}
+.attn button span:last-child{font-size:13px;color:var(--amber);font-weight:700;text-align:right}
+
+/* buttons */
+.primary{background:var(--sage-d);color:#fff;font-weight:800;border-radius:16px;padding:16px;width:100%;font-size:17px}
+.primary:disabled{opacity:.45}
+.secondary{background:var(--sage-l);color:var(--sage-d);font-weight:800;border-radius:16px;padding:14px;width:100%;font-size:16px}
+.ghost{color:var(--sage-d);font-weight:700;padding:12px;width:100%;border-radius:14px;border:1.5px dashed #CBD8CD;margin-top:8px}
+.danger{color:var(--terra);font-weight:700;padding:12px;width:100%;border-radius:14px;background:var(--terra-l)}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom));background:var(--sage-d);color:#fff;font-weight:800;padding:16px 26px;border-radius:999px;box-shadow:0 10px 28px rgba(75,104,83,.38);font-size:17px;white-space:nowrap;z-index:5}
+.fab:active{transform:translateX(-50%) scale(.97)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.acts button{background:var(--card);border-radius:18px;padding:16px 10px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 1px 0 var(--line)}
+.acts button .e{font-size:26px}
+
+/* tabs */
+#tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:6}
+#tabs button{flex:1;max-width:190px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 4px;border-radius:14px;font-size:13px;font-weight:700;color:var(--mute)}
+#tabs button .i{font-size:23px;line-height:1.1}
+#tabs button.on{color:var(--sage-d);background:var(--sage-l)}
+
+/* clients */
+.search{margin-bottom:12px}
+.crow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 4px;border-top:1px solid var(--line)}
+.crow:first-child{border-top:0}
+.ava{width:44px;height:44px;border-radius:15px;background:var(--sage-l);color:var(--sage-d);display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+.badge{font-weight:800;font-size:13px;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.badge.ok{background:var(--sage-l);color:var(--sage-d)}
+.badge.low{background:var(--amber-l);color:var(--amber)}
+.badge.zero{background:var(--terra-l);color:var(--terra)}
+.badge.none{background:var(--gray-l);color:var(--gray)}
+.seg2{display:flex;background:var(--gray-l);border-radius:14px;padding:4px;margin-bottom:12px}
+.seg2 button{flex:1;padding:9px;border-radius:11px;font-weight:700;font-size:14px;color:var(--mute)}
+.seg2 button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+
+/* client page */
+.back{font-weight:700;color:var(--sage-d);padding:6px 0;margin-bottom:8px;font-size:15px}
+.chead{display:flex;gap:14px;align-items:center}
+.chead .ava{width:58px;height:58px;font-size:24px;border-radius:19px}
+.info{display:grid;gap:10px}
+.info .k{font-size:12px;color:var(--mute);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.info .v{font-size:15px;white-space:pre-wrap}
+.warnbox{background:var(--terra-l);color:#8E4733;border-radius:16px;padding:12px 14px;font-size:15px;margin-top:12px}
+.warnbox b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.pkg{padding:14px 0;border-top:1px solid var(--line)}
+.pkg:first-child{border-top:0;padding-top:4px}
+.bar{height:10px;background:var(--gray-l);border-radius:6px;overflow:hidden;margin:9px 0 6px}
+.bar i{display:block;height:100%;background:var(--sage);border-radius:6px}
+.bar.low i{background:var(--amber)}
+.bar.zero i{background:var(--terra)}
+.hrow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px;gap:10px}
+.hrow:first-child{border-top:0}
+.x{color:var(--mute);font-size:18px;padding:4px 8px}
+
+/* money */
+.monthnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.monthnav button{width:44px;height:44px;border-radius:14px;background:var(--card);font-size:20px;box-shadow:0 1px 0 var(--line)}
+.monthnav b{font-size:20px;font-weight:800}
+.hero{background:var(--sage-d);color:#fff;border-radius:24px;padding:22px 20px}
+.hero .l{opacity:.8;font-weight:600;font-size:14px}
+.hero .sum{font-size:40px;font-weight:800;letter-spacing:-1px;margin:4px 0 2px}
+.hero .s{opacity:.85;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat{background:var(--card);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:0 1px 0 var(--line)}
+.stat b{font-size:22px;font-weight:800;display:block}
+.stat span{font-size:12px;color:var(--mute);font-weight:600}
+.cmp{margin-top:12px;font-weight:800;border-radius:14px;padding:12px 14px;font-size:15px}
+.cmp.ok{background:var(--sage-l);color:var(--sage-d)}
+.cmp.bad{background:var(--terra-l);color:var(--terra)}
+.cmp.more{background:var(--blue-l);color:var(--blue)}
+
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
+#sheet.hidden{display:none}
+#sheet .bd{position:absolute;inset:0;background:rgba(40,35,30,.42)}
+#sheet .panel{position:relative;background:var(--bg);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:26px 26px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+@media(min-width:700px){#sheet{align-items:center}#sheet .panel{border-radius:26px;max-height:88vh}}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.grab{width:42px;height:5px;border-radius:3px;background:#D8D1C5;margin:2px auto 12px}
+.sheettop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.sheettop h2{margin:0}
+.close{width:38px;height:38px;border-radius:12px;background:var(--card);font-size:18px;color:var(--mute)}
+.lbl{display:block;font-size:13px;font-weight:800;color:var(--mute);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 8px}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;padding:14px 8px;border-radius:14px;background:var(--card);font-weight:700;border:2px solid transparent;box-shadow:0 1px 0 var(--line)}
+.seg button.on{border-color:var(--sage-d);background:var(--sage-l);color:var(--sage-d)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.tgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.tgrid .chip{padding:11px 0;font-size:15px}
+.chip{padding:10px 13px;border-radius:12px;background:var(--card);font-weight:700;font-size:15px;border:2px solid transparent;box-shadow:0 1px 0 var(--line)}
+.chip.on{border-color:var(--sage-d);background:var(--sage-l);color:var(--sage-d)}
+.clist{display:flex;flex-direction:column;gap:7px;margin-top:8px;max-height:280px;overflow:auto}
+.cpick{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-radius:14px;background:var(--card);border:2px solid transparent;font-weight:700;text-align:left;box-shadow:0 1px 0 var(--line)}
+.cpick.on{border-color:var(--sage-d);background:var(--sage-l)}
+.cpick .chk{width:24px;height:24px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-size:14px;color:#fff;flex:none;margin-left:10px}
+.cpick.on .chk{background:var(--sage-d);border-color:var(--sage-d)}
+.calc{background:var(--card);border-radius:16px;padding:14px;margin-top:14px;display:flex;justify-content:space-between;gap:10px}
+.calc div{flex:1}
+.calc span{display:block;font-size:12px;color:var(--mute);font-weight:700}
+.calc b{font-size:19px}
+.foot{margin-top:22px;display:grid;gap:10px}
+.note{font-size:13px;color:var(--mute);margin-top:6px}
+
+#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-20px);background:#2A2724;color:#fff;padding:13px 18px;border-radius:16px;font-weight:700;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:30;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.loading{text-align:center;padding:60px 20px;color:var(--mute)}
+.spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--sage-d);border-radius:50%;margin:0 auto 14px;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.auth{max-width:420px;margin:8vh auto 0;text-align:center}
+.auth .dot{width:76px;height:76px;border-radius:24px;margin:0 auto 16px;overflow:hidden}
+.auth .dot img{width:100%;height:100%}
+.auth h1{margin-bottom:6px}
+.auth form{display:grid;gap:10px;margin-top:22px;text-align:left}
+.auth .err{color:var(--terra);font-weight:700;font-size:14px;min-height:18px}
+.textb{color:var(--sage-d);font-weight:700;padding:10px;font-size:15px}
+.offline{background:var(--amber-l);color:var(--amber);font-weight:700;font-size:13px;text-align:center;border-radius:12px;padding:8px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="tabs">
+  <button data-act="tab" data-v="day" class="on"><span class="i">📅</span>Занятия</button>
+  <button data-act="tab" data-v="clients"><span class="i">👥</span>Клиенты</button>
+  <button data-act="tab" data-v="money"><span class="i">💰</span>Деньги</button>
+</nav>
+<div id="sheet" class="hidden"></div>
+<div id="toast"></div>
+
+<script type="module">
+import { firebaseConfig } from "./firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+"use strict";
+const $=s=>document.querySelector(s);
+const CH=["came","noshow"]; // списывается и оплачивается
+const IND="Индивидуально", GRP="Группа";
+const MON=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+const MONN=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+const WD=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+const WDS=["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+const STL={came:"✅ Пришёл",noshow:"🔴 Не предупредил",cancel:"⚪ Отменил заранее",booked:"🕐 Записан"};
+
+const pad=n=>String(n).padStart(2,"0");
+const fmt=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const today=()=>fmt(new Date());
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return fmt(d)};
+const addMonths=(s,n)=>{const d=parse(s);d.setMonth(d.getMonth()+n);return fmt(d)};
+const human=s=>{const d=parse(s);return WD[d.getDay()]+", "+d.getDate()+" "+MON[d.getMonth()]};
+const short=s=>{const d=parse(s);return d.getDate()+" "+MON[d.getMonth()].slice(0,3)+"."};
+const monthName=m=>{const [y,mm]=m.split("-").map(Number);return MONN[mm-1]+" "+y};
+const shiftMonth=(m,n)=>addMonths(m+"-01",n).slice(0,7);
+const money=n=>Math.round(n||0).toLocaleString("ru-RU").replace(/ |,/g," ")+" ₸";
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initial=n=>(String(n||"?").trim()[0]||"?").toUpperCase();
+const daysBetween=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
+
+const S={clients:{},packages:{},visits:{},payouts:{},view:"day",day:today(),month:today().slice(0,7),clientId:null,cfilter:"active",q:"",ready:false,slow:false,nodb:false,user:undefined,authMode:"login",authErr:"",online:navigator.onLine};
+let db=null;
+
+/* ---------- расчёты ---------- */
+function visits(){return Object.keys(S.visits).map(id=>Object.assign({id},S.visits[id]))}
+function pkgUsed(pid){let n=0;for(const k in S.visits){const v=S.visits[k];if(v.packageId===pid&&CH.includes(v.status))n++}return n}
+function pkgInfo(pid){const p=S.packages[pid];if(!p)return null;const used=pkgUsed(pid);const count=Number(p.count)||0;const rem=count-used;const per=count?(Number(p.price)||0)/count:0;const expired=!!p.until&&p.until<today();return Object.assign({},p,{id:pid,count,used,rem,per,expired,active:rem>0&&!expired})}
+function clientPkgs(cid){return Object.keys(S.packages).filter(id=>S.packages[id].clientId===cid).map(pkgInfo).sort((a,b)=>(a.buyDate||"").localeCompare(b.buyDate||"")||(a.createdAt||0)-(b.createdAt||0))}
+function activePkgs(cid,format){const a=clientPkgs(cid).filter(p=>p.active);if(!format)return a;const m=a.filter(p=>p.format===format);return m.length?m:a}
+function remaining(cid){return clientPkgs(cid).filter(p=>p.active).reduce((s,p)=>s+p.rem,0)}
+function hasAnyPkg(cid){return Object.values(S.packages).some(p=>p.clientId===cid)}
+function earn(v){if(!CH.includes(v.status)||!v.packageId)return 0;const p=S.packages[v.packageId];if(!p||!Number(p.count))return 0;return (Number(p.price)||0)/Number(p.count)*0.5}
+function lastVisit(cid){let m="";for(const k in S.visits){const v=S.visits[k];if(v.clientId===cid&&CH.includes(v.status)&&v.date<=today()&&v.date>m)m=v.date}return m}
+function clientName(cid){return S.clients[cid]?S.clients[cid].name:"(клиент удалён)"}
+function activeClients(){return Object.keys(S.clients).filter(id=>S.clients[id].active!==false).sort((a,b)=>S.clients[a].name.localeCompare(S.clients[b].name,"ru"))}
+function monthEarn(m){return visits().filter(v=>v.date&&v.date.startsWith(m)).reduce((s,v)=>s+earn(v),0)}
+function badgeFor(cid){
+  if(!hasAnyPkg(cid))return `<span class="badge none">нет пакета</span>`;
+  const r=remaining(cid);
+  if(r<=0)return `<span class="badge zero">0 занятий</span>`;
+  if(r<=2)return `<span class="badge low">осталось ${r}</span>`;
+  return `<span class="badge ok">осталось ${r}</span>`;
+}
+function attention(){
+  const out=[];const t=today();
+  for(const cid of activeClients()){
+    const name=S.clients[cid].name;
+    if(hasAnyPkg(cid)){
+      const r=remaining(cid);
+      if(r<=0){out.push([cid,name,"пакет закончился"]);continue}
+      if(r<=1){out.push([cid,name,"осталось "+r+" занятие"]);continue}
+      const soon=clientPkgs(cid).find(p=>p.active&&p.until&&daysBetween(t,p.until)<=3);
+      if(soon){out.push([cid,name,"пакет сгорает "+short(soon.until)+" (ост. "+soon.rem+")"]);continue}
+    }
+    const lv=lastVisit(cid);
+    if(lv&&daysBetween(lv,t)>14){
+      const future=visits().some(v=>v.clientId===cid&&v.date>=t&&v.status==="booked");
+      if(!future)out.push([cid,name,"не была "+daysBetween(lv,t)+" дн."]);
+    }
+  }
+  return out;
+}
+
+/* ---------- рендер ---------- */
+function render(){
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===(S.view==="client"?"clients":S.view)));
+  const app=$("#app");
+  if(S.nodb){app.innerHTML=`<div class="empty"><div class="big">⚙️</div><b>Приложение ещё не настроено</b>Не найдены настройки Firebase (firebase-config.js).</div>`;return}
+  if(S.user===null){app.innerHTML=authView();document.getElementById("tabs").style.display="none";return}
+  document.getElementById("tabs").style.display="";
+  if(!S.ready){app.innerHTML=`<div class="loading"><div class="spin"></div>${S.slow?"Связь медленная, данные ещё загружаются…":"Загружаю…"}</div>`;return}
+  let h=(S.online?"":`<div class="offline">Нет интернета — всё сохраняется и отправится, когда связь появится</div>`)+header();
+  if(S.view==="day")h+=dayView();
+  else if(S.view==="clients")h+=clientsView();
+  else if(S.view==="client")h+=clientView();
+  else if(S.view==="money")h+=moneyView();
+  app.innerHTML=h;
+}
+function header(){
+  const m=today().slice(0,7);
+  return `<div class="top"><div class="logo"><div class="dot">🧘‍♀️</div><div><b>Мой пилатес</b><span>${human(today())}</span></div></div>
+  <button class="pill" data-act="tab" data-v="money"><small>${MONN[Number(m.slice(5))-1]}:</small>${money(monthEarn(m))}</button></div>`;
+}
+
+function dayView(){
+  const d=S.day,t=today();
+  const dow=(parse(d).getDay()+6)%7;const mon=addDays(d,-dow);
+  const all=visits();
+  let strip="";
+  for(let i=0;i<7;i++){const s=addDays(mon,i);const c=all.filter(v=>v.date===s&&v.status!=="cancel").length;const dd=parse(s);
+    strip+=`<button class="dayb ${s===d?"on":""} ${s===t?"today":""}" data-act="pickDay" data-v="${s}"><div class="w">${WDS[dd.getDay()]}</div><div class="n">${dd.getDate()}</div>${c?`<div class="c">${c}</div>`:""}</button>`}
+  let h=`<div class="week"><button class="arr" data-act="week" data-v="-7">‹</button><div class="days">${strip}</div><button class="arr" data-act="week" data-v="7">›</button></div>`;
+  h+=`<div class="dayhead"><h1>${d===t?"Сегодня":d===addDays(t,1)?"Завтра":d===addDays(t,-1)?"Вчера":WD[parse(d).getDay()]}<span class="mute" style="font-size:16px;font-weight:600"> · ${parse(d).getDate()} ${MON[parse(d).getMonth()]}</span></h1>${d!==t?`<button class="linkb" data-act="pickDay" data-v="${t}">К сегодня</button>`:""}</div>`;
+
+  if(d===t){const a=attention();if(a.length)h+=`<div class="attn"><div class="h">🔔 Напомнить клиентам</div>${a.map(x=>`<button data-act="openClient" data-id="${x[0]}"><span><b>${esc(x[1])}</b></span><span>${esc(x[2])} ›</span></button>`).join("")}</div>`}
+
+  const list=all.filter(v=>v.date===d).sort((a,b)=>(a.time||"").localeCompare(b.time||"")||clientName(a.clientId).localeCompare(clientName(b.clientId),"ru"));
+  if(!list.length){
+    if(!Object.keys(S.clients).length)return h+`<div class="card empty"><div class="big">🌿</div><b>Добро пожаловать!</b>Начни с того, что добавишь клиентов во вкладке «Клиенты», потом продай им пакет и записывай на занятия.<button class="primary mt16" data-act="newClient">＋ Добавить первого клиента</button></div>`;
+    return h+`<div class="card empty"><div class="big">☁️</div><b>Занятий нет</b>Нажми «Записать», чтобы добавить.</div>`+fab();
+  }
+  const groups={};
+  for(const v of list){const k=(v.time||"--:--")+"|"+v.format;(groups[k]=groups[k]||[]).push(v)}
+  let dayEarn=0;
+  for(const k of Object.keys(groups)){
+    const [time,format]=k.split("|");const vs=groups[k];
+    const cnt=vs.filter(v=>v.status!=="cancel").length;
+    h+=`<div class="slot"><div class="slothead"><div class="t">${esc(time)}</div><span class="tag ${format===IND?"ind":"grp"}">${format===IND?"👤 Индивидуально":"👥 Группа · "+cnt}</span></div>`;
+    for(const v of vs){dayEarn+=earn(v);h+=visitRow(v)}
+    if(format===GRP)h+=`<button class="addto" data-act="addToSlot" data-date="${d}" data-time="${esc(time)}">＋ Добавить в эту группу</button>`;
+    h+=`</div>`;
+  }
+  if(dayEarn)h+=`<div class="card row between"><span class="mute" style="font-weight:700">Заработано за день</span><b style="font-size:19px">${money(dayEarn)}</b></div>`;
+  return h+fab();
+}
+function fab(){return `<button class="fab" data-act="newBooking">＋ Записать</button>`}
+function visitRow(v){
+  const name=esc(clientName(v.clientId));
+  let sub="";
+  if(CH.includes(v.status)){
+    if(v.packageId&&S.packages[v.packageId]){const p=pkgInfo(v.packageId);sub=`<div class="vsub">Пакет: осталось ${p.rem} из ${p.count}</div>`}
+    else sub=`<div class="vsub warn">⚠️ Нет пакета — занятие не посчитано</div>`;
+  }else if(v.status==="booked"){
+    if(!hasAnyPkg(v.clientId))sub=`<div class="vsub warn">Нет пакета</div>`;
+    else{const r=remaining(v.clientId);sub=`<div class="vsub ${r<=0?"warn":""}">${r<=0?"⚠️ Занятия в пакете закончились":"В пакете осталось "+r}</div>`}
+  }
+  let body;
+  if(v.status==="booked"){
+    body=`<div class="btns3">
+      <button class="sb came" data-act="st" data-id="${v.id}" data-s="came"><span class="e">✅</span>Пришёл</button>
+      <button class="sb noshow" data-act="st" data-id="${v.id}" data-s="noshow"><span class="e">🔴</span>Не предупредил</button>
+      <button class="sb cancel" data-act="st" data-id="${v.id}" data-s="cancel"><span class="e">⚪</span>Отменил заранее</button></div>`;
+  }else{
+    const e=earn(v);
+    const needPkg=CH.includes(v.status)&&!(v.packageId&&S.packages[v.packageId]);
+    body=`<div class="done"><span class="st ${v.status}">${STL[v.status]}${e?" · +"+money(e):""}</span><button class="mini" data-act="st" data-id="${v.id}" data-s="booked">изменить</button></div>`+
+      (needPkg?`<button class="secondary mt8" data-act="sell" data-id="${v.clientId}" data-f="${v.format}">🎟 Продать пакет</button>`:"");
+  }
+  return `<div class="vrow"><div class="row between"><button class="grow" style="text-align:left" data-act="openClient" data-id="${v.clientId}"><div class="vname">${name}</div>${sub}</button><button class="x" data-act="delVisit" data-id="${v.id}" title="Удалить запись">🗑</button></div>${body}</div>`;
+}
+
+function clientsView(){
+  const ids=Object.keys(S.clients).filter(id=>S.cfilter==="active"?S.clients[id].active!==false:S.clients[id].active===false)
+    .filter(id=>!S.q||S.clients[id].name.toLowerCase().includes(S.q.toLowerCase()))
+    .sort((a,b)=>S.clients[a].name.localeCompare(S.clients[b].name,"ru"));
+  let h=`<div class="row between" style="margin-bottom:14px"><h1>Клиенты</h1></div>
+  <div class="seg2"><button class="${S.cfilter==="active"?"on":""}" data-act="cfilter" data-v="active">Активные</button><button class="${S.cfilter==="gone"?"on":""}" data-act="cfilter" data-v="gone">Архив</button></div>
+  <input class="search" id="cQ" placeholder="🔍 Найти по имени" value="${esc(S.q)}">`;
+  if(!ids.length)h+=`<div class="card empty"><div class="big">👥</div><b>${S.q?"Никого не нашла":S.cfilter==="active"?"Пока нет клиентов":"Архив пуст"}</b>${S.cfilter==="active"&&!S.q?"Нажми кнопку ниже, чтобы добавить.":""}</div>`;
+  else h+=`<div class="card" style="padding:6px 14px">${ids.map(id=>{const c=S.clients[id];
+    return `<button class="crow" data-act="openClient" data-id="${id}"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><div style="font-weight:800;font-size:16px">${esc(c.name)}</div>${c.injuries?`<div class="small" style="color:var(--terra)">⚠️ ${esc(c.injuries).slice(0,40)}</div>`:c.phone?`<div class="small mute">${esc(c.phone)}</div>`:""}</div>${badgeFor(id)}</button>`}).join("")}</div>`;
+  return h+`<button class="fab" data-act="newClient">＋ Новый клиент</button>`;
+}
+
+function clientView(){
+  const id=S.clientId,c=S.clients[id];
+  if(!c){S.view="clients";return clientsView()}
+  const pk=clientPkgs(id).slice().reverse();
+  const vs=visits().filter(v=>v.clientId===id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  const total=vs.reduce((s,v)=>s+earn(v),0);
+  const came=vs.filter(v=>CH.includes(v.status)).length;
+  const future=vs.filter(v=>v.status==="booked"&&v.date>=today()).length;
+  let h=`<button class="back" data-act="tab" data-v="clients">‹ Все клиенты</button>
+  <div class="chead"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><h1>${esc(c.name)}</h1><div class="mt8">${badgeFor(id)}${c.active===false?` <span class="badge none">в архиве</span>`:""}</div></div></div>`;
+  if(c.injuries)h+=`<div class="warnbox"><b>⚠️ Травмы и ограничения</b>${esc(c.injuries)}</div>`;
+  h+=`<div class="acts"><button data-act="sell" data-id="${id}"><span class="e">🎟</span>Продать пакет</button><button data-act="bookClient" data-id="${id}"><span class="e">📅</span>Записать</button></div>`;
+  h+=`<h3>Пакеты</h3><div class="card">`;
+  if(!pk.length)h+=`<div class="mute">Пакетов пока нет. Нажми «Продать пакет».</div>`;
+  for(const p of pk){
+    const pct=p.count?Math.min(100,Math.round(p.used/p.count*100)):0;
+    const cls=p.rem<=0?"zero":p.rem<=2?"low":"";
+    h+=`<div class="pkg"><div class="row between"><b>${p.format===IND?"👤":"👥"} ${p.count===1?"Разовое":p.count+" занятий"} · ${money(p.price)}</b><button class="x" data-act="delPkg" data-id="${p.id}">🗑</button></div>
+    <div class="bar ${cls}"><i style="width:${pct}%"></i></div>
+    <div class="row between small"><span>${p.rem<=0?"<b style='color:var(--terra)'>Закончился</b>":p.expired?"<b style='color:var(--terra)'>Истёк срок</b>":"Осталось <b>"+p.rem+"</b> из "+p.count}</span><span class="mute">${p.buyDate?"куплен "+short(p.buyDate):""}${p.until?" · до "+short(p.until):""}</span></div>
+    <div class="small mute mt8">Цена занятия ${money(p.per)} · тебе ${money(p.per/2)}</div></div>`;
+  }
+  h+=`</div>`;
+  h+=`<div class="stats"><div class="stat"><b>${came}</b><span>посещений</span></div><div class="stat"><b>${future}</b><span>записан вперёд</span></div><div class="stat"><b style="font-size:17px">${money(total)}</b><span>тебе всего</span></div></div>`;
+  h+=`<h3>О клиенте</h3><div class="card info">
+    ${c.phone?`<div><div class="k">Телефон</div><div class="v">${esc(c.phone)}</div></div>`:""}
+    ${c.contact?`<div><div class="k">Instagram / Telegram</div><div class="v">${esc(c.contact)}</div></div>`:""}
+    ${c.goals?`<div><div class="k">Цели</div><div class="v">${esc(c.goals)}</div></div>`:""}
+    ${c.notes?`<div><div class="k">Заметки</div><div class="v">${esc(c.notes)}</div></div>`:""}
+    ${!c.phone&&!c.contact&&!c.goals&&!c.notes?`<div class="mute">Пока ничего не записано.</div>`:""}
+    <button class="secondary" data-act="editClient" data-id="${id}">✏️ Изменить данные</button></div>`;
+  h+=`<h3>История</h3><div class="card">`;
+  if(!vs.length)h+=`<div class="mute">Занятий ещё не было.</div>`;
+  for(const v of vs.slice(0,40))h+=`<div class="hrow"><span>${short(v.date)} · ${esc(v.time||"")} <span class="mute small">${v.format===IND?"инд.":"группа"}</span></span><span class="st ${v.status}" style="font-size:12px;padding:6px 9px">${STL[v.status]}</span></div>`;
+  h+=`</div><div class="foot"><button class="ghost" data-act="toggleActive" data-id="${id}">${c.active===false?"↩️ Вернуть из архива":"📦 Клиент ушёл — в архив"}</button><button class="danger" data-act="delClient" data-id="${id}">Удалить клиента</button></div>`;
+  return h;
+}
+
+function moneyView(){
+  const m=S.month;
+  const vs=visits().filter(v=>v.date&&v.date.startsWith(m));
+  const total=vs.reduce((s,v)=>s+earn(v),0);
+  const came=vs.filter(v=>v.status==="came").length,nos=vs.filter(v=>v.status==="noshow").length,can=vs.filter(v=>v.status==="cancel").length;
+  const ind=vs.filter(v=>v.format===IND).reduce((s,v)=>s+earn(v),0),grp=vs.filter(v=>v.format===GRP).reduce((s,v)=>s+earn(v),0);
+  const nopkg=vs.filter(v=>CH.includes(v.status)&&!(v.packageId&&S.packages[v.packageId])).length;
+  const unmarked=vs.filter(v=>v.status==="booked"&&v.date<today()).length;
+  const pay=S.payouts[m];
+  let h=`<div class="monthnav"><button data-act="month" data-v="-1">‹</button><b>${monthName(m)}</b><button data-act="month" data-v="1">›</button></div>
+  <div class="hero"><div class="l">Студия должна тебе (твои 50%)</div><div class="sum">${money(total)}</div><div class="s">Индивидуальные ${money(ind)} · Группы ${money(grp)}</div></div>
+  <div class="stats"><div class="stat"><b>${came}</b><span>пришли</span></div><div class="stat"><b>${nos}</b><span>не предупр.<br>(оплачено)</span></div><div class="stat"><b>${can}</b><span>отменили<br>заранее</span></div></div>`;
+  if(nopkg)h+=`<div class="cmp bad">⚠️ ${nopkg} занят. без пакета — они не посчитаны. Продай пакет этим клиентам.</div>`;
+  if(unmarked)h+=`<div class="cmp more">🕐 ${unmarked} прошедших занятий не отмечено</div>`;
+  h+=`<h3>Выплата от студии</h3><div class="card"><div class="row"><input id="payIn" inputmode="numeric" placeholder="Сумма, ₸" value="${pay&&pay.amount!=null?pay.amount:""}"><button class="primary" style="width:auto;padding:14px 18px" data-act="paySave">Сохранить</button></div>`;
+  if(pay&&pay.amount!=null){const diff=Number(pay.amount)-Math.round(total);
+    h+=diff===0?`<div class="cmp ok">✅ Всё сходится</div>`:diff<0?`<div class="cmp bad">Не доплатили ${money(-diff)}</div>`:`<div class="cmp more">Заплатили на ${money(diff)} больше, чем по твоим записям</div>`}
+  h+=`</div>`;
+  const byDay={};for(const v of vs){const e=earn(v);if(!e)continue;(byDay[v.date]=byDay[v.date]||{n:0,s:0});byDay[v.date].n++;byDay[v.date].s+=e}
+  const days=Object.keys(byDay).sort().reverse();
+  h+=`<h3>По дням</h3><div class="card">`;
+  if(!days.length)h+=`<div class="mute">В этом месяце пока нет оплаченных занятий.</div>`;
+  for(const d of days)h+=`<button class="hrow" style="width:100%" data-act="pickDayGo" data-v="${d}"><span>${short(d)} <span class="mute small">· ${byDay[d].n} чел.</span></span><b>${money(byDay[d].s)}</b></button>`;
+  h+=`</div><h3>Настройки</h3><div class="foot" style="margin-top:0"><button class="secondary" data-act="export">⬇️ Скачать копию всех данных (Excel)</button><button class="ghost" data-act="logout">Выйти из аккаунта${S.user&&S.user.email?" ("+esc(S.user.email)+")":""}</button></div>`;
+  return h;
+}
+
+
+function authView(){
+  const reg=S.authMode==="register";
+  return `<div class="auth"><div class="dot"><img src="icon-192.png" alt=""></div><h1>Мой пилатес</h1><div class="mute">${reg?"Создай аккаунт — один раз":"Войди, чтобы увидеть свои записи"}</div>
+  <form id="authForm"><input id="aEmail" type="email" autocomplete="email" placeholder="Почта" required>
+  <input id="aPass" type="password" autocomplete="${reg?"new-password":"current-password"}" placeholder="Пароль${reg?" (минимум 6 символов)":""}" required>
+  <div class="err">${esc(S.authErr)}</div>
+  <button class="primary" type="submit">${reg?"Создать аккаунт":"Войти"}</button></form>
+  <button class="textb mt8" data-act="authMode">${reg?"У меня уже есть аккаунт":"Первый раз? Создать аккаунт"}</button>
+  ${reg?"":`<br><button class="textb" data-act="resetPass">Забыла пароль</button>`}</div>`;
+}
+function authMsg(e){const c=(e&&e.code)||"";return c.includes("invalid-credential")||c.includes("wrong-password")||c.includes("user-not-found")?"Неверная почта или пароль":c.includes("email-already-in-use")?"Такая почта уже зарегистрирована — нажми «Войти»":c.includes("weak-password")?"Пароль слишком короткий (нужно минимум 6 символов)":c.includes("invalid-email")?"Проверь почту":c.includes("network")?"Нет интернета":c.includes("too-many")?"Слишком много попыток, подожди пару минут":"Не получилось: "+c}
+function csvCell(v){v=String(v==null?"":v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function exportCSV(){
+  const rows=[["Дата","Время","Клиент","Формат","Статус","Пакет","Цена занятия","Мой заработок"]];
+  visits().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).forEach(v=>{const p=v.packageId&&S.packages[v.packageId];
+    rows.push([v.date,v.time,clientName(v.clientId),v.format,STL[v.status].replace(/^[^\wА-Яа-я]+/,""),p?(p.count===1?"Разовое":p.count+" зан., "+p.price+" ₸"):"",p&&p.count?Math.round(p.price/p.count):"",Math.round(earn(v))])});
+  rows.push([]);rows.push(["Клиенты"]);rows.push(["Имя","Телефон","Instagram/Telegram","Травмы","Цели","Заметки","Осталось занятий","Статус"]);
+  Object.keys(S.clients).forEach(id=>{const c=S.clients[id];rows.push([c.name,c.phone,c.contact,c.injuries,c.goals,c.notes,remaining(id),c.active===false?"архив":"активный"])});
+  rows.push([]);rows.push(["Пакеты"]);rows.push(["Клиент","Формат","Занятий","Цена","Куплен","Действует до","Использовано","Осталось"]);
+  Object.keys(S.packages).forEach(id=>{const p=pkgInfo(id);rows.push([clientName(p.clientId),p.format,p.count,p.price,p.buyDate,p.until,p.used,p.rem])});
+  const csv="﻿"+rows.map(r=>r.map(csvCell).join(";")).join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="pilates-"+today()+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+}
+
+/* ---------- листы (модальные окна) ---------- */
+let onYes=null;
+function openSheet(html){const s=$("#sheet");s.innerHTML=`<div class="bd" data-act="close"></div><div class="panel"><div class="grab"></div>${html}</div>`;s.classList.remove("hidden");document.body.style.overflow="hidden"}
+function closeSheet(){const s=$("#sheet");s.classList.add("hidden");s.innerHTML="";document.body.style.overflow="";onYes=null}
+function top(title){return `<div class="sheettop"><h2>${title}</h2><button class="close" data-act="close">✕</button></div>`}
+function confirmSheet(title,text,yes,cb){onYes=cb;openSheet(top(title)+`<p class="mute">${text}</p><div class="foot"><button class="danger" data-act="yes">${yes}</button><button class="secondary" data-act="close">Отмена</button></div>`)}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("on"),2400)}
+function fail(e){console.error(e);toast(e&&e.code==="quota_exceeded"?"Хранилище заполнено":"Не сохранилось, попробуй ещё раз")}
+
+/* запись на занятие */
+let B=null;
+const TIMES=["07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00"];
+function openBooking(pre){
+  pre=pre||{};
+  let format=pre.format||IND;
+  if(!pre.format&&pre.clientId){const a=activePkgs(pre.clientId);if(a.length)format=a[0].format}
+  B={date:pre.date||S.day,time:pre.time||"",format,sel:new Set(pre.clientId?[pre.clientId]:[]),repeat:1,q:""};
+  drawBooking();
+}
+function syncB(){const d=$("#bDate"),t=$("#bTimeC");if(d&&d.value)B.date=d.value;if(t&&t.value)B.time=t.value}
+function drawBooking(){
+  openSheet(top("Записать на занятие")+`
+  <label class="lbl">Формат</label><div class="seg"><button class="${B.format===IND?"on":""}" data-act="bFormat" data-v="${IND}">👤 Индивидуально</button><button class="${B.format===GRP?"on":""}" data-act="bFormat" data-v="${GRP}">👥 Группа</button></div>
+  <label class="lbl">${B.format===GRP?"Кто придёт (отметь всех)":"Кто придёт"}</label>
+  <input id="bQ" placeholder="🔍 Поиск по имени" value="${esc(B.q)}">
+  <div id="bList" class="clist">${bookingList()}</div>
+  <button class="ghost" data-act="quickClient">＋ Новый клиент</button>
+  <label class="lbl">Время</label><div class="tgrid">${TIMES.map(t=>`<button class="chip ${B.time===t?"on":""}" data-act="bTime" data-v="${t}">${t}</button>`).join("")}</div>
+  <div class="note">Или точное время:</div><input type="time" id="bTimeC" value="${B.time}" class="mt8">
+  <label class="lbl">День</label><input type="date" id="bDate" value="${B.date}">
+  <label class="lbl">Повторять каждую неделю</label><div class="seg">${[[1,"Один раз"],[4,"4 недели"],[8,"8 недель"]].map(x=>`<button class="${B.repeat===x[0]?"on":""}" data-act="bRepeat" data-v="${x[0]}">${x[1]}</button>`).join("")}</div>
+  <div class="foot"><button class="primary" data-act="bSave">Записать${B.sel.size?" ("+B.sel.size+")":""}</button></div>`);
+}
+function bookingList(){
+  const ids=activeClients().filter(id=>!B.q||S.clients[id].name.toLowerCase().includes(B.q.toLowerCase()));
+  if(!ids.length)return `<div class="mute small" style="padding:8px">${B.q?"Никого не нашла":"Клиентов пока нет — добавь ниже"}</div>`;
+  return ids.map(id=>`<button class="cpick ${B.sel.has(id)?"on":""}" data-act="bToggle" data-id="${id}"><span>${esc(S.clients[id].name)}</span><span class="row" style="gap:0">${badgeFor(id)}<span class="chk">${B.sel.has(id)?"✓":""}</span></span></button>`).join("");
+}
+async function saveBooking(){
+  syncB();
+  if(!B.time){toast("Выбери время");return}
+  if(!B.sel.size){toast("Выбери клиента");return}
+  const ids=[...B.sel];const n=B.repeat;let made=0;
+  try{
+    for(let w=0;w<n;w++){
+      const date=addDays(B.date,7*w);
+      await Promise.all(ids.map(cid=>db.collection("visits").add({clientId:cid,date,time:B.time,format:B.format,status:"booked",packageId:null,createdAt:Date.now()})));
+      made+=ids.length;
+    }
+    closeSheet();S.view="day";S.day=B.date;render();
+    toast(made===1?"Записала ✓":"Записала "+made+" ✓");
+  }catch(e){fail(e)}
+}
+
+/* клиент */
+let CF=null;
+function openClientForm(id,ret){
+  CF={id:id||null,ret:ret||null};const c=id?S.clients[id]:{};
+  openSheet(top(id?"Изменить клиента":"Новый клиент")+`
+  <label class="lbl">Имя *</label><input id="cName" value="${esc(c.name)}" placeholder="Например, Аня Смирнова">
+  <label class="lbl">Телефон</label><input id="cPhone" type="tel" value="${esc(c.phone)}" placeholder="+7 ...">
+  <label class="lbl">Instagram / Telegram</label><input id="cContact" value="${esc(c.contact)}">
+  <label class="lbl">Травмы и ограничения</label><textarea id="cInj" placeholder="Например: протрузия L4-L5, без скручиваний">${esc(c.injuries)}</textarea>
+  <label class="lbl">Цели</label><textarea id="cGoals">${esc(c.goals)}</textarea>
+  <label class="lbl">Заметки</label><textarea id="cNotes">${esc(c.notes)}</textarea>
+  <div class="foot"><button class="primary" data-act="cSave">Сохранить</button></div>`);
+  setTimeout(()=>{const n=$("#cName");if(n&&!id)n.focus()},150);
+}
+async function saveClient(){
+  const name=$("#cName").value.trim();if(!name){toast("Впиши имя");return}
+  const data={name,phone:$("#cPhone").value.trim(),contact:$("#cContact").value.trim(),injuries:$("#cInj").value.trim(),goals:$("#cGoals").value.trim(),notes:$("#cNotes").value.trim()};
+  try{
+    if(CF.id){await db.doc("clients/"+CF.id).update(data);closeSheet();toast("Сохранено ✓");render();return}
+    data.active=true;data.createdAt=Date.now();
+    const ref=await db.collection("clients").add(data);
+    S.clients[ref.id]=S.clients[ref.id]||data;
+    if(CF.ret==="booking"){B.sel.add(ref.id);if(B.format===IND)B.sel=new Set([ref.id]);drawBooking();return}
+    closeSheet();S.view="client";S.clientId=ref.id;render();window.scrollTo(0,0);
+    toast("Клиент добавлен. Теперь продай пакет 🎟");
+  }catch(e){fail(e)}
+}
+
+/* пакет */
+let P=null;
+const COUNTS=[1,4,5,8,10,12];
+function openSell(cid,format){
+  const prev=clientPkgs(cid).slice(-1)[0];
+  P={clientId:cid,format:format||(prev?prev.format:IND),count:prev?prev.count:8,price:prev?String(prev.price):"",until:"",buyDate:today()};
+  drawSell();
+}
+function syncP(){const pr=$("#pPrice"),cc=$("#pCountC"),u=$("#pUntil"),bd=$("#pBuy");if(pr)P.price=pr.value.replace(/[^\d]/g,"");if(cc&&cc.value)P.count=Number(cc.value)||P.count;if(u)P.until=u.value;if(bd&&bd.value)P.buyDate=bd.value}
+function drawSell(){
+  const per=P.count&&P.price?Number(P.price)/P.count:0;
+  openSheet(top("Продать пакет")+`<div class="mute">${esc(clientName(P.clientId))}</div>
+  <label class="lbl">Формат</label><div class="seg"><button class="${P.format===IND?"on":""}" data-act="pFormat" data-v="${IND}">👤 Индивидуально</button><button class="${P.format===GRP?"on":""}" data-act="pFormat" data-v="${GRP}">👥 Группа</button></div>
+  <label class="lbl">Сколько занятий</label><div class="chips">${COUNTS.map(n=>`<button class="chip ${P.count===n?"on":""}" data-act="pCount" data-v="${n}">${n===1?"Разовое":n}</button>`).join("")}</div>
+  <div class="note">Другое количество:</div><input id="pCountC" class="mt8" inputmode="numeric" placeholder="например 16" value="${COUNTS.includes(P.count)?"":P.count}">
+  <label class="lbl">Цена за весь пакет, ₸</label><input id="pPrice" inputmode="numeric" placeholder="например 50000" value="${esc(P.price)}">
+  <div class="calc" id="pCalc">${calcHTML(per)}</div>
+  <label class="lbl">Дата покупки</label><input id="pBuy" type="date" value="${P.buyDate}">
+  <label class="lbl">Действует до (если есть срок)</label>
+  <div class="chips"><button class="chip ${!P.until?"on":""}" data-act="pUntil" data-v="">Без срока</button><button class="chip ${P.until===addMonths(P.buyDate,1)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,1)}">1 месяц</button><button class="chip ${P.until===addMonths(P.buyDate,2)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,2)}">2 месяца</button></div>
+  <input id="pUntil" type="date" class="mt8" value="${P.until}">
+  <div class="foot"><button class="primary" data-act="pSave">Продать</button></div>`);
+}
+function calcHTML(per){return `<div><span>Цена 1 занятия</span><b>${per?money(per):"—"}</b></div><div><span>Тебе с занятия (50%)</span><b style="color:var(--sage-d)">${per?money(per/2):"—"}</b></div>`}
+async function saveSell(){
+  syncP();
+  const count=Number(P.count),price=Number(P.price);
+  if(!count||count<1){toast("Укажи количество занятий");return}
+  if(!price){toast("Укажи цену");return}
+  try{
+    const ref=await db.collection("packages").add({clientId:P.clientId,format:P.format,count,price,buyDate:P.buyDate,until:P.until||"",createdAt:Date.now()});
+    // привязать уже проведённые занятия без пакета
+    const orphan=visits().filter(v=>v.clientId===P.clientId&&CH.includes(v.status)&&!(v.packageId&&S.packages[v.packageId])).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,count);
+    for(const v of orphan)await db.doc("visits/"+v.id).update({packageId:ref.id});
+    closeSheet();render();
+    toast("Пакет продан ✓"+(orphan.length?" Привязала "+orphan.length+" занят.":""));
+  }catch(e){fail(e)}
+}
+
+/* отметка */
+async function setStatus(id,s){
+  const v=S.visits[id];if(!v)return;
+  let packageId=null;
+  if(CH.includes(s)){
+    if(v.packageId&&CH.includes(v.status)&&S.packages[v.packageId])packageId=v.packageId;
+    else{const a=activePkgs(v.clientId,v.format);packageId=a.length?a[0].id:null}
+  }
+  try{
+    await db.doc("visits/"+id).update({status:s,packageId});
+    if(CH.includes(s)){
+      if(packageId){const p=S.packages[packageId];toast("+"+money((Number(p.price)||0)/Number(p.count)*0.5)+" тебе ✓")}
+      else toast("Отмечено. У клиента нет пакета — продай пакет");
+    }else if(s==="cancel")toast("Отменено, не списано");
+  }catch(e){fail(e)}
+}
+
+/* ---------- события ---------- */
+const A={
+  tab(d){S.view=d.v;if(d.v==="money")S.month=S.month||today().slice(0,7);render();window.scrollTo(0,0)},
+  pickDay(d){S.day=d.v;render()},
+  pickDayGo(d){S.day=d.v;S.view="day";render();window.scrollTo(0,0)},
+  week(d){S.day=addDays(S.day,Number(d.v));render()},
+  st(d){setStatus(d.id,d.s)},
+  delVisit(d){const v=S.visits[d.id];if(!v)return;confirmSheet("Удалить запись?",esc(clientName(v.clientId))+", "+short(v.date)+" в "+esc(v.time)+". Если клиент просто отменил — лучше нажми «Отменил заранее».","Удалить",async()=>{try{await db.doc("visits/"+d.id).delete();closeSheet();toast("Удалено")}catch(e){fail(e)}})},
+  openClient(d){S.view="client";S.clientId=d.id;render();window.scrollTo(0,0)},
+  newBooking(){openBooking({date:S.day})},
+  addToSlot(d){openBooking({date:d.date,time:d.time,format:GRP})},
+  bookClient(d){openBooking({clientId:d.id,date:S.day<today()?today():S.day})},
+  bFormat(d){syncB();B.format=d.v;if(d.v===IND&&B.sel.size>1)B.sel=new Set([...B.sel].slice(0,1));drawBooking()},
+  bTime(d){syncB();B.time=d.v;const t=$("#bTimeC");if(t)t.value=d.v;document.querySelectorAll('[data-act="bTime"]').forEach(b=>b.classList.toggle("on",b.dataset.v===d.v))},
+  bRepeat(d){syncB();B.repeat=Number(d.v);document.querySelectorAll('[data-act="bRepeat"]').forEach(b=>b.classList.toggle("on",b.dataset.v===d.v))},
+  bToggle(d){
+    if(B.format===IND){B.sel=B.sel.has(d.id)?new Set():new Set([d.id])}
+    else{B.sel.has(d.id)?B.sel.delete(d.id):B.sel.add(d.id)}
+    $("#bList").innerHTML=bookingList();
+    const sv=document.querySelector('[data-act="bSave"]');if(sv)sv.textContent="Записать"+(B.sel.size?" ("+B.sel.size+")":"");
+  },
+  bSave(){saveBooking()},
+  quickClient(){syncB();openClientForm(null,"booking")},
+  newClient(){openClientForm(null)},
+  editClient(d){openClientForm(d.id)},
+  cSave(){saveClient()},
+  sell(d){openSell(d.id,d.f)},
+  pFormat(d){syncP();P.format=d.v;drawSell()},
+  pCount(d){syncP();P.count=Number(d.v);drawSell()},
+  pUntil(d){syncP();P.until=d.v;drawSell()},
+  pSave(){saveSell()},
+  delPkg(d){confirmSheet("Удалить пакет?","Занятия, которые были списаны с этого пакета, перестанут считаться в заработке. Удаляй только если пакет добавлен по ошибке.","Удалить пакет",async()=>{try{await db.doc("packages/"+d.id).delete();closeSheet();toast("Пакет удалён")}catch(e){fail(e)}})},
+  async toggleActive(d){const c=S.clients[d.id];try{await db.doc("clients/"+d.id).update({active:c.active===false});toast(c.active===false?"Клиент снова активен":"Перенесла в архив")}catch(e){fail(e)}},
+  delClient(d){confirmSheet("Удалить клиента?","Вместе с клиентом удалятся все его пакеты и записи, и они пропадут из заработка. Если клиент просто перестал ходить — лучше «в архив».","Удалить навсегда",async()=>{
+    try{const pk=Object.keys(S.packages).filter(k=>S.packages[k].clientId===d.id),vs=Object.keys(S.visits).filter(k=>S.visits[k].clientId===d.id);
+      for(const k of vs)await db.doc("visits/"+k).delete();for(const k of pk)await db.doc("packages/"+k).delete();await db.doc("clients/"+d.id).delete();
+      closeSheet();S.view="clients";render();toast("Клиент удалён")}catch(e){fail(e)}})},
+  cfilter(d){S.cfilter=d.v;render()},
+  month(d){S.month=shiftMonth(S.month,Number(d.v));render()},
+  async paySave(){const v=$("#payIn").value.replace(/[^\d]/g,"");try{if(v==="")await db.doc("payouts/"+S.month).delete();else await db.doc("payouts/"+S.month).set({amount:Number(v),date:today()});toast("Сохранено ✓")}catch(e){fail(e)}},
+  close(){closeSheet()},
+  authMode(){S.authMode=S.authMode==="login"?"register":"login";S.authErr="";render()},
+  async resetPass(){const e=($("#aEmail")||{}).value;if(!e){S.authErr="Впиши почту, и я пришлю ссылку для нового пароля";render();return}try{await sendPasswordResetEmail(auth,e.trim());toast("Письмо отправлено на "+e)}catch(err){S.authErr=authMsg(err);render();$("#aEmail").value=e}},
+  export(){exportCSV();toast("Файл скачивается")},
+  logout(){confirmSheet("Выйти?","Данные останутся в облаке. Чтобы снова их увидеть, войди той же почтой.","Выйти",async()=>{closeSheet();await signOut(auth)})},
+  yes(){if(onYes)onYes()}
+};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;const f=A[b.dataset.act];if(f){e.preventDefault();f(b.dataset,b)}});
+document.addEventListener("submit",async e=>{
+  if(e.target.id!=="authForm")return;e.preventDefault();
+  const em=$("#aEmail").value.trim(),pw=$("#aPass").value;const btn=e.target.querySelector("button");btn.disabled=true;btn.textContent="Секунду…";
+  try{if(S.authMode==="register")await createUserWithEmailAndPassword(auth,em,pw);else await signInWithEmailAndPassword(auth,em,pw);S.authErr=""}
+  catch(err){S.authErr=authMsg(err);render();$("#aEmail").value=em}
+});
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.id==="bQ"){B.q=t.value;$("#bList").innerHTML=bookingList()}
+  else if(t.id==="cQ"){S.q=t.value;const pos=t.selectionStart;render();const n=$("#cQ");if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}}
+  else if(t.id==="pPrice"||t.id==="pCountC"){syncP();$("#pCalc").innerHTML=calcHTML(P.count&&P.price?Number(P.price)/P.count:0);if(t.id==="pCountC"&&t.value)document.querySelectorAll('[data-act="pCount"]').forEach(b=>b.classList.remove("on"))}
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.id==="bTimeC"&&B){B.time=t.value;document.querySelectorAll('[data-act="bTime"]').forEach(b=>b.classList.toggle("on",b.dataset.v===t.value))}
+  if(t.id==="bDate"&&B&&t.value)B.date=t.value;
+});
+
+/* ---------- данные (Firebase) ---------- */
+let auth=null,fs=null,unsubs=[];
+function makeDb(uid){
+  const base="users/"+uid+"/";
+  const bg=p=>{p.catch(fail);return Promise.resolve()}; // запись уходит в фоне — работает и без интернета
+  const ref=path=>{const r=doc(fs,base+path);return{id:r.id,
+    set:d=>bg(setDoc(r,d)),update:d=>bg(updateDoc(r,d)),delete:()=>bg(deleteDoc(r))}};
+  return{
+    doc:ref,
+    collection:c=>({
+      add:d=>{const r=doc(collection(fs,base+c));bg(setDoc(r,d));return Promise.resolve({id:r.id})},
+      onSnapshot:(next,err)=>onSnapshot(collection(fs,base+c),{includeMetadataChanges:false},snap=>next({docs:snap.docs.map(x=>({id:x.id,exists:true,data:()=>x.data()}))}),err)
+    })
+  };
+}
+function startData(uid){
+  unsubs.forEach(u=>u());unsubs=[];
+  S.clients={};S.packages={};S.visits={};S.payouts={};S.ready=false;S.slow=false;
+  db=makeDb(uid);render();
+  const timer=setTimeout(()=>{if(!S.ready){S.slow=true;render()}},10000);
+  const cols=["clients","packages","visits","payouts"];const got=new Set();
+  let raf=0;const schedule=()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;render()})};
+  for(const c of cols){
+    unsubs.push(db.collection(c).onSnapshot(snap=>{
+      const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});S[c]=m;
+      got.add(c);if(got.size===cols.length&&!S.ready){S.ready=true;clearTimeout(timer)}
+      if(S.ready&&!document.querySelector("#sheet:not(.hidden) input:focus"))schedule();else if(S.ready)schedule();
+    },err=>{console.error(c,err);got.add(c);if(got.size===cols.length){S.ready=true;clearTimeout(timer);schedule()}toast("Ошибка доступа к данным")}));
+  }
+}
+async function init(){
+  if(!firebaseConfig||!firebaseConfig.apiKey||String(firebaseConfig.apiKey).startsWith("ВСТАВЬ")){S.nodb=true;render();return}
+  const app=initializeApp(firebaseConfig);
+  fs=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+  auth=getAuth(app);
+  try{await setPersistence(auth,browserLocalPersistence)}catch(_){}
+  S.user=undefined;render();
+  onAuthStateChanged(auth,u=>{
+    if(u){S.user=u;startData(u.uid)}
+    else{unsubs.forEach(x=>x());unsubs=[];db=null;S.user=null;S.ready=false;render()}
+  });
+  addEventListener("online",()=>{S.online=true;render()});
+  addEventListener("offline",()=>{S.online=false;render()});
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+init();
+</script>
+</body>
+</html>
