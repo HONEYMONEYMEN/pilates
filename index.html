@@ -361,6 +361,105 @@ details.more{margin-top:18px;background:var(--surface);border:1px solid #251E30;
 details.more summary{cursor:pointer;font-weight:600;color:var(--violet);padding:12px 0 4px;list-style:none}
 details.more summary::-webkit-details-marker{display:none}
 details.more[open] summary{padding-bottom:0}
+/* ===== «электронная тетрадь» ===== */
+.hrow1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.hrow1 h1{font-size:30px}
+.hrow1 .d{color:var(--nightMute);font-size:15px;margin-top:4px}
+.dayfoot{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.dayfoot .linkb{color:var(--nightMute);font-weight:600}
+.dayfoot .linkb .ic{color:var(--sun)}
+.nb{display:grid;gap:12px}
+.nslot{background:var(--surface);border:1px solid #251E30;border-radius:22px;overflow:hidden}
+.nhead{display:flex;align-items:center;gap:10px;padding:12px 14px 8px;flex-wrap:wrap}
+.nt{font-family:var(--disp);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.nhead .tag{font-size:12px;padding:4px 9px}
+.allb{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--go);background:var(--go-l);padding:8px 11px;border-radius:12px}
+.nrow{display:flex;align-items:center;gap:10px;padding:6px 10px 6px 14px;border-top:1px solid var(--line);min-height:68px}
+.nhead+.nrow{border-top:0}
+.nmain{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;gap:2px;padding:8px 0}
+.nname{font-weight:700;font-size:17px;display:flex;align-items:center}
+.nsub{font-size:13.5px;color:var(--mute)}
+.nsub.warn{color:var(--stop);font-weight:600}
+.nnote{display:flex;gap:5px;align-items:center;font-size:13px;color:var(--ink2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nnote .ic{flex:none;color:var(--mute)}
+.ncheck{width:54px;height:54px;border-radius:18px;border:2px solid var(--go);color:var(--go);display:grid;place-items:center;flex:none;background:transparent;transition:transform .12s,background .12s}
+.ncheck:active{transform:scale(.92);background:var(--go-l)}
+.nst{flex:none;display:flex;flex-direction:column;align-items:flex-end;font-weight:700;font-size:13.5px;padding:6px 10px;border-radius:12px;text-align:right;line-height:1.25}
+.nst em{font-style:normal;font-weight:600;font-size:12.5px;opacity:.9}
+.nst.came{background:var(--go-l);color:var(--go)}.nst.noshow{background:var(--stop-l);color:var(--stop)}.nst.cancel{background:var(--off-l);color:var(--ink2)}.nst.booked{background:var(--plan-l);color:var(--plan)}
+.nst.sm{font-size:12.5px;padding:5px 9px}
+.nrow.cancel .nname{color:var(--mute);text-decoration:line-through;text-decoration-thickness:1px}
+.nadd{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border-top:1px dashed var(--line);color:var(--violet);font-weight:600;font-size:14px}
+.card.list{padding:4px 14px}
+.crow .cn{font-weight:700;font-size:16px;display:flex;align-items:center}
+.crow .ic:last-child{color:var(--mute);opacity:.6}
+.cs{font-size:13.5px;color:var(--mute);margin-top:2px}
+.cs.ok{color:var(--go)}.cs.low{color:#FFC83D}.cs.zero{color:var(--stop)}
+.abo{border:1px solid #251E30}
+.abobig{display:flex;align-items:baseline;gap:10px;margin:12px 0 4px}
+.abobig b{font-family:var(--disp);font-size:44px;font-weight:700;line-height:1;color:var(--sun)}
+.abobig span{color:var(--ink2);font-size:15px}
+.abo.empty2 .abot{font-weight:700;font-size:17px;margin-bottom:4px}
+.addline{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;color:var(--violet);font-weight:600;font-size:14.5px}
+.l2{color:var(--nightMute);font-size:14.5px}
+.bigsum{margin:4px 0 6px}
+.planned{display:flex;gap:8px;align-items:flex-start;margin-top:14px;background:rgba(255,255,255,.06);border-radius:14px;padding:11px 13px;font-size:14px;color:var(--nightInk)}
+.planned .ic{color:var(--sun);flex:none;margin-top:1px}
+.monthnav{margin-bottom:12px}
+.payrow{display:flex;gap:8px;margin-top:12px}
+.payrow .primary{width:auto;padding:14px 18px;font-size:16px}
+.chart2{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:140px;margin-bottom:14px}
+.chart2 .cb{color:var(--mute)}
+.chart2 .cb i{background:var(--violet-l)}
+.chart2 .cb.cur i{background:var(--sun)}
+.chart2 .cb.cur{color:var(--ink)}
+.kpi{background:var(--surface2);border:0}
+.daych{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:0 18px 2px}
+.daych::-webkit-scrollbar{display:none}
+.dch{flex:none;display:flex;flex-direction:column;align-items:center;padding:8px 12px;min-width:58px;font-size:13.5px;line-height:1.2}
+.dch small{font-size:15px;font-weight:700;margin-top:2px}
+.dch.other{position:relative;justify-content:center;min-width:auto}
+.dch.other input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.tgridwrap{margin-top:12px}
+.linkb2{color:var(--violet);font-weight:600;font-size:14px;padding:8px 2px}
+.othertime{position:relative;cursor:pointer}
+.othertime input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.fmtline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
+.fmtline span{font-size:14px;color:var(--ink2);font-weight:600}
+.seg2.mini2{margin:0;flex:none}
+.seg2.mini2 button{padding:8px 12px;font-size:13.5px}
+.selchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.selc{display:inline-flex;align-items:center;gap:6px;background:var(--violet);color:#120E19;font-weight:700;padding:9px 12px;border-radius:12px;font-size:15px}
+.cpick{padding:13px 14px}
+.cpick .cs{margin:0;text-align:right}
+.primary small{display:block;font-size:13px;font-weight:600;opacity:.75;margin-top:2px}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;border-radius:18px;background:var(--surface);border:2px solid transparent}
+.opt .oi{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;flex:none}
+.opt.came .oi{background:var(--go-l);color:var(--go)}.opt.noshow .oi{background:var(--stop-l);color:var(--stop)}.opt.cancel .oi{background:var(--off-l);color:var(--ink2)}
+.opt .ot{flex:1;display:flex;flex-direction:column;gap:2px}
+.opt .ot b{font-size:16.5px}
+.opt .ot small{font-size:13px;color:var(--mute)}
+.opt.cur.came{border-color:var(--go)}.opt.cur.noshow{border-color:var(--stop)}.opt.cur.cancel{border-color:var(--off)}
+.ock{color:var(--ink)}
+.vmeta{line-height:1.45}
+.nbtns{display:flex;gap:6px;flex:none}
+.ncheck,.nx{flex-direction:column;gap:0;display:flex;align-items:center;justify-content:center}
+.ncheck small,.nx small{font-size:10.5px;font-weight:700;line-height:1;margin-top:1px}
+.ncheck{width:60px;height:58px}
+.nx{width:46px;height:58px;border-radius:16px;border:1.5px solid var(--line);color:var(--mute)}
+.ninj{display:flex;gap:5px;align-items:center;font-size:13px;color:var(--stop);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ninj .ic{flex:none}
+.qrow{display:flex;gap:8px}
+.qadd{flex:none;background:var(--sun);color:#0E0B13;font-weight:700;border-radius:14px;padding:0 14px}
+.tgrid{grid-template-columns:repeat(6,1fr);gap:6px}
+.tgrid .chip{padding:10px 0;font-size:14px}
+.tgrid .chip.half{opacity:.85}
+.chip.other2{position:relative}
+.chip.other2 input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.cntrow input::placeholder{font-size:13px}
+.seg button.btnic{gap:6px;padding:14px 6px}
+#toast{left:12px;right:12px;width:auto;max-width:440px;margin:0 auto;transform:translateY(20px);justify-content:space-between}#toast.on{transform:none}
 #sheet:not(.hidden)~#toast{bottom:calc(20px + env(safe-area-inset-bottom))}
 </style>
 </head>
@@ -388,7 +487,7 @@ const MON=["января","февраля","марта","апреля","мая",
 const MONN=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
 const WD=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
 const WDS=["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
-const STL={came:"Посещение",noshow:"Неявка",cancel:"Отмена",booked:"Запланировано"};
+const STL={came:"Пришёл",noshow:"Не пришёл",cancel:"Отменил",booked:"Записан"};
 const IC={
  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
@@ -420,6 +519,8 @@ const IC={
  copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
  cake:'<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1M2 21h20M7 8v3M12 8v3M17 8v3M7 4h.01M12 4h.01M17 4h.01"/>',
  grid:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>',
+ check2:'<path d="M20 6 9 17l-5-5"/>',
+ chevD:'<path d="m6 9 6 6 6-6"/>',
  trend:'<path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>',
  snow:'<path d="M12 2v20M17 5l-5 5-5-5M17 19l-5-5-5 5M2 12h20M5 7l5 5-5 5M19 7l-5 5 5 5"/>'
 };
@@ -548,15 +649,18 @@ function render(){
   if(!S.ready||!IDX){app.innerHTML=`<div class="loading"><div class="spin"></div>${S.slow?"Связь медленная, данные ещё загружаются…":"Загружаю…"}</div>`;return}
   const V=S.view==="clients"?clientsView():S.view==="client"?clientView():S.view==="money"?moneyView():dayView();
   const focus=document.activeElement&&document.activeElement.id==="cQ";const pos=focus?document.activeElement.selectionStart:0;
-  app.innerHTML=`<section class="hero">${header()}${S.online?"":`<div class="offline">Офлайн. Всё сохранится и отправится позже</div>`}${V.top}</section>${V.body}`;
+  app.innerHTML=`<section class="hero">${S.online?"":`<div class="offline">Нет интернета. Всё сохранится и отправится позже</div>`}${V.top}</section>${V.body}`;
   if(focus){const n=$("#cQ");if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}}
 }
-function header(){
-  const m=today().slice(0,7);
-  return `<div class="top"><div class="logo"><img src="icon-192.png" alt=""><div><b>Мой пилатес</b><span>${human(today())}</span></div></div>
-  ${S.view==="money"?"":`<button class="pill" data-act="tab" data-v="money" aria-label="Заработок за месяц"><small>${MONN[Number(m.slice(5))-1]}</small>${money(monthEarn(m))}</button>`}</div>`;
+function aboLine(cid,format){
+  const pk=clientPkgs(cid).filter(p=>p.active&&(!format||p.format===format));
+  if(!pk.length){const any=clientPkgs(cid).filter(p=>!format||p.format===format);return any.length?{t:"абонемент закончился",c:"zero"}:{t:"нет абонемента",c:"none"}}
+  const p=pk[0],r=pk.reduce((s,x)=>s+x.rem,0);
+  if(p.count===1&&pk.length===1)return{t:"разовое",c:"ok"};
+  return{t:`осталось ${r} из ${p.count}`,c:r<=1?"zero":r<=2?"low":"ok"};
 }
 
+/* ---------- СЕГОДНЯ ---------- */
 function dayView(){
   const d=S.day,t=today();
   const dow=(parse(d).getDay()+6)%7;const mon=addDays(d,-dow);
@@ -566,93 +670,84 @@ function dayView(){
     strip+=`<button class="dayb ${s===d?"on":""} ${s===t?"today":""}" data-act="pickDay" data-v="${s}" aria-label="${human(s)}" aria-pressed="${s===d}"><div class="w">${WDS[dd.getDay()]}</div><div class="n">${dd.getDate()}</div><span class="c ${c?"":"none"}"></span></button>`}
   const list=all.filter(v=>v.date===d).sort((a,b)=>(a.time||"").localeCompare(b.time||"")||clientName(a.clientId).localeCompare(clientName(b.clientId),"ru"));
   const title=d===t?"Сегодня":d===addDays(t,1)?"Завтра":d===addDays(t,-1)?"Вчера":WD[parse(d).getDay()];
-  const active=list.filter(v=>v.status!=="cancel").length;
-  let top=`<div class="week" id="week"><button class="arr" data-act="week" data-v="-7" aria-label="Прошлая неделя">${ic("chevL",22)}</button><div class="days">${strip}</div><button class="arr" data-act="week" data-v="7" aria-label="Следующая неделя">${ic("chevR",22)}</button></div>
-  <div class="dayhead"><div><h1>${title}</h1><div class="d">${parse(d).getDate()} ${MON[parse(d).getMonth()]}${active?", "+plural(active,"запись","записи","записей"):""}</div></div><div class="dhbtns">${d!==t?`<button class="linkb" data-act="pickDay" data-v="${t}">К сегодня</button>`:""}<button class="calbtn" data-act="openCal" aria-label="Календарь на месяц">${ic("grid",22)}</button></div></div>`;
   const dayEarn=list.reduce((s,v)=>s+earn(v),0);
-  if(list.length){
-    const n=k=>list.filter(v=>v.status===k).length;
-    const parts=[];if(n("came"))parts.push(plural(n("came"),"пришёл","пришли","пришли").replace(/^1 пришёл$/,"1 пришёл"));if(n("noshow"))parts.push(plural(n("noshow"),"неявка","неявки","неявок"));if(n("cancel"))parts.push(plural(n("cancel"),"отмена","отмены","отмен"));if(n("booked"))parts.push(n("booked")+" ждут");
-    top+=`<div class="springs" aria-hidden="true">${list.map(v=>`<i class="${v.status}"></i>`).join("")}</div><div class="springcap"><span>${parts.join(", ")}</span><b>${dayEarn?"+"+money(dayEarn):""}</b></div>`;
-  }
+  const nowT=pad(new Date().getHours())+":"+pad(new Date().getMinutes());
+  const left=list.filter(v=>v.status==="booked"&&(d<t||(d===t&&(v.time||"")<=nowT))).length;
+  const upcoming=list.filter(v=>v.status==="booked").length-left;
+  const m=t.slice(0,7);
+  let top=`<div class="hrow1"><div><h1>${title}</h1><div class="d">${parse(d).getDate()} ${MON[parse(d).getMonth()]}</div></div>
+   <button class="pill" data-act="tab" data-v="money" aria-label="Заработок за месяц"><small>${MONN[Number(m.slice(5))-1]}</small>${money(monthEarn(m))}</button></div>
+  <div class="week" id="week"><button class="arr" data-act="week" data-v="-7" aria-label="Прошлая неделя">${ic("chevL",22)}</button><div class="days">${strip}</div><button class="arr" data-act="week" data-v="7" aria-label="Следующая неделя">${ic("chevR",22)}</button></div>
+  <div class="dayfoot"><button class="linkb btnic" data-act="openCal">${ic("grid",18)}Весь месяц</button>${d!==t?`<button class="linkb" data-act="pickDay" data-v="${t}">К сегодня</button>`:""}</div>`;
+  if(list.length)top+=`<div class="springs" aria-hidden="true">${list.map(v=>`<i class="${v.status}"></i>`).join("")}</div><div class="springcap"><span>${left?"Не отмечено: "+left:upcoming?(d>t?plural(upcoming,"запись","записи","записей"):"Впереди: "+upcoming):"Всё отмечено"}</span><b>${dayEarn?"+"+money(dayEarn):""}</b></div>`;
   let body="";
   if(d===t){
     const a=attention(),um=unmarkedPast();
     if(a.length||um.length){
-      body+=`<div class="attn"><div class="h">${ic("bell",18)}Требует внимания</div>`;
-      if(um.length)body+=`<button data-act="goDay" data-v="${um[0].date}"><span><b>Не отмечено</b></span><span>${plural(um.length,"прошедшее занятие","прошедших занятия","прошедших занятий")} ›</span></button>`;
+      body+=`<div class="attn"><div class="h">${ic("bell",18)}Пора написать</div>`;
+      if(um.length)body+=`<div class="arow"><button class="grow" data-act="goDay" data-v="${um[0].date}"><b>Прошлые занятия</b><span>не отмечено ${um.length} ›</span></button></div>`;
       body+=a.map(x=>`<div class="arow"><button class="grow" data-act="openClient" data-id="${x[0]}"><b>${esc(x[1])}</b><span>${esc(x[2])}</span></button><button class="msgb" data-act="contact" data-id="${x[0]}" aria-label="Написать ${esc(x[1])}">${ic("msg",18)}</button></div>`).join("");
       body+=`</div>`;
     }
   }
   if(!list.length){
-    if(!Object.keys(S.clients).length)return{top,body:body+`<div class="card empty"><div class="big">${ic("users",30)}</div><b>Начнём с клиентов</b>Добавь клиента, оформи ему абонемент и записывай на занятия.<button class="primary mt16" data-act="newClient">Добавить клиента</button></div>`};
-    return{top,body:body+`<div class="card empty"><div class="big">${ic("sun",30)}</div><b>Свободный день</b>Нажми «+» внизу, чтобы записать клиента.</div>`};
+    if(!Object.keys(S.clients).length)return{top,body:body+`<div class="card empty"><div class="big">${ic("users",30)}</div><b>Начни с клиентов</b>Перенеси клиентов из тетради: имя, абонемент и сколько занятий осталось.<button class="primary mt16" data-act="newClient">Добавить клиента</button></div>`};
+    return{top,body:body+`<div class="card empty"><div class="big">${ic("sun",30)}</div><b>Записей нет</b><button class="primary mt16" data-act="newBooking">Записать клиента</button></div>`};
   }
   const groups={};
   for(const v of list){const k=(v.time||"--:--")+"|"+v.format;(groups[k]=groups[k]||[]).push(v)}
+  body+=`<div class="nb">`;
   for(const k of Object.keys(groups)){
     const [time,format]=k.split("|");const vs=groups[k];
     const cnt=vs.filter(v=>v.status!=="cancel").length;
     const booked=vs.filter(v=>v.status==="booked");
     const canAll=format===GRP&&booked.length>=2&&d<=t;
-    body+=`<div class="slot"><div class="slothead"><div class="t">${esc(time)}</div><span class="tag ${format===IND?"ind":"grp"}">${format===IND?ic("user",14)+"Индивидуально":ic("users",14)+"Группа, "+cnt}</span></div>`;
-    if(canAll)body+=`<button class="allcame" data-act="allCame" data-date="${d}" data-time="${esc(time)}">${ic("checks",18)}Все пришли (${booked.length})</button>`;
-    for(const v of vs)body+=visitRow(v);
-    if(format===GRP)body+=`<button class="addto" data-act="addToSlot" data-date="${d}" data-time="${esc(time)}">${ic("plus",16)}Добавить в группу</button>`;
+    body+=`<div class="nslot"><div class="nhead"><span class="nt">${esc(time)}</span><span class="tag ${format===IND?"ind":"grp"}">${format===IND?"Индивидуально":"Группа, "+cnt}</span>${canAll?`<button class="allb" data-act="allCame" data-date="${d}" data-time="${esc(time)}">${ic("checks",16)}Все пришли</button>`:""}</div>`;
+    for(const v of vs)body+=nRow(v);
+    if(format===GRP&&d>=t)body+=`<button class="nadd" data-act="addToSlot" data-date="${d}" data-time="${esc(time)}">${ic("plus",16)}Добавить в группу</button>`;
     body+=`</div>`;
   }
+  body+=`</div>`;
   return{top,body};
 }
-
-function visitRow(v){
+function nRow(v){
   const c=S.clients[v.clientId];
-  const name=esc(clientName(v.clientId));
   const future=v.date>today();
-  let sub="";
+  let sub,subc="";
   if(CH.includes(v.status)){
-    if(noPkg(v))sub=`<div class="vsub warn">${ic("alert",14)}Нет ${v.format===IND?"индивидуального":"группового"} абонемента, не посчитано</div>`;
-    else if(v.packageId&&S.packages[v.packageId]){const p=pkgInfo(v.packageId);sub=`<div class="vsub">Абонемент: осталось ${p.rem} из ${p.count}</div>`}
-  }else if(v.status==="booked"){
-    if(!hasPkgFmt(v.clientId,v.format))sub=`<div class="vsub warn">${ic("alert",14)}Нет ${v.format===IND?"индивидуального":"группового"} абонемента</div>`;
-    else{const r=remainingFmt(v.clientId,v.format);sub=`<div class="vsub ${r<=0?"warn":""}">${r<=0?ic("alert",14)+"Занятия в абонементе закончились":"В абонементе осталось "+r}</div>`}
-  }
-  let body;
-  if(v.status==="booked"&&future){
-    body=`<div class="future">${stChip(v)}<button class="mini" data-act="st" data-id="${v.id}" data-s="cancel">Клиент отменил</button></div>`;
-  }else if(v.status==="booked"){
-    body=statusButtons(v.id);
-  }else{
-    const e=earn(v);
-    body=`<div class="done">${stChip(v,e?" · +"+money(e):"")}<button class="mini" data-act="st" data-id="${v.id}" data-s="booked" aria-label="Изменить отметку">Изменить</button></div>`+
-      (noPkg(v)?`<button class="secondary mt8 btnic" data-act="sell" data-id="${v.clientId}" data-f="${v.format}">${ic("ticket",18)}Новый абонемент</button>`:"");
-  }
-  const note=v.note?`<div class="vnote">${ic("note",14)}<span>${esc(v.note)}</span></div>`:"";
-  const inj=c&&c.injuries?`<span class="injdot" title="${esc(c.injuries)}">${ic("alert",15)}</span>`:"";
-  return `<div class="vrow"><button class="vtap" data-act="openVisit" data-id="${v.id}"><div class="grow"><div class="vname">${name}${inj}</div>${sub}</div><span class="chev">${ic("chevR",20)}</span></button>${note}${body}</div>`;
+    if(noPkg(v)){sub="нет абонемента, не посчитано";subc="warn"}
+    else{const p=v.packageId&&pkgInfo(v.packageId);sub=p?(p.count===1?"разовое":`осталось ${p.rem} из ${p.count}`):""}
+  }else if(v.status==="cancel"){sub="не списано"}
+  else{const a=aboLine(v.clientId,v.format);sub=a.t;subc=a.c==="zero"||a.c==="none"?"warn":""}
+  let right;
+  if(v.status==="booked"&&!future)right=`<div class="nbtns"><button class="nx" data-act="openVisit" data-id="${v.id}" aria-label="Не пришёл или отменил">${ic("x",20)}<small>нет</small></button><button class="ncheck" data-act="st" data-id="${v.id}" data-s="came" aria-label="${esc(clientName(v.clientId))} пришёл">${ic("check2",26)}<small>пришёл</small></button></div>`;
+  else if(v.status==="booked")right=`<span class="nst booked">Записан</span>`;
+  else{const e=earn(v);right=`<span class="nst ${v.status}">${STL[v.status]}${e?`<em>+${money(e)}</em>`:""}</span>`}
+  return `<div class="nrow ${v.status}"><button class="nmain" data-act="openVisit" data-id="${v.id}"><span class="nname">${esc(clientName(v.clientId))}</span><span class="nsub ${subc}">${esc(sub)}</span>${c&&c.injuries?`<span class="ninj">${ic("alert",13)}${esc(c.injuries)}</span>`:""}${v.note?`<span class="nnote">${ic("note",13)}${esc(v.note)}</span>`:""}</button>${right}</div>`;
 }
-function statusButtons(id){return `<div class="btns3">
-  <button class="sb came" data-act="st" data-id="${id}" data-s="came">${ic("check",24)}Посещение<small>списать</small></button>
-  <button class="sb noshow" data-act="st" data-id="${id}" data-s="noshow">${ic("noshow",24)}Неявка<small>поздно / не пришёл</small></button>
-  <button class="sb cancel" data-act="st" data-id="${id}" data-s="cancel">${ic("cancel",24)}Отмена<small>до моего прихода</small></button></div>`}
 
+/* ---------- КЛИЕНТЫ ---------- */
 function clientsView(){
   const q=S.q.trim().toLowerCase();
-  const segOf={};for(const id in S.clients)segOf[id]=segment(id);
-  const ids=Object.keys(S.clients).filter(id=>S.seg==="arch"?segOf[id]==="arch":segOf[id]!=="arch"&&(S.seg==="all"||segOf[id]===S.seg))
-    .filter(id=>!q||S.clients[id].name.toLowerCase().includes(q)||String(S.clients[id].phone||"").replace(/\D/g,"").includes(q.replace(/\D/g,"")||"#"))
+  const t=today();
+  const isEnding=id=>{const pk=clientPkgs(id);if(!pk.length)return false;const r=remaining(id);return r<=2};
+  const isAway=id=>{const lv=IDX.lastByClient[id];return !!lv&&daysBetween(lv,t)>14&&!(IDX.byClient[id]||[]).some(v=>v.status==="booked"&&v.date>=t)};
+  const act=activeClients();
+  const F={all:act,end:act.filter(isEnding),away:act.filter(isAway),arch:Object.keys(S.clients).filter(id=>S.clients[id].active===false)};
+  if(!F[S.seg])S.seg="all";
+  const ids=F[S.seg].filter(id=>!q||S.clients[id].name.toLowerCase().includes(q)||String(S.clients[id].phone||"").replace(/\D/g,"").includes(q.replace(/\D/g,"")||"#"))
     .sort((a,b)=>S.clients[a].name.localeCompare(S.clients[b].name,"ru"));
-  const nAct=activeClients().length;
-  const top=`<h1>Клиенты</h1><div class="d" style="color:var(--nightMute);margin-top:4px">${plural(nAct,"активный","активных","активных")}</div>
-  <div class="segchips">${[["all","Все"],["new",SEG.new],["reg",SEG.reg],["risk",SEG.risk],["lost",SEG.lost],["none",SEG.none],["arch","Архив"]].map(([k,n])=>{const c=k==="all"?nAct:Object.values(segOf).filter(x=>x===k).length;return (k==="all"||c)?`<button class="sc ${S.seg===k?"on":""}" data-act="segf" data-v="${k}" aria-pressed="${S.seg===k}">${n}<span>${c}</span></button>`:""}).join("")}</div>
-  <input id="cQ" type="search" placeholder="Поиск по имени или телефону" value="${esc(S.q)}" autocomplete="off">`;
+  const top=`<div class="hrow1"><div><h1>Клиенты</h1><div class="d">${plural(act.length,"активный","активных","активных")}</div></div></div>
+  <div class="qrow"><input id="cQ" type="search" placeholder="Найти по имени или телефону" value="${esc(S.q)}" autocomplete="off"><button class="qadd btnic" data-act="newClient">${ic("plus",18)}Новый</button></div>
+  <div class="segchips">${[["all","Все"],["end","Заканчивается абонемент"],["away","Давно не были"],["arch","Архив"]].map(([k,n])=>(k==="all"||F[k].length)?`<button class="sc ${S.seg===k?"on":""}" data-act="segf" data-v="${k}" aria-pressed="${S.seg===k}">${n}<span>${F[k].length}</span></button>`:"").join("")}</div>`;
   let body;
-  if(!ids.length)body=`<div class="card empty"><div class="big">${ic("users",30)}</div><b>${S.q?"Никого не найдено":S.seg==="all"?"Пока нет клиентов":"В этой группе никого"}</b>${S.seg==="all"&&!S.q?"Нажми «+» внизу, чтобы добавить клиента.":""}</div>`;
-  else body=`<div class="card" style="padding:6px 14px">${ids.map(id=>{const c=S.clients[id];
-    return `<button class="crow" data-act="openClient" data-id="${id}"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><div style="font-weight:700;font-size:16px">${esc(c.name)}</div><div class="small mute">${S.seg==="all"&&segOf[id]!=="arch"?`<span class="segt ${segOf[id]}">${SEG1[segOf[id]]}</span>`:""}${c.injuries?`<span style="color:var(--stop)">${ic("alert",13)} ${esc(String(c.injuries).slice(0,30))}</span>`:""}</div></div>${badgeFor(id)}</button>`}).join("")}</div>`;
+  if(!ids.length)body=`<div class="card empty"><div class="big">${ic("users",30)}</div><b>${S.q?"Никого не найдено":S.seg==="all"?"Пока нет клиентов":"Здесь пусто"}</b>${S.seg==="all"&&!S.q?`<button class="primary mt16" data-act="newClient">Добавить клиента</button>`:""}</div>`;
+  else body=`<div class="card list">${ids.map(id=>{const c=S.clients[id];const a=aboLine(id);
+    return `<button class="crow" data-act="openClient" data-id="${id}"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><div class="cn">${esc(c.name)}${c.injuries?`<span class="injdot">${ic("alert",14)}</span>`:""}</div><div class="cs ${a.c}">${a.t}</div></div>${ic("chevR",18)}</button>`}).join("")}</div>`;
   return{top,body};
 }
 
+/* ---------- КЛИЕНТ ---------- */
 function contactLinks(c){
   const out=[];const digits=String(c.phone||"").replace(/\D/g,"");
   let wa=digits;if(wa.length===11&&wa[0]==="8")wa="7"+wa.slice(1);if(wa.length===10)wa="7"+wa;
@@ -667,144 +762,115 @@ function contactLinks(c){
 function clientView(){
   const id=S.clientId,c=S.clients[id];
   if(!c){S.view="clients";return clientsView()}
-  const pk=clientPkgs(id).slice().reverse();
+  const pk=clientPkgs(id);
+  const act=pk.filter(p=>p.active),old=pk.filter(p=>!p.active).reverse();
   const vs=IDX.byClient[id]||[];
-  const total=vs.reduce((s,v)=>s+earn(v),0);
-  const came=vs.filter(v=>CH.includes(v.status)).length;
-  const future=vs.filter(v=>v.status==="booked"&&v.date>=today()).length;
+  const t=today();
+  const next=vs.filter(v=>v.status==="booked"&&v.date>=t).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0];
   const links=contactLinks(c);
-  let top=`<button class="back btnic" data-act="tab" data-v="clients">${ic("chevL",18)}Все клиенты</button>
-  <div class="chead"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><h1>${esc(c.name)}</h1><div class="mt8">${badgeFor(id)}${c.active===false?` <span class="badge none">в архиве</span>`:""}</div></div></div>`;
+  let top=`<button class="back btnic" data-act="tab" data-v="clients">${ic("chevL",18)}Клиенты</button>
+  <div class="chead"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><h1>${esc(c.name)}</h1>${c.phone?`<div class="d">${esc(c.phone)}</div>`:""}</div></div>`;
   if(links.length)top+=`<div class="clinks">${links.map(l=>`<a class="clink" href="${l.href}" target="_blank" rel="noopener">${ic(l.icon,18)}${l.label}</a>`).join("")}</div>`;
   if(c.injuries)top+=`<div class="warnbox"><b>${ic("alert",14)}Травмы и ограничения</b>${esc(c.injuries)}</div>`;
-  const fv=firstVisit(id);const nos=vs.filter(v=>v.status==="noshow").length;
-  const last8=vs.filter(v=>CH.includes(v.status)&&v.date>addDays(today(),-56)&&v.date<=today()).length;
-  const sg=segment(id);
-  top+=`<div class="split"><div><span>Посещений</span><b>${came}</b></div><div><span>Тебе за всё время</span><b>${money(total)}</b></div></div>
-  <div class="split three"><div><span>Ходит в неделю</span><b>${(last8/8).toLocaleString("ru-RU",{maximumFractionDigits:1})}</b></div><div><span>Неявок</span><b>${came?Math.round(nos/came*100):0}%</b></div><div><span>С нами с</span><b>${fv?short(fv):"—"}</b></div></div>
-  ${sg!=="arch"?`<div class="segline"><span class="segt ${sg}">${SEG1[sg]}</span>${c.source?`<span class="segt src">${esc(c.source)}</span>`:""}</div>`:""}`;
-  let body=`<div class="acts"><button data-act="sell" data-id="${id}">${ic("ticket",26)}Новый абонемент</button><button data-act="bookClient" data-id="${id}">${ic("calendar",26)}Записать</button></div>`;
-  if(remaining(id)<=2&&hasAnyPkg(id))body+=`<button class="secondary btnic mt8" data-act="contact" data-id="${id}">${ic("msg",18)}Напомнить о продлении</button>`;
-  body+=`<h3>Абонементы</h3><div class="card">`;
-  if(!pk.length)body+=`<div class="mute">Абонементов пока нет. Нажми «Новый абонемент».</div>`;
-  for(const p of pk){
-    const pct=p.count?Math.min(100,Math.round(p.used/p.count*100)):0;
-    const cls=p.rem<=0?"zero":p.rem<=2?"low":"";
-    body+=`<button class="pkg" data-act="editPkg" data-id="${p.id}"><div class="row between"><b class="btnic">${p.format===IND?ic("user",16):ic("users",16)}${p.count===1?"Разовое":p.count+" занятий"}, ${money(p.price)}</b><span class="mini btnic" style="padding:0">${ic("pencil",15)}Изменить</span></div>
-    <div class="bar ${cls}"><i style="width:${pct}%"></i></div>
-    <div class="row between small"><span>${p.rem<=0?"<b style='color:var(--stop)'>Закончился</b>":p.expired?"<b style='color:var(--stop)'>Истёк срок, не использовано "+p.rem+"</b>":"Осталось <b>"+p.rem+"</b> из "+p.count}</span><span class="mute">${p.buyDate?"куплен "+short(p.buyDate):""}${p.until?", до "+short(p.until):""}</span></div>
-    <div class="small mute mt8">Цена занятия ${money(p.per)}, тебе ${money(p.per*SHARE)}${p.prev?", до приложения использовано "+p.prev:""}</div></button>`;
+  let body=`<h3>Абонемент</h3>`;
+  if(!act.length){
+    body+=`<div class="card abo empty2"><div class="abot">${pk.length?"Абонемент закончился":"Абонемента нет"}</div><button class="primary mt8 btnic" data-act="sell" data-id="${id}">${ic("plus",18)}${pk.length?"Продлить: новый абонемент":"Добавить абонемент"}</button>${pk.length&&remaining(id)<=0?`<button class="ghost btnic" data-act="contact" data-id="${id}">${ic("msg",18)}Напомнить о продлении</button>`:""}</div>`;
   }
+  for(const p of act){
+    const pct=p.count?Math.max(0,Math.min(100,Math.round(p.rem/p.count*100))):0;const cls=p.rem<=1?"zero":p.rem<=2?"low":"";
+    const newer=act.some(q=>q.id!==p.id&&q.format===p.format&&(q.createdAt||0)>(p.createdAt||0));const isNext=act.some(q=>q.id!==p.id&&q.format===p.format&&(q.createdAt||0)<(p.createdAt||0));
+    body+=`<div class="card abo"><div class="row between"><span class="tag ${p.format===IND?"ind":"grp"}">${p.format===IND?"Индивидуально":"Группа"}</span><button class="mini btnic" data-act="editPkg" data-id="${p.id}">${ic("pencil",15)}Изменить</button></div>
+    <div class="abobig"><b>${p.rem}</b><span>${p.count===1?"разовое занятие":"осталось из "+plural(p.count,"занятия","занятий","занятий")}</span></div>
+    ${p.count>1?`<div class="bar ${cls}"><i style="width:${pct}%"></i></div>`:""}
+    <div class="small mute">${money(p.price)}${p.count>1?", занятие "+money(p.per):""}, тебе ${money(p.per*SHARE)} с занятия${p.until?". Действует до "+short(p.until):""}</div>
+    ${isNext?`<div class="note">Следующий: начнётся, когда закончится текущий</div>`:""}
+    ${p.rem<=2&&!newer?`<div class="two mt16"><button class="secondary btnic" data-act="sell" data-id="${id}" data-f="${p.format}">${ic("plus",18)}Продлить</button><button class="ghost btnic" style="margin:0" data-act="contact" data-id="${id}">${ic("msg",18)}Напомнить</button></div>`:""}</div>`;
+  }
+  if(act.length)body+=`<button class="addline" data-act="sell" data-id="${id}">${ic("plus",16)}Ещё один абонемент</button>`;
+  body+=`<h3>Записи</h3><div class="card">`;
+  body+=next?`<button class="hrow tap" data-act="goDay" data-v="${next.date}"><div class="top2"><span>Следующее: <b>${humanShort(next.date)}, ${esc(next.time)}</b></span>${ic("chevR",18)}</div></button>`:`<div class="mute" style="padding:4px 0 10px">Не записан на будущие занятия.</div>`;
+  body+=`<button class="secondary btnic mt8" data-act="bookClient" data-id="${id}">${ic("calendar",18)}Записать на занятие</button></div>`;
+  body+=`<h3>История</h3><div class="card">`;
+  const hist=vs.filter(v=>v.date<=t||v.status!=="booked");
+  if(!hist.length)body+=`<div class="mute">Занятий ещё не было.</div>`;
+  const lim=S.histAll===id?hist.length:15;
+  for(const v of hist.slice(0,lim))body+=`<button class="hrow tap" data-act="openVisit" data-id="${v.id}"><div class="top2"><span>${short(v.date)}, ${esc(v.time||"")} <span class="mute small">${v.format===IND?"инд.":"группа"}</span></span><span class="nst ${v.status} sm">${STL[v.status]}</span></div>${v.note?`<div class="vnote">${ic("note",14)}<span>${esc(v.note)}</span></div>`:""}</button>`;
+  if(hist.length>lim)body+=`<button class="addline" data-act="histAll" data-id="${id}">Показать все (${hist.length})</button>`;
   body+=`</div>`;
-  if(future)body+=`<div class="cmp more">${ic("clock",16)}Записей вперёд: ${future}</div>`;
+  const came=vs.filter(v=>CH.includes(v.status)).length,total=vs.reduce((s,v)=>s+earn(v),0),fv=firstVisit(id);
   body+=`<h3>О клиенте</h3><div class="card info">
-    ${c.phone?`<div><div class="k">Телефон</div><div class="v">${esc(c.phone)}</div></div>`:""}
-    ${c.contact?`<div><div class="k">Telegram / Instagram</div><div class="v">${esc(c.contact)}</div></div>`:""}
-    ${c.birthday?`<div><div class="k">День рождения</div><div class="v">${parse(c.birthday).getDate()} ${MON[parse(c.birthday).getMonth()]}</div></div>`:""}
+    <div class="kv"><span>Посещений</span><b>${came}</b></div>
+    <div class="kv"><span>Тебе за всё время</span><b>${money(total)}</b></div>
+    ${fv?`<div class="kv"><span>Ходит с</span><b>${short(fv)}</b></div>`:""}
+    ${c.birthday?`<div class="kv"><span>День рождения</span><b>${parse(c.birthday).getDate()} ${MON[parse(c.birthday).getMonth()]}</b></div>`:""}
+    ${c.contact?`<div class="kv"><span>Telegram / Instagram</span><b>${esc(c.contact)}</b></div>`:""}
     ${c.goals?`<div><div class="k">Цели</div><div class="v">${esc(c.goals)}</div></div>`:""}
     ${c.notes?`<div><div class="k">Заметки</div><div class="v">${esc(c.notes)}</div></div>`:""}
-    ${!c.phone&&!c.contact&&!c.goals&&!c.notes&&!c.birthday?`<div class="mute">Пока ничего не записано.</div>`:""}
-    <button class="secondary btnic" data-act="editClient" data-id="${id}">${ic("pencil",18)}Изменить данные</button></div>`;
-  body+=`<h3>История</h3><div class="card">`;
-  if(!vs.length)body+=`<div class="mute">Занятий ещё не было.</div>`;
-  const lim=S.histAll===id?vs.length:40;
-  for(const v of vs.slice(0,lim))body+=`<button class="hrow tap" data-act="openVisit" data-id="${v.id}"><div class="top2"><span>${short(v.date)}, ${esc(v.time||"")} <span class="mute small">${v.format===IND?"инд.":"группа"}</span></span>${stChip(v,"",true)}</div>${v.note?`<div class="vnote">${ic("note",14)}<span>${esc(v.note)}</span></div>`:""}</button>`;
-  if(vs.length>lim)body+=`<button class="addto" data-act="histAll" data-id="${id}">Показать все (${vs.length})</button>`;
-  body+=`</div><div class="foot"><button class="ghost btnic" data-act="toggleActive" data-id="${id}">${c.active===false?ic("undo",18)+"Вернуть из архива":ic("archive",18)+"Убрать в архив"}</button><button class="textdanger" data-act="delClient" data-id="${id}">Удалить клиента</button></div>`;
+    <button class="ghost btnic" data-act="editClient" data-id="${id}">${ic("pencil",18)}Изменить данные клиента</button></div>`;
+  if(old.length){body+=`<details class="more"><summary>Прошлые абонементы (${old.length})</summary>${old.map(p=>`<button class="hrow tap" data-act="editPkg" data-id="${p.id}"><div class="top2"><span>${p.count===1?"Разовое":p.count+" зан."}, ${money(p.price)} <span class="mute small">${p.buyDate?short(p.buyDate):""}</span></span><span class="mute small">${p.expired&&p.rem>0?"сгорело "+p.rem:"закончился"}</span></div></button>`).join("")}</details>`}
+  body+=`<div class="foot"><button class="ghost btnic" data-act="toggleActive" data-id="${id}">${c.active===false?ic("undo",18)+"Вернуть из архива":ic("archive",18)+"Убрать в архив (больше не ходит)"}</button><button class="textdanger" data-act="delClient" data-id="${id}">Удалить клиента</button></div>`;
   return{top,body};
 }
 
+/* ---------- ДЕНЬГИ ---------- */
 function payItems(m){const p=S.payouts[m];if(!p)return[];if(Array.isArray(p.items))return p.items;if(p.amount!=null)return[{amount:Number(p.amount),date:p.date||""}];return[]}
+function expectedRate(v){const p=pkgFor(v.clientId,v.format,v.date);return p?rateFor(p,p.used+1):0}
 function moneyView(){
-  if(S.mview==="an")return analyticsView();
-  const m=S.month;
+  const m=S.month,t=today(),cm=t.slice(0,7);
   const vs=monthVisits(m);
   const total=vs.reduce((s,v)=>s+earn(v),0);
   const came=vs.filter(v=>v.status==="came").length,nos=vs.filter(v=>v.status==="noshow").length,can=vs.filter(v=>v.status==="cancel").length;
-  const ind=vs.filter(v=>v.format===IND).reduce((s,v)=>s+earn(v),0),grp=vs.filter(v=>v.format===GRP).reduce((s,v)=>s+earn(v),0);
+  const planned=vs.filter(v=>v.status==="booked"&&v.date>=t);
+  const plannedSum=planned.reduce((s,v)=>s+expectedRate(v),0);
   const np=vs.filter(noPkg);
-  const unmarked=vs.filter(v=>v.status==="booked"&&v.date<today());
-  const expected=Math.round(total);
+  const unmarked=vs.filter(v=>v.status==="booked"&&v.date<t);
   const items=payItems(m);const paid=items.reduce((s,x)=>s+(Number(x.amount)||0),0);
-  const prevTotal=monthEarn(shiftMonth(m,-1));
-  const delta=prevTotal>0?Math.round((total-prevTotal)/prevTotal*100):null;
-  const top=`${mswitch()}<div class="monthnav"><button data-act="month" data-v="-1" aria-label="Прошлый месяц">${ic("chevL",22)}</button><b>${monthName(m)}</b><button data-act="month" data-v="1" aria-label="Следующий месяц">${ic("chevR",22)}</button></div>
-  <div class="bigsum">${money(total)}</div><div class="l">Твой заработок за месяц (50%)${delta!==null&&total?`, ${delta>=0?"+":""}${delta}% к прошлому`:""}</div>
-  <div class="split"><div><span>Индивидуальные</span><b>${money(ind)}</b></div><div><span>Группы</span><b>${money(grp)}</b></div></div>`;
-  let body=`<div class="stats"><div class="stat go"><b>${came}</b><span>посещений</span></div><div class="stat stop"><b>${nos}</b><span>неявок (оплачены)</span></div><div class="stat off"><b>${can}</b><span>отмен (без оплаты)</span></div></div>`;
-  if(np.length)body+=`<button class="cmp bad" style="width:100%;text-align:left" data-act="goDay" data-v="${np[0].date}">${ic("alert",16)}${plural(np.length,"занятие","занятия","занятий")} без абонемента не посчитаны. Оформи абонемент, и они добавятся ›</button>`;
+  const top=`<div class="monthnav"><button data-act="month" data-v="-1" aria-label="Прошлый месяц">${ic("chevL",22)}</button><b>${monthName(m)}</b><button data-act="month" data-v="1" aria-label="Следующий месяц">${ic("chevR",22)}</button></div>
+  <div class="l2">Ты заработала</div><div class="bigsum">${money(total)}</div>
+  <div class="l2">${plural(came,"посещение","посещения","посещений")}${nos?", "+plural(nos,"неявка","неявки","неявок")+" (оплачены)":""}${can?", "+plural(can,"отмена","отмены","отмен"):""}</div>
+  ${plannedSum&&m>=cm?`<div class="planned">${ic("trend",16)}Ещё записано на ${money(plannedSum)}. Если все придут, выйдет ${money(total+plannedSum)}</div>`:""}`;
+  let body="";
+  if(np.length)body+=`<button class="cmp bad" style="width:100%;text-align:left" data-act="goDay" data-v="${np[0].date}">${ic("alert",16)}${plural(np.length,"занятие","занятия","занятий")} без абонемента не посчитаны ›</button>`;
   if(unmarked.length)body+=`<button class="cmp more" style="width:100%;text-align:left" data-act="goDay" data-v="${unmarked[0].date}">${ic("clock",16)}Не отмечено: ${plural(unmarked.length,"прошедшее занятие","прошедших занятия","прошедших занятий")} ›</button>`;
-  body+=`<h3>Сверка со студией</h3><div class="card">
-   <div class="kv"><span>Должны выплатить</span><b>${money(expected)}</b></div>
-   ${items.length?items.map((x,i)=>`<div class="kv"><span>Выплата${x.date?" "+short(x.date):""}${x.note?", "+esc(x.note):""}</span><span class="row" style="gap:4px"><b>${money(x.amount)}</b><button class="x" data-act="payDel" data-i="${i}" aria-label="Удалить выплату">${ic("x",16)}</button></span></div>`).join(""):""}
-   ${items.length?(()=>{const diff=Math.round(paid-expected);return diff===0?`<div class="cmp ok">${ic("okCircle",16)}Всё сходится</div>`:diff<0?`<div class="cmp bad">${ic("alert",16)}Не хватает ${money(-diff)}</div>`:`<div class="cmp more">Заплатили на ${money(diff)} больше, чем по твоим записям</div>`})():""}
-   <label class="lbl" for="payIn">Студия заплатила, ₽</label><input id="payIn" inputmode="decimal" placeholder="например 18000">
-   <button class="primary mt8" data-act="payAdd">${items.length?"Добавить ещё выплату":"Сохранить выплату"}</button></div>`;
+  body+=`<h3>Сверка с зарплатой</h3><div class="card">
+   <div class="kv"><span>Студия должна</span><b>${money(total)}</b></div>
+   ${items.map((x,i)=>`<div class="kv"><span>Выплатили${x.date?" "+short(x.date):""}</span><span class="row" style="gap:4px"><b>${money(x.amount)}</b><button class="x" data-act="payDel" data-i="${i}" aria-label="Удалить выплату">${ic("x",16)}</button></span></div>`).join("")}
+   ${items.length?(()=>{const diff=Math.round(paid-total);return diff===0?`<div class="cmp ok">${ic("okCircle",16)}Всё сходится</div>`:diff<0?`<div class="cmp bad">${ic("alert",16)}Не доплатили ${money(-diff)}</div>`:`<div class="cmp more">Заплатили на ${money(diff)} больше</div>`})():""}
+   <div class="payrow"><input id="payIn" inputmode="decimal" placeholder="Сколько заплатили, ₽" aria-label="Сколько заплатили"><button class="primary" data-act="payAdd">Внести</button></div></div>`;
   const byDay={};for(const v of vs){const e=earn(v);if(!e)continue;(byDay[v.date]=byDay[v.date]||{n:0,s:0,vs:[]});byDay[v.date].n++;byDay[v.date].s+=e;byDay[v.date].vs.push(v)}
   const days=Object.keys(byDay).sort().reverse();
   body+=`<h3>По дням</h3><div class="card">`;
   if(!days.length)body+=`<div class="mute">В этом месяце пока нет оплаченных занятий.</div>`;
   for(const d of days){const o=S.openDays[d];
-    body+=`<button class="hrow tap" data-act="toggleDay" data-v="${d}" aria-expanded="${!!o}"><div class="top2"><span>${short(d)} <span class="mute small">${plural(byDay[d].n,"занятие","занятия","занятий")}</span></span><b>${money(byDay[d].s)}</b></div></button>`;
-    if(o)body+=`<div class="daylist">${byDay[d].vs.sort((a,b)=>(a.time||"").localeCompare(b.time||"")).map(v=>`<button class="dl" data-act="openVisit" data-id="${v.id}"><span>${esc(v.time)} ${esc(clientName(v.clientId))} <span class="mute small">${v.status==="noshow"?"неявка":v.format===IND?"инд.":"группа"}</span></span><span>${money(earn(v))}</span></button>`).join("")}</div>`}
+    body+=`<button class="hrow tap" data-act="toggleDay" data-v="${d}" aria-expanded="${!!o}"><div class="top2"><span>${humanShort(d)} <span class="mute small">${plural(byDay[d].n,"занятие","занятия","занятий")}</span></span><b>${money(byDay[d].s)} ${ic(o?"chevD":"chevR",16)}</b></div></button>`;
+    if(o)body+=`<div class="daylist">${byDay[d].vs.sort((a,b)=>(a.time||"").localeCompare(b.time||"")).map(v=>`<button class="dl" data-act="openVisit" data-id="${v.id}"><span>${esc(v.time)} ${esc(clientName(v.clientId))} <span class="mute small">${v.status==="noshow"?"не пришёл":v.format===IND?"инд.":"группа"}</span></span><span>${money(earn(v))}</span></button>`).join("")}</div>`}
   body+=`</div>`;
-  const byCl={};for(const v of vs){const e=earn(v);if(e)byCl[v.clientId]=(byCl[v.clientId]||0)+e}
-  const topCl=Object.keys(byCl).sort((a,b)=>byCl[b]-byCl[a]).slice(0,5);
-  if(topCl.length){const mx=byCl[topCl[0]];body+=`<h3>Лучшие клиенты месяца</h3><div class="card">${topCl.map(cid=>`<button class="barrow" data-act="openClient" data-id="${cid}"><span class="bl">${esc(clientName(cid))}</span><span class="bt"><i style="width:${Math.max(6,Math.round(byCl[cid]/mx*100))}%"></i></span><b>${money(byCl[cid])}</b></button>`).join("")}</div>`}
-  const wd=[0,0,0,0,0,0,0];for(const v of vs)if(CH.includes(v.status))wd[(parse(v.date).getDay()+6)%7]++;
-  const wmx=Math.max(...wd);
-  if(wmx){body+=`<h3>Загрузка по дням недели</h3><div class="card"><div class="wk">${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map((n,i)=>`<div class="wkc"><span class="wkn">${wd[i]||""}</span><i style="height:${Math.round(wd[i]/wmx*70)+4}px" class="${wd[i]===wmx?"max":""}"></i><span>${n}</span></div>`).join("")}</div><div class="note">Сколько посещений и неявок было в каждый день недели за месяц.</div></div>`}
-  body+=`<h3>Выгрузка и аккаунт</h3><div class="foot" style="margin-top:0"><button class="secondary btnic" data-act="exportMonth">${ic("download",18)}Скачать ${MONN[Number(m.slice(5))-1].toLowerCase()} в Excel</button><button class="ghost btnic" data-act="export">${ic("download",18)}Скачать все данные</button><button class="ghost btnic" data-act="logout">${ic("logout",18)}Выйти${S.user&&S.user.email?" ("+esc(S.user.email)+")":""}</button></div>`;
+  body+=analyticsBlock(m);
+  body+=`<h3>Ещё</h3><div class="foot" style="margin-top:0"><button class="ghost btnic" data-act="exportMonth">${ic("download",18)}Скачать ${MONN[Number(m.slice(5))-1].toLowerCase()} в Excel</button><button class="ghost btnic" data-act="export">${ic("download",18)}Скачать все данные</button><button class="textdanger" style="color:var(--mute)" data-act="logout">Выйти${S.user&&S.user.email?" ("+esc(S.user.email)+")":""}</button></div>`;
   return{top,body};
 }
-
-function mswitch(){return `<div class="seg2" style="margin:0 0 16px"><button class="${S.mview!=="an"?"on":""}" data-act="mview" data-v="month">Месяц</button><button class="${S.mview==="an"?"on":""}" data-act="mview" data-v="an">Аналитика</button></div>`}
-function expectedRate(v){const p=pkgFor(v.clientId,v.format,v.date);return p?rateFor(p,p.used+1):0}
-function analyticsView(){
-  const t=today(),cm=t.slice(0,7);
-  const months=[];for(let i=5;i>=0;i--)months.push(shiftMonth(cm,-i));
-  const st={};for(const m of months)st[m]={e:0,came:0,nos:0,can:0,cl:new Set(),nw:0,sales:0,sold:0};
-  const fv={};for(const cid in S.clients)fv[cid]=firstVisit(cid);
-  for(const v of visits()){const m=v.date.slice(0,7);const o=st[m];if(!o)continue;o.e+=earn(v);if(v.status==="came")o.came++;if(v.status==="noshow")o.nos++;if(v.status==="cancel")o.can++;if(CH.includes(v.status))o.cl.add(v.clientId)}
-  for(const cid in fv){const f=fv[cid];if(f&&st[f.slice(0,7)])st[f.slice(0,7)].nw++}
-  for(const id in S.packages){const p=S.packages[id];const m=(p.buyDate||"").slice(0,7);if(st[m]){st[m].sales+=Number(p.price)||0;st[m].sold++}}
-  const cur=st[cm],prev=st[months[4]];
-  // прогноз: заработано + запланированные занятия до конца месяца
-  const planned=visits().filter(v=>v.status==="booked"&&v.date>=t&&v.date.startsWith(cm));
-  const forecast=cur.e+planned.reduce((s,v)=>s+expectedRate(v),0);
+function analyticsBlock(sel){
+  const months=[];for(let i=5;i>=0;i--)months.push(shiftMonth(sel,-i));
+  const st={};for(const m of months)st[m]={e:0,came:0,cl:new Set()};
+  for(const v of visits()){const o=st[v.date.slice(0,7)];if(!o)continue;o.e+=earn(v);if(CH.includes(v.status)){o.came++;o.cl.add(v.clientId)}}
   const mx=Math.max(1,...months.map(m=>st[m].e));
-  const pct=(a,b)=>b?Math.round(a/b*100):0;
-  const dlt=(a,b)=>!b?"":`<em class="${a>=b?"up":"dn"}">${a>=b?"+":""}${Math.round((a-b)/b*100)}%</em>`;
-  // продления: абонементы, закончившиеся за 90 дней
-  const ended=Object.keys(S.packages).map(pkgInfo).filter(p=>{if(p.rem>0&&!p.expired)return false;const lastUse=visits().filter(v=>v.packageId===p.id&&CH.includes(v.status)).reduce((m,v)=>v.date>m?v.date:m,p.buyDate||"");const end=p.rem<=0?lastUse:p.until;return end&&daysBetween(end,t)<=90&&end<=t});
-  const renewed=ended.filter(p=>clientPkgs(p.clientId).some(q=>q.id!==p.id&&(q.buyDate||"")>=(p.buyDate||"")&&(q.createdAt||0)>(p.createdAt||0)));
-  // удержание: клиенты прошлого месяца, которые пришли и в этом
-  const prevSet=prev.cl,kept=[...prevSet].filter(c=>cur.cl.has(c)||(IDX.byClient[c]||[]).some(v=>v.status==="booked"&&v.date>=t)).length;
-  const segc={};for(const cid in S.clients){const sg=segment(cid);segc[sg]=(segc[sg]||0)+1}
-  const src={};for(const cid in S.clients){const s2=S.clients[cid].source||"Не указано";src[s2]=(src[s2]||0)+1}
-  const srcMax=Math.max(1,...Object.values(src));
-  const tot=cur.came+cur.nos;const avg=tot?cur.e/tot:0;
-  const top=`${mswitch()}<div class="l" style="color:var(--nightMute)">Прогноз на ${MONN[Number(cm.slice(5))-1].toLowerCase()}</div><div class="bigsum">${money(forecast)}</div>
-   <div class="l" style="color:var(--nightMute)">Уже заработано ${money(cur.e)}, ещё ${plural(planned.length,"запланированное занятие","запланированных занятия","запланированных занятий")}</div>
-   <div class="chart">${months.map(m=>`<button class="cb ${m===cm?"cur":""}" data-act="goMonth" data-v="${m}"><span class="cv">${st[m].e?Math.round(st[m].e/1000)+"к":""}</span><i style="height:${Math.round(st[m].e/mx*92)+3}px"></i><span>${MONN[Number(m.slice(5))-1].slice(0,3)}</span></button>`).join("")}</div>`;
-  let body=`<div class="kpis">
-   <div class="kpi"><span>Посещений</span><b>${cur.came}</b>${dlt(cur.came,prev.came)}</div>
-   <div class="kpi"><span>Активных клиентов</span><b>${cur.cl.size}</b>${dlt(cur.cl.size,prev.cl.size)}</div>
-   <div class="kpi"><span>Новых клиентов</span><b>${cur.nw}</b></div>
-   <div class="kpi"><span>Средний заработок с занятия</span><b>${money(avg)}</b></div>
-   <div class="kpi"><span>Неявки</span><b>${pct(cur.nos,tot)}%</b></div>
-   <div class="kpi"><span>Отмены</span><b>${pct(cur.can,tot+cur.can)}%</b></div></div>
-  <h3>Удержание клиентов</h3><div class="card">
-   <div class="kv"><span>Продлевают абонемент</span><b>${ended.length?pct(renewed.length,ended.length)+"%":"—"}</b></div>
-   <div class="note" style="margin:-4px 0 8px">${ended.length?`Из ${plural(ended.length,"закончившегося абонемента","закончившихся абонементов","закончившихся абонементов")} за 3 месяца купили новый: ${renewed.length}`:"Пока нет закончившихся абонементов"}</div>
-   <div class="kv"><span>Вернулись после прошлого месяца</span><b>${prevSet.size?pct(kept,prevSet.size)+"%":"—"}</b></div>
-   <div class="kv"><span>Продано абонементов в этом месяце</span><b>${cur.sold?plural(cur.sold,"абонемент","абонемента","абонементов")+" на "+money(cur.sales):"0"}</b></div></div>
-  <h3>Клиенты по активности</h3><div class="card">${["new","reg","risk","lost","none"].filter(k=>segc[k]).map(k=>`<button class="barrow" data-act="segGo" data-v="${k}"><span class="bl"><span class="segt ${k}">${SEG[k]}</span></span><span class="bt"><i style="width:${Math.round(segc[k]/Math.max(...Object.values(segc))*100)}%"></i></span><b>${segc[k]}</b></button>`).join("")||`<div class="mute">Пока нет клиентов.</div>`}
-   <div class="note">Постоянные: были за последние 2 недели. Пропадают: 2–6 недель назад. Давно не были: больше 6 недель.</div></div>
-  <h3>Откуда приходят клиенты</h3><div class="card">${Object.keys(src).sort((a,b)=>src[b]-src[a]).map(k=>`<div class="barrow"><span class="bl">${esc(k)}</span><span class="bt"><i style="width:${Math.round(src[k]/srcMax*100)}%"></i></span><b>${src[k]}</b></div>`).join("")}
-   <div class="note">Источник указывается в карточке клиента.</div></div>
-  <h3>По месяцам</h3><div class="card"><div class="mt"><span></span><span>Заработок</span><span>Посещ.</span><span>Нов.</span></div>${months.slice().reverse().map(m=>`<button class="mt" data-act="goMonth" data-v="${m}"><span>${MONN[Number(m.slice(5))-1]}</span><b>${money(st[m].e)}</b><span>${st[m].came}</span><span>${st[m].nw}</span></button>`).join("")}</div>`;
-  return{top,body};
+  const cur=st[sel],prev=st[months[4]];
+  const done=sel<today().slice(0,7);
+  const dl=(a,b)=>b&&done?`<em class="${a>=b?"up":"dn"}">${a>=b?"+":""}${Math.round((a-b)/b*100)}%</em>`:"";
+  const byCl={};for(const v of monthVisits(sel)){const e=earn(v);if(e)byCl[v.clientId]=(byCl[v.clientId]||0)+e}
+  const topCl=Object.keys(byCl).sort((a,b)=>byCl[b]-byCl[a]).slice(0,5);
+  // продления за 3 месяца
+  const t=today();
+  const ended=Object.keys(S.packages).map(pkgInfo).filter(p=>p.count>1&&(p.rem<=0||p.expired)&&daysBetween(p.buyDate||t,t)<=120);
+  const renewed=ended.filter(p=>clientPkgs(p.clientId).some(q=>q.id!==p.id&&(q.createdAt||0)>(p.createdAt||0)));
+  return `<h3>Динамика</h3><div class="card">
+   <div class="chart2">${months.map(m=>`<button class="cb ${m===sel?"cur":""}" data-act="goMonth" data-v="${m}" aria-label="${monthName(m)}: ${money(st[m].e)}"><span class="cv">${st[m].e?(st[m].e>=1000?Math.round(st[m].e/1000)+"к":Math.round(st[m].e)):""}</span><i style="height:${Math.round(st[m].e/mx*90)+3}px"></i><span>${MONN[Number(m.slice(5))-1].slice(0,3)}</span></button>`).join("")}</div>
+   <div class="kpis">
+    <div class="kpi"><span>Заработок</span><b>${money(cur.e)}</b>${dl(cur.e,prev.e)}</div>
+    <div class="kpi"><span>Клиентов ходило</span><b>${cur.cl.size}</b>${dl(cur.cl.size,prev.cl.size)}</div>
+    <div class="kpi"><span>Продлевают абонемент</span><b>${ended.length?Math.round(renewed.length/ended.length*100)+"%":"—"}</b></div>
+    <div class="kpi"><span>В среднем с занятия</span><b>${cur.came?money(cur.e/cur.came):"—"}</b></div></div></div>
+  ${topCl.length?`<h3>Кто больше принёс</h3><div class="card">${topCl.map(cid=>`<button class="barrow" data-act="openClient" data-id="${cid}"><span class="bl">${esc(clientName(cid))}</span><span class="bt"><i style="width:${Math.max(6,Math.round(byCl[cid]/byCl[topCl[0]]*100))}%"></i></span><b>${money(byCl[cid])}</b></button>`).join("")}</div>`:""}`;
 }
 
 /* ================= вход ================= */
@@ -849,7 +915,7 @@ function closeSheet(){const s=$("#sheet");if(s.classList.contains("hidden"))retu
 function top(title){return `<div class="sheettop"><h2>${title}</h2><button class="close" data-act="close" aria-label="Закрыть">${ic("x",20)}</button></div>`}
 function confirmSheet(title,text,yes,cb,alt){onYes=cb;openSheet(top(title)+`<p class="mute">${text}</p><div class="foot">${alt||""}<button class="danger" data-act="yes">${yes}</button><button class="ghost" data-act="close">Отмена</button></div>`,title)}
 let toastT=null,toastUndo=null;
-function toast(t,undo){const el=$("#toast");toastUndo=undo||null;el.innerHTML=`<span>${esc(t)}</span>${undo?`<button data-act="undo">Отменить</button>`:""}`;el.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>{el.classList.remove("on");toastUndo=null},undo?5000:2600)}
+function toast(t,undo){const el=$("#toast");toastUndo=undo||null;el.innerHTML=`<span>${esc(t)}</span>${undo?`<button data-act="undo">Вернуть</button>`:""}`;el.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>{el.classList.remove("on");toastUndo=null},undo?5000:2600)}
 function fail(e){console.error(e);toast(e&&e.code==="quota_exceeded"?"Хранилище заполнено":"Не сохранилось. Проверь интернет и повтори")}
 
 /* ================= календарь на месяц ================= */
@@ -873,50 +939,59 @@ let B=null;
 const HOURS=["07","08","09","10","11","12","13","14","15","16","17","18","19","20","21"];
 function openBooking(pre){
   pre=pre||{};
-  let format=pre.format||IND;
-  if(!pre.format&&pre.clientId){const a=clientPkgs(pre.clientId).filter(p=>p.active);if(a.length)format=a[a.length-1].format}
-  B={date:pre.date||S.day,time:pre.time||"",half:!!(pre.time&&pre.time.endsWith(":30")),format,sel:new Set(pre.clientId?[pre.clientId]:[]),repeat:1,q:""};
+  B={date:pre.date&&pre.date>=today()?pre.date:(pre.date||today()),time:pre.time||"",half:!!(pre.time&&pre.time.endsWith(":30")),format:pre.format||null,sel:new Set(pre.clientId?[pre.clientId]:[]),repeat:1,q:"",lockFmt:!!pre.format};
   drawBooking();
 }
+function autoFormat(){if(B.lockFmt&&B.format)return B.format;if(B.sel.size>1)return GRP;if(B.sel.size===1){const id=[...B.sel][0];const a=clientPkgs(id).filter(p=>p.active);if(a.length)return a[0].format}return B.format||IND}
 function syncB(){const d=$("#bDate"),t=$("#bTimeC");if(d&&d.value)B.date=d.value;if(t&&t.value)B.time=t.value}
-function bookHint(){return !B.sel.size&&!B.time?"Выбери клиента и время":!B.sel.size?"Выбери клиента":!B.time?"Выбери время":""}
-function bookBtn(){const h=bookHint();return `<button class="primary" data-act="bSave" ${h?"disabled":""}>${h||("Записать"+(B.sel.size>1?" ("+B.sel.size+")":""))}</button>`}
+function bookHint(){return !B.sel.size?"Выбери, кого записать":!B.time?"Выбери время":""}
+function bookBtn(){const h=bookHint();if(h)return `<button class="primary" disabled>${h}</button>`;
+  const names=[...B.sel].map(id=>firstName(clientName(id)));const who=names.length>2?names.slice(0,2).join(", ")+" и ещё "+(names.length-2):names.join(" и ");
+  return `<button class="primary" data-act="bSave">Записать: ${esc(who)}<small>${humanShort(B.date)}, ${B.time}</small></button>`}
+function dayChips(){const t=today();let h="";for(let i=0;i<7;i++){const d=addDays(t,i);const dd=parse(d);h+=`<button class="chip dch ${B.date===d?"on":""}" data-act="bDay" data-v="${d}" aria-pressed="${B.date===d}">${i===0?"Сегодня":i===1?"Завтра":WDS[dd.getDay()]}<small>${dd.getDate()}</small></button>`}
+  const other=B.date<t||B.date>addDays(t,6);
+  return h+`<label class="chip dch other ${other?"on":""}">${other?short(B.date):"Другой день"}<input type="date" id="bDate" value="${B.date}" aria-label="Другой день"></label>`}
+function selChips(){if(!B.sel.size)return"";return `<div class="selchips">${[...B.sel].map(id=>`<button class="selc" data-act="bToggle" data-id="${id}" aria-label="Убрать ${esc(clientName(id))}">${esc(clientName(id))}${ic("x",14)}</button>`).join("")}</div>`}
 function drawBooking(){
-  openSheet(top("Запись на "+humanShort(B.date))+`
-  <div class="seg" role="group" aria-label="Формат"><button class="${B.format===IND?"on":""} btnic" data-act="bFormat" data-v="${IND}" aria-pressed="${B.format===IND}">${ic("user",18)}Индивидуально</button><button class="${B.format===GRP?"on":""} btnic" data-act="bFormat" data-v="${GRP}" aria-pressed="${B.format===GRP}">${ic("users",18)}Группа</button></div>
-  <label class="lbl" for="bQ">${B.format===GRP?"Кто придёт, можно несколько":"Кто придёт"}</label>
-  <input id="bQ" type="search" placeholder="Поиск по имени" value="${esc(B.q)}" autocomplete="off">
+  B.format=autoFormat();
+  openSheet(top("Записать")+`
+  <div id="bSel">${selChips()}</div>
+  <input id="bQ" type="search" placeholder="Кого? Начни вводить имя" value="${esc(B.q)}" autocomplete="off" aria-label="Поиск клиента">
   <div id="bList" class="clist">${bookingList()}</div>
-  <button class="ghost btnic" data-act="quickClient">${ic("plus",18)}Новый клиент</button>
-  <label class="lbl">Время</label><div class="seg2 light" role="group"><button class="${!B.half?"on":""}" data-act="bHalf" data-v="0">Ровно, :00</button><button class="${B.half?"on":""}" data-act="bHalf" data-v="1">Половина, :30</button></div><div class="tgrid" id="bTimes">${timeChips()}</div>
-  <label class="lbl" for="bTimeC">Другое время</label><input type="time" id="bTimeC" value="${B.time}">
-  <label class="lbl" for="bDate">День</label><input type="date" id="bDate" value="${B.date}">
-  <div class="foot sticky" id="bFoot">${bookBtn()}</div>`,"Запись на занятие");
+  <button class="addline" data-act="quickClient">${ic("plus",16)}Новый клиент</button>
+  <label class="lbl">Когда</label><div class="daych">${dayChips()}</div>
+  <div class="tgridwrap"><div class="tgrid" id="bTimes">${timeChips()}</div>
+  <div class="row between mt8"><span></span><label class="linkb2 othertime">Точное время<input type="time" id="bTimeC" value="${B.time}" aria-label="Точное время"></label></div></div>
+  <div id="bFmt">${fmtLine()}</div>
+  <div class="foot sticky" id="bFoot">${bookBtn()}</div>`,"Записать на занятие");
 }
-function timeChips(){return HOURS.map(h=>{const t=h+(B.half?":30":":00");return `<button class="chip ${B.time===t?"on":""}" data-act="bTime" data-v="${t}" aria-pressed="${B.time===t}">${t}</button>`}).join("")}
+function fmtLine(){return `<div class="fmtline"><span>Формат</span><div class="seg2 light mini2"><button class="${B.format===IND?"on":""}" data-act="bFormat" data-v="${IND}">Индивидуально</button><button class="${B.format===GRP?"on":""}" data-act="bFormat" data-v="${GRP}">Группа</button></div></div>`}
+function timeChips(){return HOURS.flatMap(h=>[h+":00",h+":30"]).map(t=>`<button class="chip ${B.time===t?"on":""} ${t.endsWith(":30")?"half":""}" data-act="bTime" data-v="${t}" aria-pressed="${B.time===t}">${t}</button>`).join("")}
 function bookingList(){
   const q=B.q.trim().toLowerCase();
-  const ids=activeClients().filter(id=>!q||S.clients[id].name.toLowerCase().includes(q));
-  if(!ids.length)return `<div class="mute small" style="padding:8px">${q?"Никого не найдено":"Клиентов пока нет, добавь ниже"}</div>`;
-  const multi=B.format===GRP;
-  return ids.map(id=>`<button class="cpick ${B.sel.has(id)?"on":""} ${multi?"":"radio"}" data-act="bToggle" data-id="${id}" aria-pressed="${B.sel.has(id)}"><span>${esc(S.clients[id].name)}</span><span class="row" style="gap:0">${badgeFor(id,B.format)}<span class="chk">${B.sel.has(id)?(multi?"✓":""):""}</span></span></button>`).join("");
+  let ids=activeClients().filter(id=>!q||S.clients[id].name.toLowerCase().includes(q));
+  if(!q){ // сначала те, кто часто ходит
+    const score=id=>(IDX.lastByClient[id]||"");ids=ids.sort((a,b)=>score(b).localeCompare(score(a))||S.clients[a].name.localeCompare(S.clients[b].name,"ru")).slice(0,8)}
+  ids=ids.filter(id=>!B.sel.has(id));
+  if(!ids.length)return q?`<div class="mute small" style="padding:8px">Никого не найдено. Добавь нового клиента ниже.</div>`:"";
+  return ids.map(id=>{const a=aboLine(id);return `<button class="cpick" data-act="bToggle" data-id="${id}"><span>${esc(S.clients[id].name)}</span><span class="cs ${a.c}">${a.t}</span></button>`}).join("")+(!q&&activeClients().length>8?`<div class="mute small" style="padding:6px 4px">Не видишь нужного? Начни вводить имя.</div>`:"");
 }
-function refreshBookFoot(){const f=$("#bFoot");if(f)f.innerHTML=bookBtn()}
+function refreshBook(){const f=$("#bFoot");if(f)f.innerHTML=bookBtn();const s=$("#bSel");if(s)s.innerHTML=selChips();const l=$("#bList");if(l)l.innerHTML=bookingList();B.format=autoFormat();const fm=$("#bFmt");if(fm)fm.innerHTML=fmtLine()}
 async function saveBooking(){
   syncB();
   if(bookHint()){toast(bookHint());return}
   const ids=[...B.sel];let made=0,skipped=0;
+  if(!B.force){const clash=ids.map(cid=>(IDX.byClient[cid]||[]).find(v=>v.date===B.date&&v.time!==B.time&&v.status!=="cancel")).filter(Boolean);
+    if(clash.length){const msg=clash.map(v=>`${esc(clientName(v.clientId))} уже записан(а) на ${esc(v.time)}`).join("<br>");
+      const keep=Object.assign({},B,{sel:new Set(B.sel)});confirmSheet("Уже есть запись в этот день",msg+"<br>Всё равно записать ещё и на "+B.time+"?","Да, записать",()=>{B=keep;B.force=true;closeSheet();saveBooking()});return}}
   const exists=(cid,date)=>(IDX.byClient[cid]||[]).some(v=>v.date===date&&v.time===B.time&&v.status!=="cancel");
   try{
-    for(let w=0;w<B.repeat;w++){
-      const date=addDays(B.date,7*w);
-      for(const cid of ids){
-        if(exists(cid,date)){skipped++;continue}
-        await db.collection("visits").add({clientId:cid,date,time:B.time,format:B.format,status:"booked",packageId:null,createdAt:Date.now()});made++;
-      }
+    for(const cid of ids){
+      if(exists(cid,B.date)){skipped++;continue}
+      await db.collection("visits").add({clientId:cid,date:B.date,time:B.time,format:B.format,status:"booked",packageId:null,createdAt:Date.now()});made++;
     }
     closeSheet();S.view="day";S.day=B.date;render();
-    toast((made===1?"Записано":"Записано: "+made)+(skipped?". Уже были записаны: "+skipped:""));
+    toast((made?"Записано: "+humanShort(B.date)+", "+B.time:"")+(skipped?(made?". ":"")+"Уже были записаны: "+skipped:""));
   }catch(e){fail(e)}
 }
 
@@ -994,12 +1069,12 @@ function aboHTML(){
   <label class="lbl">Сколько занятий</label><div class="cntrow">${COUNTS.map(n=>`<button class="chip ${P.count===n?"on":""}" data-act="pCount" data-v="${n}" aria-pressed="${P.count===n}">${n===1?"Разовое":n}</button>`).join("")}<input id="pCountC" inputmode="numeric" placeholder="другое" aria-label="Другое количество" value="${COUNTS.includes(P.count)?"":P.count}"></div>
   <label class="lbl" for="pPrice">Сколько стоит, ₽</label><input id="pPrice" inputmode="decimal" placeholder="${P.count===1?"цена разового занятия":"цена всего абонемента"}" value="${esc(P.price)}">
   <div class="calc" id="pCalc">${calcHTML(per)}</div>
-  ${P.count>1?`<label class="lbl" for="pRem">Сколько занятий осталось</label><input id="pRem" inputmode="numeric" placeholder="${edit?"":P.count+", если абонемент новый"}" value="${esc(P.rem)}">
+  ${P.count>1&&(edit||P.host==="client"||!(IDX.pkgsByClient[P.clientId]||[]).length)?`<label class="lbl" for="pRem">Сколько занятий осталось</label><input id="pRem" inputmode="numeric" placeholder="${edit?"":P.count+", если абонемент новый"}" value="${esc(P.rem)}">
   ${edit?"":`<div class="note">Если клиент уже ходил по этому абонементу, впиши, сколько занятий у него осталось.</div>`}`:""}
   ${P.count>1?`<label class="lbl" for="pUntil">Действует до${edit?"":", если есть срок"}</label>
-  <div class="chips">${edit?`<button class="chip" data-act="pExtend" data-v="7">+1 неделя</button><button class="chip" data-act="pExtend" data-v="14">+2 недели</button><button class="chip" data-act="pExtend" data-v="m1">+1 месяц</button>`:`<button class="chip ${!P.until?"on":""}" data-act="pUntil" data-v="">Без срока</button><button class="chip ${P.until===addMonths(P.buyDate,1)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,1)}">1 месяц</button><button class="chip ${P.until===addMonths(P.buyDate,2)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,2)}">2 месяца</button>`}</div>
+  <div class="chips">${edit?`<button class="chip" data-act="pExtend" data-v="7">+1 неделя</button><button class="chip" data-act="pExtend" data-v="14">+2 недели</button><button class="chip" data-act="pExtend" data-v="m1">+1 месяц</button>`:`<button class="chip ${!P.until?"on":""}" data-act="pUntil" data-v="">Без срока</button><button class="chip ${P.until===addMonths(P.buyDate,1)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,1)}">1 месяц</button><button class="chip ${P.until===addMonths(P.buyDate,2)?"on":""}" data-act="pUntil" data-v="${addMonths(P.buyDate,2)}">2 месяца</button>`}<label class="chip other2 ${P.until&&!(P.until===addMonths(P.buyDate,1)||P.until===addMonths(P.buyDate,2))?"on":""}">${P.until&&!(P.until===addMonths(P.buyDate,1)||P.until===addMonths(P.buyDate,2))?"до "+short(P.until):"Другая дата"}<input id="pUntil" type="date" value="${P.until}" aria-label="Действует до"></label></div>
   ${edit?`<div class="note">Продлить, например если клиент болел. Сейчас ${P.until?"до "+short(P.until):"без срока"}.</div>`:""}
-  <input id="pUntil" type="date" class="mt8" value="${P.until}" aria-label="Действует до">`:""}`;
+`:""}`;
 }
 function drawPkg(){
   const edit=!!P.id;
@@ -1040,38 +1115,36 @@ async function savePkg(){
 let VS=null;
 function openVisit(id){
   const v=S.visits[id];if(!v)return;VS=id;
-  const pk=clientPkgs(v.clientId);
-  const prevNote=(IDX.byClient[v.clientId]||[]).find(x=>x.id!==id&&x.note&&(x.date+x.time)<(v.date+v.time));
   const c=S.clients[v.clientId];
-  const opts=`<option value="">Авто</option>`+pk.map(p=>`<option value="${p.id}" ${v.packageId===p.id&&v.pkgManual?"selected":""}>${p.format===IND?"Инд.":"Группа"}, ${p.count===1?"разовое":p.count+" зан."}, ${money(p.price)}, осталось ${p.rem}${p.expired?" (истёк)":""}</option>`).join("");
+  const prevNote=(IDX.byClient[v.clientId]||[]).find(x=>x.id!==id&&x.note&&(x.date+x.time)<(v.date+v.time));
   const future=v.date>today();
+  const exp=CH.includes(v.status)?earn(v):expectedRate(v);
+  const a=aboLine(v.clientId,v.format);
+  const opt=(s,title,sub)=>`<button class="opt ${s} ${v.status===s?"cur":""}" data-act="stSheet" data-id="${id}" data-s="${s}" aria-pressed="${v.status===s}"><span class="oi">${ic(STI[s],22)}</span><span class="ot"><b>${title}</b><small>${sub}</small></span>${v.status===s?`<span class="ock">${ic("check2",20)}</span>`:""}</button>`;
   openSheet(top(esc(clientName(v.clientId)))+`
-  <div class="vmeta">${human(v.date)}, ${esc(v.time)}, ${v.format===IND?"индивидуально":"группа"}</div>
+  <div class="vmeta">${humanShort(v.date)}, ${esc(v.time)}. ${v.format===IND?"Индивидуально":"Группа"}. Абонемент: ${a.t}</div>
   ${c&&c.injuries?`<div class="warnbox light"><b>${ic("alert",14)}Травмы и ограничения</b>${esc(c.injuries)}</div>`:""}
-  ${future?`<div class="row" style="flex-wrap:wrap;gap:8px">${stChip(v)}${v.status!=="cancel"?`<button class="mini" data-act="stSheet" data-id="${id}" data-s="cancel">Клиент отменил</button>`:`<button class="mini" data-act="stSheet" data-id="${id}" data-s="booked">Вернуть запись</button>`}</div>`:
-    `<div class="row" style="flex-wrap:wrap;gap:8px;margin-bottom:4px">${stChip(v,earn(v)?" · +"+money(earn(v)):"")}</div><div class="sheetst">${["came","noshow","cancel"].map(s=>`<button class="sb ${s} ${v.status===s?"cur":""}" data-act="stSheet" data-id="${id}" data-s="${s}" aria-pressed="${v.status===s}">${ic(STI[s],22)}${STL[s]}</button>`).join("")}</div>`}
+  <div class="opts">
+  ${future?"":opt("came","Пришёл","Списать занятие"+(exp?`, тебе +${money(exp)}`:""))}
+  ${future?"":opt("noshow","Не пришёл","Не предупредил до моего прихода. Списать"+(exp?`, тебе +${money(exp)}`:""))}
+  ${opt("cancel","Отменил","Предупредил заранее. Не списывать")}
+  ${v.status!=="booked"?`<button class="linkb2" style="padding:10px 4px" data-act="stSheet" data-id="${id}" data-s="booked">Снять отметку</button>`:""}
+  </div>
   ${prevNote?`<label class="lbl">В прошлый раз, ${short(prevNote.date)}</label><div class="vnote" style="margin-top:0">${ic("note",14)}<span>${esc(prevNote.note)}</span></div>`:""}
-  <label class="lbl" for="vNote">Заметка к занятию</label>
+  <label class="lbl" for="vNote">Заметка</label>
   <textarea id="vNote" placeholder="Что делали, самочувствие, на что обратить внимание">${esc(v.note)}</textarea>
-  <label class="lbl">Перенести на другой день или время</label>
-  <div class="two"><input type="date" id="vDate" value="${v.date}" aria-label="Дата"><input type="time" id="vTime" value="${esc(v.time)}" aria-label="Время"></div>
+  <details class="more"><summary>Перенести на другое время</summary>
+  <div class="two mt8"><input type="date" id="vDate" value="${v.date}" aria-label="Дата"><input type="time" id="vTime" value="${esc(v.time)}" aria-label="Время"></div></details>
   <div class="foot sticky"><button class="primary" data-act="vSave">Сохранить</button>
-  <button class="secondary btnic" data-act="openClient" data-id="${v.clientId}">${ic("user",18)}Карточка клиента</button>
-  <button class="textdanger" data-act="delVisit" data-id="${id}">Удалить запись</button></div>`,"Занятие");
+  <div class="two"><button class="ghost btnic" style="margin:0" data-act="openClient" data-id="${v.clientId}">${ic("user",18)}Клиент</button><button class="ghost btnic" style="margin:0;color:var(--stop)" data-act="delVisit" data-id="${id}">${ic("trash",18)}Удалить</button></div></div>`,"Занятие");
 }
 async function saveVisit(){
   const v=S.visits[VS];if(!v){closeSheet();return}
   const data={};
   const note=$("#vNote").value.trim();if(note!==(v.note||""))data.note=note;
   const date=$("#vDate").value||v.date,time=$("#vTime").value||v.time;if(date!==v.date)data.date=date;if(time!==v.time)data.time=time;
-  const sel=($("#vPkg")||{value:v.pkgManual?v.packageId:""}).value;
-  const curManual=v.pkgManual?v.packageId:"";
-  if(sel!==curManual){
-    if(sel){data.packageId=sel;data.pkgManual=true;if(CH.includes(v.status)){const p=pkgInfo(sel);const already=v.packageId===sel;data.rate=rateFor(p,already?p.used:p.used+1)}}
-    else{data.pkgManual=false;if(CH.includes(v.status)){const p=pkgFor(v.clientId,v.format,date);data.packageId=p?p.id:null;data.rate=p?rateFor(p,p.used+1):null}else data.packageId=null}
-  }
   if(!Object.keys(data).length){closeSheet();return}
-  try{await db.doc("visits/"+VS).update(data);closeSheet();toast("Сохранено")}catch(e){fail(e)}
+  try{await db.doc("visits/"+VS).update(data);closeSheet();toast(data.date||data.time?"Перенесено":"Сохранено")}catch(e){fail(e)}
 }
 
 /* ================= отметка ================= */
@@ -1093,8 +1166,10 @@ async function setStatus(id,s,silent){
   try{await db.doc("visits/"+id).update(patch)}catch(e){fail(e);return null}
   if(!silent){
     const undo=()=>db.doc("visits/"+id).update(prev);
-    if(CH.includes(s))toast(patch.rate!=null?`${STL[s]}: +${money(patch.rate)} тебе`:"Отмечено, но у клиента нет абонемента этого формата",undo);
-    else if(s==="cancel")toast("Отмена, занятие не списано",undo);
+    const nm=firstName(clientName(v.clientId));
+    if(CH.includes(s))toast(patch.rate!=null?`${nm}: ${STL[s].toLowerCase()}, +${money(patch.rate)} тебе`:`${nm}: отмечено, но нет абонемента`,undo);
+    else if(s==="cancel")toast(`${nm}: отменил, не списано`,undo);
+    else if(s==="booked")toast(`${nm}: отметка снята`,undo);
   }
   return prev;
 }
@@ -1115,9 +1190,9 @@ const A={
   goDay(d){S.day=d.v;S.view="day";render();window.scrollTo(0,0)},
   week(d){S.day=addDays(S.day,Number(d.v));render()},
   st(d){setStatus(d.id,d.s)},
-  async stSheet(d){await setStatus(d.id,d.s);openVisit(d.id)},
+  async stSheet(d){const v=S.visits[d.id];const n=$("#vNote");if(v&&n&&n.value.trim()!==(v.note||""))await db.doc("visits/"+d.id).update({note:n.value.trim()});closeSheet();await setStatus(d.id,d.s)},
   allCame(d){allCame(d.date,d.time)},
-  undo(){if(toastUndo){const u=toastUndo;toastUndo=null;$("#toast").classList.remove("on");Promise.resolve(u()).then(()=>toast("Отменено"))}},
+  undo(){if(toastUndo){const u=toastUndo;toastUndo=null;$("#toast").classList.remove("on");Promise.resolve(u()).then(()=>toast("Вернула как было"))}},
   delVisit(d){const v=S.visits[d.id];if(!v)return;const copy=Object.assign({},v);confirmSheet("Удалить запись?",esc(clientName(v.clientId))+", "+short(v.date)+" в "+esc(v.time)+". Если клиент просто отменил, лучше отметь «Отмена», чтобы осталась история.","Удалить",async()=>{try{await db.doc("visits/"+d.id).delete();closeSheet();toast("Запись удалена",()=>db.doc("visits/"+d.id).set(copy))}catch(e){fail(e)}})},
   openClient(d){closeSheet();S.view="client";S.clientId=d.id;S.histAll=null;render();window.scrollTo(0,0)},
   openVisit(d){openVisit(d.id)},
@@ -1135,15 +1210,12 @@ const A={
   newBooking(){openBooking({date:S.day})},
   addToSlot(d){openBooking({date:d.date,time:d.time,format:GRP})},
   bookClient(d){openBooking({clientId:d.id,date:S.day<today()?today():S.day})},
-  bFormat(d){syncB();B.format=d.v;if(d.v===IND&&B.sel.size>1)B.sel=new Set([...B.sel].slice(0,1));drawBooking()},
-  bTime(d){syncB();B.time=d.v;const t=$("#bTimeC");if(t)t.value=d.v;document.querySelectorAll('[data-act="bTime"]').forEach(b=>{const on=b.dataset.v===d.v;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});refreshBookFoot()},
-  bHalf(d){syncB();B.half=d.v==="1";if(B.time)B.time=B.time.slice(0,3)+(B.half?"30":"00");$("#bTimes").innerHTML=timeChips();const t=$("#bTimeC");if(t)t.value=B.time;document.querySelectorAll('[data-act="bHalf"]').forEach(b=>b.classList.toggle("on",b.dataset.v===d.v));refreshBookFoot()},
+  bFormat(d){syncB();B.format=d.v;B.lockFmt=true;refreshBook()},
+  bDay(d){B.date=d.v;const w=$(".daych");if(w)w.innerHTML=dayChips();refreshBook()},
+  bTime(d){syncB();B.time=d.v;const t=$("#bTimeC");if(t)t.value=d.v;document.querySelectorAll('[data-act="bTime"]').forEach(b=>{const on=b.dataset.v===d.v;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});refreshBook()},
+  bHalf(d){syncB();B.half=d.v==="1";if(B.time)B.time=B.time.slice(0,3)+(B.half?"30":"00");$("#bTimes").innerHTML=timeChips();const t=$("#bTimeC");if(t)t.value=B.time;const lb=document.querySelector('[data-act="bHalf"]');if(lb){lb.dataset.v=B.half?"0":"1";lb.textContent=B.half?"Показать :00":"Показать :30"}refreshBook()},
   bRepeat(d){syncB();B.repeat=Number(d.v);document.querySelectorAll('[data-act="bRepeat"]').forEach(b=>{const on=b.dataset.v===d.v;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)})},
-  bToggle(d){
-    if(B.format===IND){B.sel=B.sel.has(d.id)?new Set():new Set([d.id])}
-    else{B.sel.has(d.id)?B.sel.delete(d.id):B.sel.add(d.id)}
-    $("#bList").innerHTML=bookingList();refreshBookFoot();
-  },
+  bToggle(d){B.sel.has(d.id)?B.sel.delete(d.id):B.sel.add(d.id);B.q="";const q=$("#bQ");if(q)q.value="";refreshBook()},
   bSave(){saveBooking()},
   quickClient(){syncB();openClientForm(null,"booking")},
   newClient(){openClientForm(null)},
@@ -1201,8 +1273,8 @@ document.addEventListener("input",e=>{
 });
 document.addEventListener("change",e=>{
   const t=e.target;
-  if(t.id==="bTimeC"&&B){B.time=t.value;document.querySelectorAll('[data-act="bTime"]').forEach(b=>b.classList.toggle("on",b.dataset.v===t.value));refreshBookFoot()}
-  if(t.id==="bDate"&&B&&t.value){B.date=t.value;const h=document.querySelector("#sheet h2");if(h)h.textContent="Запись на "+humanShort(B.date)}
+  if(t.id==="bTimeC"&&B){B.time=t.value;document.querySelectorAll('[data-act="bTime"]').forEach(b=>b.classList.toggle("on",b.dataset.v===t.value));refreshBook()}
+  if(t.id==="bDate"&&B&&t.value){B.date=t.value;const w=$(".daych");if(w)w.innerHTML=dayChips();refreshBook()}
 });
 // свайп по неделе
 let tx=null;
