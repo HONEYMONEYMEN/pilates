@@ -524,17 +524,33 @@ details.more[open] summary{padding-bottom:0}
  #toast{left:calc(50% + 116px)}
  .hero{margin:24px 0 22px}
  .dgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:22px;align-items:start}
- .dgrid .dmain{grid-column:1;grid-row:1/span 2}
- .dgrid .dtop{grid-column:2;grid-row:1}
- .dgrid .drem{grid-column:2;grid-row:2}
+ .dgrid.solo{grid-template-columns:1fr}
+ .dgrid .dside{display:block;position:sticky;top:20px}
  .dgrid .drem .attn{margin-top:0}
- .dgrid>.dmain:only-child{grid-column:1/-1}
+ #toast.upper{top:auto!important;bottom:24px!important}
+ .daych{flex-wrap:wrap;overflow:visible}
  .mgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
  .mgrid h3:first-child,.mgrid>div>h3:first-child{margin-top:0}
  .card.list{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
  #sheet .panel{max-width:560px}
  #sheet{padding-left:232px}
 }
+
+@media(max-width:1099px){.dgrid{display:flex;flex-direction:column}
+.dgrid .dside{display:contents}
+.dgrid .dtop{order:0}.dgrid .dmain{order:1}.dgrid .drem{order:2}}
+.nslot.skipped{opacity:1}.nslot.skipped .nt,.nslot.skipped .tag,.nslot.skipped .skiplbl{opacity:.55}
+.nslot.skipped .tag{flex-shrink:1}
+.attn .arow .grow{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}
+.attn .arow .grow span{text-align:left}
+.frow{display:flex;gap:8px}.frow .primary{flex:1}.frow .ghost{flex:0 0 auto;margin:0!important;padding-left:16px;padding-right:16px;white-space:nowrap}
+.chip.busy{position:relative}.chip.busy::after{content:"";position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--violet)}
+.chip.past{opacity:.3}.chip.on{opacity:1}
+.paydue.warn{background:var(--plan-l);color:var(--plan)}
+.paydue{padding:12px 16px;margin-bottom:10px}
+@media(max-height:700px) and (max-width:700px){.hero{padding-bottom:14px}.dayfoot{margin-top:6px}.springcap{margin-top:8px}.hrow1{margin-bottom:10px}.dayb{padding:6px 0 5px}}
+.dotv{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin:0 6px 1px 0;vertical-align:middle}
+.ferr{color:var(--stop);font-size:14px;margin-top:6px}
 </style>
 </head>
 <body>
@@ -684,7 +700,7 @@ function attention(){
   for(const cid of activeClients()){
     const c=S.clients[cid],name=c.name;
     const bd=bdayIn(c.birthday);
-    if(bd!==null&&bd<=3)out.push([cid,name,bd===0?"🎂 день рождения сегодня":bd===1?"🎂 день рождения завтра":"🎂 день рождения через "+plural(bd,"день","дня","дней")]);
+    if(bd!==null&&bd<=1)out.push([cid,name,bd===0?"🎂 день рождения сегодня":bd===1?"🎂 день рождения завтра":"🎂 день рождения через "+plural(bd,"день","дня","дней")]);
     if(c.remindedAt&&daysBetween(c.remindedAt,t)<3)continue;
     const pk=clientPkgs(cid);
     if(c.mutedAt&&!pk.some(p=>(p.createdAt||0)>c.mutedAt))continue;
@@ -761,17 +777,17 @@ function dayView(){
    <button class="pill" data-act="tab" data-v="money" aria-label="Заработок за месяц"><small>${MONN[Number(m.slice(5))-1]}</small>${money(monthEarn(m))}</button></div>
   <div class="week" id="week"><button class="arr" data-act="week" data-v="-7" aria-label="Прошлая неделя">${ic("chevL",22)}</button><div class="days">${strip}</div><button class="arr" data-act="week" data-v="7" aria-label="Следующая неделя">${ic("chevR",22)}</button></div>
   <div class="dayfoot"><button class="linkb btnic" data-act="openCal">${ic("grid",18)}Весь месяц</button>${d!==t?`<button class="linkb" data-act="pickDay" data-v="${t}">К сегодня</button>`:""}</div>`;
-  if(list.length)top+=`<div class="springs" aria-hidden="true">${list.map(v=>`<i class="${v.status}"></i>`).join("")}</div><div class="springcap"><span>${left?(d===today()?"Сегодня не отмечено: ":"Не отмечено: ")+left:upcoming?(d>t?plural(upcoming,"запись","записи","записей"):"Впереди: "+upcoming):"Всё отмечено"}</span><b>${dayEarn?"+"+money(dayEarn):""}</b></div>`;
+  if(list.length)top+=`<div class="springcap"><span>${left?(d===today()?"Сегодня не отмечено: ":"Не отмечено: ")+left:upcoming?(d>t?plural(upcoming,"запись","записи","записей"):"Впереди: "+upcoming):"Всё отмечено"}</span><b>${dayEarn?"+"+money(dayEarn):""}</b></div>`;
   let body="";
   if(d===t){
     const a=attention(),um=unmarkedPast();
-    if(payDue()){const pm=shiftMonth(t.slice(0,7),-1);body+=`<button class="paydue" data-act="payPrev">${ic("wallet",20)}<span><b>Внеси зарплату за ${MONN[Number(pm.slice(5))-1].toLowerCase()}</b><small>Начислено ${money(monthEarn(pm))}. Сверим, всё ли заплатили</small></span>${ic("chevR",18)}</button>`}
-    if(um.length)body+=`<div class="attn"><div class="h">${ic("clock",18)}Отметь прошлые занятия</div><div class="arow"><button class="grow" data-act="goDay" data-v="${um[0].date}"><b>Не отмечено: ${um.length}</b><span>${humanShort(um[0].date)} ›</span></button></div></div>`;
+    if(payDue()){const pm=shiftMonth(t.slice(0,7),-1);body+=`<button class="paydue" data-act="payPrev">${ic("wallet",20)}<span><b>Внеси зарплату за ${MONN[Number(pm.slice(5))-1].toLowerCase()}</b><small>Начислено ${money(monthEarn(pm))}</small></span>${ic("chevR",18)}</button>`}
+    if(um.length)body+=`<button class="paydue warn" data-act="goDay" data-v="${um[0].date}">${ic("clock",20)}<span><b>Отметь прошлые занятия: ${um.length}</b><small>первое ${humanShort(um[0].date)}</small></span>${ic("chevR",18)}</button>`;
   }
   const tail=d===t?remindHTML():"";
   const sk=skippedOn(d);
   const notices=body;body="";
-  const wrap=main=>`<div class="dgrid">${notices?`<div class="dtop">${notices}</div>`:""}<div class="dmain">${main}</div>${tail?`<div class="drem">${tail}</div>`:""}</div>`;
+  const wrap=main=>`<div class="dgrid${notices||tail?"":" solo"}"><div class="dmain">${main}</div><aside class="dside">${notices?`<div class="dtop">${notices}</div>`:""}${tail?`<div class="drem">${tail}</div>`:""}</aside></div>`;
   if(!list.length){
     if(!Object.keys(S.clients).length)return{top,body:wrap(`<div class="card empty"><div class="big">${ic("users",30)}</div><b>Начни с клиентов</b>Перенеси клиентов из тетради: имя, абонемент и сколько занятий осталось.<button class="primary mt16" data-act="newClient">Добавить клиента</button></div>`)};
     return{top,body:wrap(`<div class="card empty"><div class="big">${ic("sun",30)}</div><b>${sk?"Других записей нет":"Записей нет"}</b><button class="primary mt16" data-act="newBooking">Записать клиента</button></div>`.replace('<div class="card empty">',sk+'<div class="card empty">'))};
@@ -842,7 +858,7 @@ function clientsView(){
     .sort((a,b)=>S.clients[a].name.localeCompare(S.clients[b].name,"ru"));
   const top=`${cviewSwitch()}<div class="hrow1"><div><h1>Клиенты</h1><div class="d">${plural(act.length,"активный","активных","активных")}</div></div></div>
   <div class="qrow"><input id="cQ" type="search" placeholder="Имя или телефон" value="${esc(S.q)}" autocomplete="off"><button class="qadd btnic" data-act="newClient">${ic("plus",18)}Новый</button></div>
-  <div class="segchips">${[["all","Все"],["end","Заканчивается абонемент"],["away","Давно не были"],["arch","Архив"]].map(([k,n])=>(k==="all"||F[k].length)?`<button class="sc ${S.seg===k?"on":""}" data-act="segf" data-v="${k}" aria-pressed="${S.seg===k}">${n}<span>${F[k].length}</span></button>`:"").join("")}</div>`;
+  <div class="segchips">${[["all","Все"],["end","Пора продлить"],["away","Давно не были"],["arch","Архив"]].map(([k,n])=>(k==="all"||F[k].length)?`<button class="sc ${S.seg===k?"on":""}" data-act="segf" data-v="${k}" aria-pressed="${S.seg===k}">${n}<span>${F[k].length}</span></button>`:"").join("")}</div>`;
   let body;
   if(!ids.length)body=`<div class="card empty"><div class="big">${ic("users",30)}</div><b>${S.q?"Никого не найдено":S.seg==="all"?"Пока нет клиентов":"Здесь пусто"}</b>${S.seg==="all"&&!S.q?`<button class="primary mt16" data-act="newClient">Добавить клиента</button>`:""}</div>`;
   else body=`<div class="card list">${ids.map(id=>{const c=S.clients[id];const a=aboLine(id);
@@ -944,7 +960,7 @@ function moneyView(){
   if(m===cm&&payDue())body=`<button class="paydue" data-act="payPrev">${ic("wallet",20)}<span><b>Пришла зарплата за ${MONN[Number(pm.slice(5))-1].toLowerCase()}?</b><small>Начислено ${money(monthEarn(pm))}. Нажми, чтобы внести и сверить</small></span>${ic("chevR",18)}</button>`+body;
   body+=`<h3>Зарплата за ${MONN[Number(m.slice(5))-1].toLowerCase()}</h3><div class="card">
    <div class="kv"><span>Начислено за ${MONN[Number(m.slice(5))-1].toLowerCase()}${m>=cm?`<br><span class="small mute">выплата в конце месяца</span>`:""}</span><b>${money(total)}</b></div>
-   ${items.map((x,i)=>`<div class="kv"><span>Выплатили${x.date?" "+short(x.date):""}</span><span class="row" style="gap:4px"><b>${money(x.amount)}</b><button class="x" data-act="payDel" data-i="${i}" aria-label="Удалить выплату">${ic("x",16)}</button></span></div>`).join("")}
+   ${items.map((x,i)=>`<div class="kv"><span>Пришло${x.date?" "+parse(x.date).getDate()+" "+MON[parse(x.date).getMonth()]:""}</span><span class="row" style="gap:4px"><b>${money(x.amount)}</b><button class="x" data-act="payDel" data-i="${i}" aria-label="Удалить выплату">${ic("x",16)}</button></span></div>`).join("")}
    ${items.length?(()=>{const diff=Math.round(paid-total);return diff===0?`<div class="cmp ok">${ic("okCircle",16)}Всё сходится</div>`:diff<0?`<div class="cmp bad">${ic("alert",16)}Не доплатили ${money(-diff)}</div>`:`<div class="cmp more">Заплатили на ${money(diff)} больше</div>`})():""}
    <div class="payrow"><input id="payIn" inputmode="decimal" placeholder="Сколько пришло за ${MONN[Number(m.slice(5))-1].toLowerCase()}, ₽" aria-label="Сколько заплатили"><button class="primary" data-act="payAdd">Внести</button></div></div>`;
   const byDay={};for(const v of vs){const e=earn(v);if(!e)continue;(byDay[v.date]=byDay[v.date]||{n:0,s:0,vs:[]});byDay[v.date].n++;byDay[v.date].s+=e;byDay[v.date].vs.push(v)}
@@ -976,11 +992,9 @@ function analyticsBlock(sel){
   const renewed=ended.filter(p=>clientPkgs(p.clientId).some(q=>q.id!==p.id&&(q.createdAt||0)>(p.createdAt||0)));
   return `<h3>Динамика</h3><div class="card">
    <div class="chart2">${months.map(m=>`<button class="cb ${m===sel?"cur":""}" data-act="goMonth" data-v="${m}" aria-label="${monthName(m)}: ${money(st[m].e)}"><span class="cv">${st[m].e?(st[m].e>=1000?Math.round(st[m].e/1000)+"к":Math.round(st[m].e)):""}</span><i style="height:${Math.round(st[m].e/mx*90)+3}px"></i><span>${MONN[Number(m.slice(5))-1].slice(0,3)}</span></button>`).join("")}</div>
-   <div class="kpis">
-    <div class="kpi"><span>Заработок</span><b>${money(cur.e)}</b>${dl(cur.e,prev.e)}</div>
-    <div class="kpi"><span>Клиентов ходило</span><b>${cur.cl.size}</b>${dl(cur.cl.size,prev.cl.size)}</div>
-    <div class="kpi"><span>Продлевают абонемент</span><b>${ended.length?Math.round(renewed.length/ended.length*100)+"%":"—"}</b></div>
-    <div class="kpi"><span>В среднем с оплаченного занятия</span><b>${cur.came?money(cur.e/cur.came):"—"}</b></div></div></div>
+   <div class="kpis" style="grid-template-columns:1fr">
+    <div class="kpi"><span>Заработок за ${monthName(sel).toLowerCase()}</span><b>${money(cur.e)}</b>${dl(cur.e,prev.e)}</div>
+    </div></div>
   ${topCl.length?`<h3>Кто больше принёс</h3><div class="card">${topCl.map(cid=>`<button class="barrow" data-act="openClient" data-id="${cid}"><span class="bl">${esc(clientName(cid))}</span><span class="bt"><i style="width:${Math.max(6,Math.round(byCl[cid]/byCl[topCl[0]]*100))}%"></i></span><b>${money(byCl[cid])}</b></button>`).join("")}</div>`:""}`;
 }
 
@@ -1024,7 +1038,7 @@ let onYes=null,lastFocus=null;
 function openSheet(html,label){const s=$("#sheet");lastFocus=document.activeElement;s.innerHTML=`<div class="bd" data-act="close"></div><div class="panel" role="dialog" aria-modal="true" aria-label="${esc(label||"")}"><div class="grab"></div>${html}</div>`;s.classList.remove("hidden");document.body.style.overflow="hidden";$("#toast").classList.add("upper");setTimeout(()=>{const c=s.querySelector(".close");if(c)c.focus({preventScroll:true})},60)}
 function closeSheet(){const s=$("#sheet");if(s.classList.contains("hidden"))return;s.classList.add("hidden");s.innerHTML="";$("#toast").classList.remove("upper");document.body.style.overflow="";onYes=null;if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true})}catch(_){}}
 function top(title){return `<div class="sheettop"><h2>${title}</h2><button class="close" data-act="close" aria-label="Закрыть">${ic("x",20)}</button></div>`}
-function confirmSheet(title,text,yes,cb,alt){onYes=cb;openSheet(top(title)+`<p class="mute">${text}</p><div class="foot">${alt||""}<button class="danger" data-act="yes">${yes}</button><button class="ghost" data-act="close">Отмена</button></div>`,title)}
+function confirmSheet(title,text,yes,cb,alt,cls){onYes=cb;openSheet(top(title)+`<p class="mute">${text}</p><div class="foot">${alt||""}<button class="${cls||"danger"}" data-act="yes">${yes}</button><button class="ghost" data-act="close">Отмена</button></div>`,title)}
 let toastT=null,toastUndo=null;
 function toast(t,undo){const el=$("#toast");toastUndo=undo||null;el.innerHTML=`<span>${esc(t)}</span>${undo?`<button data-act="undo">Вернуть</button>`:""}`;el.classList.toggle("upper",!$("#sheet").classList.contains("hidden"));el.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>{el.classList.remove("on");toastUndo=null},undo?5000:2600)}
 function fail(e){console.error(e);toast(e&&e.code==="quota_exceeded"?"Хранилище заполнено":"Не сохранилось. Проверь интернет и повтори")}
@@ -1072,7 +1086,7 @@ function drawBooking(){
   <button class="addline" data-act="quickClient">${ic("plus",16)}Новый клиент</button>
   <label class="lbl">Когда</label><div class="daych">${dayChips()}</div>
   <div class="tgridwrap"><div class="tgrid" id="bTimes">${timeChips()}</div>
-  <div class="row between mt8"><span></span><label class="linkb2 othertime">Точное время<input type="time" id="bTimeC" value="${B.time}" aria-label="Точное время"></label></div></div>
+  <div class="row between mt8"><span class="small mute"><span class="dotv"></span>уже есть запись</span><label class="linkb2 othertime">Точное время<input type="time" id="bTimeC" value="${B.time}" aria-label="Точное время"></label></div></div>
   <div id="bFmt">${fmtLine()}</div>
   <div class="foot sticky" id="bFoot">${bookBtn()}</div>`,"Записать на занятие");
 }
@@ -1081,7 +1095,11 @@ function weeklyOn(){return B.weekly&&B.sel.size===1}
 function weeklyLine(){if(B.sel.size!==1)return"";const n=weeklyN(),r=remainingFmt([...B.sel][0],B.format);
   return `<button class="wkly ${B.weekly?"on":""}" data-act="bWeekly" aria-pressed="${!!B.weekly}"><span class="chk">${B.weekly?ic("check2",16):""}</span><span><b>Каждую неделю в это время</b><small>${r>1?"пока есть абонемент: "+plural(n,"занятие","занятия","занятий"):"на "+n+" недели вперёд"}</small></span></button>`}
 function fmtLine(){return weeklyLine()+`<div class="fmtline"><span>Формат</span><div class="seg2 light mini2"><button class="${B.format===IND?"on":""}" data-act="bFormat" data-v="${IND}">Индивидуально</button><button class="${B.format===GRP?"on":""}" data-act="bFormat" data-v="${GRP}">Группа</button></div></div>`}
-function timeChips(){return HOURS.flatMap(h=>[h+":00",h+":30"]).map(t=>`<button class="chip ${B.time===t?"on":""} ${t.endsWith(":30")?"half":""}" data-act="bTime" data-v="${t}" aria-pressed="${B.time===t}">${t}</button>`).join("")}
+// занятые времена в выбранный день: кто уже записан
+function busyMap(date,exceptId){const m={};for(const v of visits())if(v.date===date&&v.status!=="cancel"&&v.id!==exceptId)(m[v.time]=m[v.time]||[]).push(firstName(clientName(v.clientId)));return m}
+function slotChip(t,cur,act,date,busy){const b=busy[t],past=date===today()&&t<pad(new Date().getHours())+":"+pad(new Date().getMinutes());
+  return `<button class="chip ${cur===t?"on":""} ${t.endsWith(":30")?"half":""} ${b?"busy":""} ${past?"past":""}" data-act="${act}" data-v="${t}" aria-pressed="${cur===t}"${b?` title="Уже записаны: ${esc(b.join(", "))}" aria-label="${t}, занято: ${esc(b.join(", "))}"`:""}>${t}</button>`}
+function timeChips(){const busy=busyMap(B.date);return HOURS.flatMap(h=>[h+":00",h+":30"]).map(t=>slotChip(t,B.time,"bTime",B.date,busy)).join("")}
 function bookingList(){
   const q=B.q.trim().toLowerCase();
   let ids=activeClients().filter(id=>!q||S.clients[id].name.toLowerCase().includes(q));
@@ -1091,14 +1109,14 @@ function bookingList(){
   if(!ids.length)return q?`<div class="mute small" style="padding:8px">Никого не найдено. Добавь нового клиента ниже.</div>`:"";
   return ids.map(id=>{const a=aboLine(id);return `<button class="cpick" data-act="bToggle" data-id="${id}"><span>${esc(S.clients[id].name)}</span><span class="cs ${a.c}">${a.t}</span></button>`}).join("")+(!q&&activeClients().length>8?`<div class="mute small" style="padding:6px 4px">Не видишь нужного? Начни вводить имя.</div>`:"");
 }
-function refreshBook(){const f=$("#bFoot");if(f)f.innerHTML=bookBtn();const s=$("#bSel");if(s)s.innerHTML=selChips();const l=$("#bList");if(l)l.innerHTML=bookingList();B.format=autoFormat();const fm=$("#bFmt");if(fm)fm.innerHTML=fmtLine()}
+function refreshBook(){const tg=$("#bTimes");if(tg)tg.innerHTML=timeChips();const f=$("#bFoot");if(f)f.innerHTML=bookBtn();const s=$("#bSel");if(s)s.innerHTML=selChips();const l=$("#bList");if(l)l.innerHTML=bookingList();B.format=autoFormat();const fm=$("#bFmt");if(fm)fm.innerHTML=fmtLine()}
 async function saveBooking(){
   syncB();
   if(bookHint()){toast(bookHint());return}
   const ids=[...B.sel];let made=0,skipped=0;
   if(!B.force){const clash=ids.map(cid=>(IDX.byClient[cid]||[]).find(v=>v.date===B.date&&v.time!==B.time&&v.status!=="cancel")).filter(Boolean);
-    if(clash.length){const msg=clash.map(v=>`${esc(clientName(v.clientId))} уже записан(а) на ${esc(v.time)}`).join("<br>");
-      const keep=Object.assign({},B,{sel:new Set(B.sel)});confirmSheet("Уже есть запись в этот день",msg+"<br>Всё равно записать ещё и на "+B.time+"?","Да, записать",()=>{B=keep;B.force=true;closeSheet();saveBooking()});return}}
+    if(clash.length){const msg=clash.map(v=>`${esc(firstName(clientName(v.clientId)))}: уже есть запись на ${esc(v.time)}`).join("<br>");
+      const keep=Object.assign({},B,{sel:new Set(B.sel)});confirmSheet("Уже есть запись в этот день",msg+"<br>Записать ещё и на "+B.time+"?","Да, записать",()=>{B=keep;B.force=true;closeSheet();saveBooking()},"","primary");return}}
   const exists=(cid,date)=>(IDX.byClient[cid]||[]).some(v=>v.date===date&&v.time===B.time&&v.status!=="cancel");
   try{
     const dates=weeklyOn()?Array.from({length:weeklyN()},(_,k)=>addDays(B.date,7*k)):[B.date];
@@ -1200,7 +1218,7 @@ function openClientForm(id,ret){
 }
 function syncCF(){const g=k=>{const el=$(k);return el?el.value:undefined};const d=CF.d;
   [["name","#cName"],["phone","#cPhone"],["contact","#cContact"],["birthday","#cBday"],["injuries","#cInj"],["goals","#cGoals"],["notes","#cNotes"]].forEach(([k,sel])=>{const v=g(sel);if(v!==undefined)d[k]=v});
-  const src=document.querySelector("#cSrc .chip.on");d.source=src?src.dataset.v:"";if(!CF.id)syncP()}
+  if(!CF.id)syncP()}
 function drawClientForm(){
   const c=CF.d,id=CF.id;
   openSheet(top(id?"Изменить клиента":"Новый клиент")+`
@@ -1208,20 +1226,18 @@ function drawClientForm(){
   <label class="lbl" for="cPhone">Телефон</label><input id="cPhone" type="tel" value="${esc(c.phone)}" placeholder="+7 900 000-00-00">
   ${id?"":`<div class="sect"><div class="secth">${ic("ticket",18)}Абонемент</div><div class="seg" role="group" aria-label="Абонемент"><button class="${P.has!==false?"on":""}" data-act="cfHas" data-v="1" aria-pressed="${P.has!==false}">Есть абонемент</button><button class="${P.has===false?"on":""}" data-act="cfHas" data-v="0" aria-pressed="${P.has===false}">Пока без</button></div>${P.has===false?`<div class="note" style="margin:6px 0 0">Абонемент можно добавить потом в карточке клиента.</div>`:aboHTML()}</div>`}
   <label class="lbl" for="cInj">Травмы и ограничения</label><textarea id="cInj" placeholder="Например: протрузия L4-L5, без скручиваний">${esc(c.injuries)}</textarea>
-  <details class="more" ${id?"open":""}><summary>Ещё: Telegram, день рождения, цели</summary>
+  <details class="more" ${id?"open":""}><summary>Ещё: Telegram, день рождения, заметки</summary>
   <label class="lbl" for="cContact">Telegram или Instagram</label><input id="cContact" value="${esc(c.contact)}" placeholder="@username">
   <label class="lbl" for="cBday">День рождения</label><input id="cBday" type="date" value="${esc(c.birthday)}">
-  <label class="lbl">Откуда пришёл клиент</label><div class="chips" id="cSrc">${SOURCES.map(x=>`<button class="chip ${c.source===x?"on":""}" data-act="cSrc" data-v="${x}" aria-pressed="${c.source===x}">${x}</button>`).join("")}</div>
-  <label class="lbl" for="cGoals">Цели</label><textarea id="cGoals">${esc(c.goals)}</textarea>
   <label class="lbl" for="cNotes">Заметки</label><textarea id="cNotes">${esc(c.notes)}</textarea></details>
-  <div class="foot sticky"><button class="primary" data-act="cSave">Сохранить</button>${!id&&!CF.ret?`<button class="ghost" style="margin-top:8px" data-act="cSaveMore">Сохранить и добавить ещё</button>`:""}</div>`,id?"Изменить клиента":"Новый клиент");
+  <div class="foot sticky"><div class="frow"><button class="primary" data-act="cSave">Сохранить</button>${!id&&!CF.ret?`<button class="ghost btnic" data-act="cSaveMore" aria-label="Сохранить и добавить ещё одного">${ic("plus",18)}ещё</button>`:""}</div></div>`,id?"Изменить клиента":"Новый клиент");
 }
 async function saveClient(more){
   syncCF();const c=CF.d;
   const name=(c.name||"").trim();if(!name){toast("Впиши имя");$("#cName").focus();return}
   const data={name,phone:(c.phone||"").trim(),contact:(c.contact||"").trim(),birthday:c.birthday||"",source:c.source||"",injuries:(c.injuries||"").trim(),goals:(c.goals||"").trim(),notes:(c.notes||"").trim()};
   let abo=null;
-  if(!CF.id&&P.has!==false){if(!String(P.price||"").trim()){toast("Впиши цену абонемента или выбери «Пока без»");const pp=$("#pPrice");if(pp)pp.focus();return}abo=aboData();if(!abo)return}
+  if(!CF.id&&P.has!==false){if(!String(P.price||"").trim()){const pp=$("#pPrice");if(pp){let e=$("#pErr");if(!e){pp.insertAdjacentHTML("afterend",'<div class="ferr" id="pErr">Впиши цену абонемента или выбери «Пока без»</div>')}pp.scrollIntoView({block:"center",behavior:"smooth"});pp.focus()}return}abo=aboData();if(!abo)return}
   try{
     if(CF.id){await db.doc("clients/"+CF.id).update(data);closeSheet();toast("Сохранено");return}
     data.active=true;data.createdAt=Date.now();
@@ -1352,7 +1368,7 @@ function openVisit(id){
   ${future?"":opt("came","Пришёл","Списать занятие"+(exp?`, тебе +${money(exp)}`:""))}
   ${future?"":opt("noshow","Не пришёл","Не предупредил до моего прихода. Списать"+(exp?`, тебе +${money(exp)}`:""))}
   ${opt("cancel","Отменил","Предупредил заранее. Не списывать")}
-  ${v.status!=="booked"?`<button class="linkb2" style="padding:10px 4px" data-act="stSheet" data-id="${id}" data-s="booked">Снять отметку</button>`:""}
+  ${v.status!=="booked"?`<button class="linkb2" style="padding:10px 4px" data-act="stSheet" data-id="${id}" data-s="booked">Сбросить отметку</button>`:""}
   </div>
   ${prevNote?`<label class="lbl">В прошлый раз, ${short(prevNote.date)}</label><div class="vnote" style="margin-top:0">${ic("note",14)}<span>${esc(prevNote.note)}</span></div>`:""}
   <label class="lbl" for="vNote">Заметка</label>
@@ -1379,13 +1395,13 @@ function moveDays(){const t=today();let h="";for(let i=0;i<7;i++){const d=addDay
 function drawMove(){const v=S.visits[MV.id];const pn=document.querySelector("#sheet:not(.hidden) .panel"),st=pn?pn.scrollTop:0;
   openSheet(top("Перенести")+`<div class="vmeta">${esc(clientName(v.clientId))}. Сейчас: ${humanShort(v.date)}, ${esc(v.time)}</div>
   <label class="lbl">На какой день</label><div class="daych">${moveDays()}</div>
-  <label class="lbl">Во сколько</label><div class="tgrid">${HOURS.flatMap(h=>[h+":00",h+":30"]).map(t=>`<button class="chip ${MV.time===t?"on":""} ${t.endsWith(":30")?"half":""}" data-act="mvTime" data-v="${t}">${t}</button>`).join("")}</div>
+  <label class="lbl">Во сколько</label><div class="tgrid">${(()=>{const busy=busyMap(MV.date,MV.id);return HOURS.flatMap(h=>[h+":00",h+":30"]).map(t=>slotChip(t,MV.time,"mvTime",MV.date,busy)).join("")})()}</div><div class="small mute mt8"><span class="dotv"></span>уже есть запись</div>
   <div class="row between mt8"><span></span><label class="linkb2 othertime">Точное время<input type="time" id="mvTimeC" value="${MV.time}" aria-label="Точное время"></label></div>
   <div class="foot sticky"><button class="primary" data-act="mvSave">Перенести<small>${humanShort(MV.date)}, ${esc(MV.time)}</small></button></div>`,"Перенести");const p2=document.querySelector("#sheet .panel");if(p2&&st)p2.scrollTop=st}
 async function saveMove(){const v=S.visits[MV.id];if(!v){closeSheet();return}
   if(MV.date===v.date&&MV.time===v.time){closeSheet();return}
   const clash=(IDX.byClient[v.clientId]||[]).find(x=>x.id!==MV.id&&x.date===MV.date&&x.time===MV.time&&x.status!=="cancel");
-  if(clash){toast("В это время "+firstName(clientName(v.clientId))+" уже записан(а)");return}
+  if(clash){toast(firstName(clientName(v.clientId))+": на это время уже есть запись");return}
   const data={date:MV.date,time:MV.time};if(v.groupId&&!v.origDate){data.origDate=v.date;data.origTime=v.time}
   const back={date:v.date,time:v.time},id=MV.id;
   try{await db.doc("visits/"+id).update(data);closeSheet();toast("Перенесено на "+humanShort(MV.date)+", "+MV.time,()=>db.doc("visits/"+id).update(back))}catch(e){fail(e)}}
@@ -1525,7 +1541,7 @@ const A={
   exportMonth(){exportMonth();toast("Файл скачивается")},
   allRem(){openRem()},
   payPrev(){S.month=shiftMonth(today().slice(0,7),-1);S.view="money";render();setTimeout(()=>{const i=$("#payIn");if(i){i.scrollIntoView({block:"center"});i.focus()}},100)},
-  async muteRem(d){try{await db.doc("clients/"+d.id).update({mutedAt:Date.now()});setTimeout(openRem,150);toast("Больше не напомню про "+firstName(clientName(d.id)))}catch(e){fail(e)}},
+  async muteRem(d){try{await db.doc("clients/"+d.id).update({mutedAt:Date.now()});setTimeout(openRem,150);toast(firstName(clientName(d.id))+": больше не напоминаю")}catch(e){fail(e)}},
   cSaveMore(){saveClient(true)},
   openMove(d){openMove(d.id)},
   mvDay(d){MV.date=d.v;drawMove()},
