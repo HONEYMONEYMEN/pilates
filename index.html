@@ -326,7 +326,7 @@ const human=s=>{const d=parse(s);return WD[d.getDay()]+", "+d.getDate()+" "+MON[
 const short=s=>{const d=parse(s);return d.getDate()+" "+MON[d.getMonth()].slice(0,3)+"."};
 const monthName=m=>{const [y,mm]=m.split("-").map(Number);return MONN[mm-1]+" "+y};
 const shiftMonth=(m,n)=>addMonths(m+"-01",n).slice(0,7);
-const money=n=>Math.round(n||0).toLocaleString("ru-RU").replace(/ |,/g," ")+" ₸";
+const money=n=>Math.round(n||0).toLocaleString("ru-RU").replace(/ |,/g," ")+" ₽";
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initial=n=>(String(n||"?").trim()[0]||"?").toUpperCase();
 const daysBetween=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
@@ -526,7 +526,7 @@ function moneyView(){
   let body=`<div class="stats"><div class="stat go"><b>${came}</b><span>посещений</span></div><div class="stat stop"><b>${nos}</b><span>неявок, оплачено</span></div><div class="stat off"><b>${can}</b><span>отмен заранее</span></div></div>`;
   if(nopkg)body+=`<div class="cmp bad">${ic("alert",16)}${nopkg} занят. без пакета не посчитаны. Продай пакет этим клиентам.</div>`;
   if(unmarked)body+=`<button class="cmp more" style="width:100%;text-align:left" data-act="firstUnmarked">${ic("clock",16)}Не отмечено прошедших занятий: ${unmarked}</button>`;
-  body+=`<h3>Выплата от студии</h3><div class="card"><div class="row"><input id="payIn" inputmode="numeric" placeholder="Сколько заплатили, ₸" value="${pay&&pay.amount!=null?pay.amount:""}"><button class="primary" style="width:auto;padding:14px 18px" data-act="paySave">Сохранить</button></div>`;
+  body+=`<h3>Выплата от студии</h3><div class="card"><div class="row"><input id="payIn" inputmode="numeric" placeholder="Сколько заплатили, ₽" value="${pay&&pay.amount!=null?pay.amount:""}"><button class="primary" style="width:auto;padding:14px 18px" data-act="paySave">Сохранить</button></div>`;
   if(pay&&pay.amount!=null){const diff=Number(pay.amount)-Math.round(total);
     body+=diff===0?`<div class="cmp ok">${ic("okCircle",16)}Всё сходится</div>`:diff<0?`<div class="cmp bad">${ic("alert",16)}Не доплатили ${money(-diff)}</div>`:`<div class="cmp more">Заплатили на ${money(diff)} больше, чем по твоим записям</div>`}
   body+=`</div>`;
@@ -554,7 +554,7 @@ function csvCell(v){v=String(v==null?"":v);return /[";\n]/.test(v)?'"'+v.replace
 function exportCSV(){
   const rows=[["Дата","Время","Клиент","Формат","Статус","Пакет","Цена занятия","Мой заработок"]];
   visits().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).forEach(v=>{const p=v.packageId&&S.packages[v.packageId];
-    rows.push([v.date,v.time,clientName(v.clientId),v.format,STL[v.status].replace(/^[^\wА-Яа-я]+/,""),p?(p.count===1?"Разовое":p.count+" зан., "+p.price+" ₸"):"",p&&p.count?Math.round(p.price/p.count):"",Math.round(earn(v))])});
+    rows.push([v.date,v.time,clientName(v.clientId),v.format,STL[v.status].replace(/^[^\wА-Яа-я]+/,""),p?(p.count===1?"Разовое":p.count+" зан., "+p.price+" ₽"):"",p&&p.count?Math.round(p.price/p.count):"",Math.round(earn(v))])});
   rows.push([]);rows.push(["Клиенты"]);rows.push(["Имя","Телефон","Instagram/Telegram","Травмы","Цели","Заметки","Осталось занятий","Статус"]);
   Object.keys(S.clients).forEach(id=>{const c=S.clients[id];rows.push([c.name,c.phone,c.contact,c.injuries,c.goals,c.notes,remaining(id),c.active===false?"архив":"активный"])});
   rows.push([]);rows.push(["Пакеты"]);rows.push(["Клиент","Формат","Занятий","Цена","Куплен","Действует до","Использовано","Осталось"]);
@@ -661,7 +661,7 @@ function drawSell(){
   <label class="lbl">Формат</label><div class="seg"><button class="${P.format===IND?"on":""} btnic" data-act="pFormat" data-v="${IND}">${ic("user",18)}Индивидуально</button><button class="${P.format===GRP?"on":""} btnic" data-act="pFormat" data-v="${GRP}">${ic("users",18)}Группа</button></div>
   <label class="lbl">Сколько занятий</label><div class="chips">${COUNTS.map(n=>`<button class="chip ${P.count===n?"on":""}" data-act="pCount" data-v="${n}">${n===1?"Разовое":n}</button>`).join("")}</div>
   <div class="note">Другое количество:</div><input id="pCountC" class="mt8" inputmode="numeric" placeholder="например 16" value="${COUNTS.includes(P.count)?"":P.count}">
-  <label class="lbl">Цена за весь пакет, ₸</label><input id="pPrice" inputmode="numeric" placeholder="например 50000" value="${esc(P.price)}">
+  <label class="lbl">Цена за весь пакет, ₽</label><input id="pPrice" inputmode="numeric" placeholder="например 25000" value="${esc(P.price)}">
   <div class="calc" id="pCalc">${calcHTML(per)}</div>
   <label class="lbl">Дата покупки</label><input id="pBuy" type="date" value="${P.buyDate}">
   <label class="lbl">Действует до (если есть срок)</label>
