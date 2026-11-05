@@ -327,6 +327,30 @@ a.primary,a.secondary,a.ghost{text-decoration:none;display:flex}
 .wkc{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;font-size:12.5px;color:var(--mute)}
 .wkc i{display:block;width:70%;border-radius:7px;background:var(--violet-l)}.wkc i.max{background:var(--sun)}
 .wkn{font-weight:700;color:var(--ink);font-size:12.5px}
+.segchips{display:flex;gap:6px;overflow-x:auto;margin:14px -18px 10px;padding:0 18px;scrollbar-width:none}
+.segchips::-webkit-scrollbar{display:none}
+.sc{flex:none;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.07);color:var(--nightMute);font-weight:600;font-size:14px;display:flex;gap:6px;align-items:center}
+.sc span{font-size:12px;opacity:.75}
+.sc.on{background:var(--sun);color:#0E0B13}
+.segt{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin-right:6px;background:var(--off-l);color:var(--ink2)}
+.segt.new{background:var(--plan-l);color:var(--plan)}.segt.reg{background:var(--go-l);color:var(--go)}.segt.risk{background:var(--sun-l);color:#FFC83D}.segt.lost{background:var(--stop-l);color:var(--stop)}.segt.src{background:var(--violet-l);color:var(--violet)}
+.segline{margin-top:12px}
+.split.three{grid-template-columns:1fr 1fr 1fr;margin-top:8px}
+.split.three b{font-size:16px}
+.chart{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:150px;margin-top:18px}
+.cb{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:100%;color:var(--nightMute);font-size:12.5px}
+.cb i{display:block;width:72%;border-radius:8px;background:rgba(255,255,255,.14)}
+.cb.cur i{background:var(--sun)}.cb.cur{color:var(--nightInk);font-weight:700}
+.cv{font-size:11.5px;font-weight:600}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{background:var(--surface);border:1px solid #251E30;border-radius:18px;padding:13px 14px;position:relative}
+.kpi span{display:block;font-size:12.5px;color:var(--mute)}
+.kpi b{font-family:var(--disp);font-size:21px;font-weight:700;display:block;margin-top:4px}
+.kpi em{display:inline-block;margin-top:6px;font-style:normal;font-size:12px;font-weight:700;padding:2px 7px;border-radius:999px}
+.kpi em.up{background:var(--go-l);color:var(--go)}.kpi em.dn{background:var(--stop-l);color:var(--stop)}
+.mt{display:grid;grid-template-columns:1.3fr 1.2fr .7fr .6fr;gap:8px;width:100%;text-align:left;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;align-items:center}
+.mt:first-child{border-top:0;padding-top:0;font-size:12.5px;color:var(--mute)}
+.mt>span:nth-child(n+3),.mt>b{text-align:right}
 #sheet:not(.hidden)~#toast{bottom:calc(20px + env(safe-area-inset-bottom))}
 </style>
 </head>
@@ -386,6 +410,7 @@ const IC={
  copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
  cake:'<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1M2 21h20M7 8v3M12 8v3M17 8v3M7 4h.01M12 4h.01M17 4h.01"/>',
  grid:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>',
+ trend:'<path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>',
  snow:'<path d="M12 2v20M17 5l-5 5-5-5M17 19l-5-5-5 5M2 12h20M5 7l5 5-5 5M19 7l-5 5 5 5"/>'
 };
 const ic=(n,s)=>`<svg class="ic" width="${s||20}" height="${s||20}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||""}</svg>`;
@@ -412,7 +437,7 @@ const plural=(n,a,b,c)=>{const m=Math.abs(n)%10,h=Math.abs(n)%100;return n+" "+(
 const parseAmount=s=>{const t=String(s||"").replace(/[\s ₽]/g,"").replace(",",".");if(t==="")return null;const n=Number(t);return isFinite(n)&&n>=0?n:NaN};
 const firstName=n=>String(n||"").trim().split(/\s+/)[0]||"";
 
-const S={clients:{},packages:{},visits:{},payouts:{},settings:{},view:"day",day:today(),month:today().slice(0,7),clientId:null,cfilter:"active",q:"",ready:false,slow:false,nodb:false,user:undefined,authMode:"login",authErr:"",online:navigator.onLine,openDays:{}};
+const S={clients:{},packages:{},visits:{},payouts:{},settings:{},view:"day",day:today(),month:today().slice(0,7),clientId:null,cfilter:"active",q:"",ready:false,slow:false,nodb:false,user:undefined,authMode:"login",authErr:"",online:navigator.onLine,openDays:{},mview:"month",seg:"all"};
 let db=null;
 
 /* ================= индекс (пересчитывается один раз при изменении данных) ================= */
@@ -488,6 +513,18 @@ function attention(){
   return out;
 }
 function bdayIn(b){if(!b)return null;const t=today();const y=Number(t.slice(0,4));const [ ,mm,dd]=b.split("-");let n=y+"-"+mm+"-"+dd;if(mm==="02"&&dd==="29"&&!(y%4===0&&(y%100!==0||y%400===0)))n=y+"-03-01";let d=daysBetween(t,n);if(d<0){n=(y+1)+n.slice(4);d=daysBetween(t,n)}return d}
+const SOURCES=["Instagram","Рекомендация","Студия","Другое"];
+const SEG={new:"Новые",reg:"Постоянные",risk:"Пропадают",lost:"Давно не были",none:"Без посещений"};
+const SEG1={new:"Новый клиент",reg:"Ходит регулярно",risk:"Пропадает",lost:"Давно не приходит",none:"Без посещений"};
+function firstVisit(cid){const vs=IDX.byClient[cid]||[];let f="";for(const v of vs)if(CH.includes(v.status)&&(!f||v.date<f))f=v.date;return f}
+function segment(cid){
+  const c=S.clients[cid];if(c.active===false)return"arch";
+  const t=today(),lv=IDX.lastByClient[cid],fv=firstVisit(cid);
+  if(!lv){const created=c.createdAt?fmt(new Date(c.createdAt)):t;return daysBetween(created,t)<=30?"new":"none"}
+  if(fv&&daysBetween(fv,t)<=30)return"new";
+  const gap=daysBetween(lv,t);
+  return gap<=14?"reg":gap<=45?"risk":"lost";
+}
 const unmarkedPast=()=>visits().filter(v=>v.status==="booked"&&v.date<today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
 
 /* ================= рендер ================= */
@@ -591,17 +628,18 @@ function statusButtons(id){return `<div class="btns3">
 
 function clientsView(){
   const q=S.q.trim().toLowerCase();
-  const ids=Object.keys(S.clients).filter(id=>S.cfilter==="active"?S.clients[id].active!==false:S.clients[id].active===false)
+  const segOf={};for(const id in S.clients)segOf[id]=segment(id);
+  const ids=Object.keys(S.clients).filter(id=>S.seg==="arch"?segOf[id]==="arch":segOf[id]!=="arch"&&(S.seg==="all"||segOf[id]===S.seg))
     .filter(id=>!q||S.clients[id].name.toLowerCase().includes(q)||String(S.clients[id].phone||"").replace(/\D/g,"").includes(q.replace(/\D/g,"")||"#"))
     .sort((a,b)=>S.clients[a].name.localeCompare(S.clients[b].name,"ru"));
   const nAct=activeClients().length;
   const top=`<h1>Клиенты</h1><div class="d" style="color:var(--nightMute);margin-top:4px">${plural(nAct,"активный","активных","активных")}</div>
-  <div class="seg2"><button class="${S.cfilter==="active"?"on":""}" data-act="cfilter" data-v="active" aria-pressed="${S.cfilter==="active"}">Активные</button><button class="${S.cfilter==="gone"?"on":""}" data-act="cfilter" data-v="gone" aria-pressed="${S.cfilter==="gone"}">Архив</button></div>
+  <div class="segchips">${[["all","Все"],["new",SEG.new],["reg",SEG.reg],["risk",SEG.risk],["lost",SEG.lost],["none",SEG.none],["arch","Архив"]].map(([k,n])=>{const c=k==="all"?nAct:Object.values(segOf).filter(x=>x===k).length;return (k==="all"||c)?`<button class="sc ${S.seg===k?"on":""}" data-act="segf" data-v="${k}" aria-pressed="${S.seg===k}">${n}<span>${c}</span></button>`:""}).join("")}</div>
   <input id="cQ" type="search" placeholder="Поиск по имени или телефону" value="${esc(S.q)}" autocomplete="off">`;
   let body;
-  if(!ids.length)body=`<div class="card empty"><div class="big">${ic("users",30)}</div><b>${S.q?"Никого не найдено":S.cfilter==="active"?"Пока нет клиентов":"Архив пуст"}</b>${S.cfilter==="active"&&!S.q?"Нажми «+» внизу, чтобы добавить клиента.":""}</div>`;
+  if(!ids.length)body=`<div class="card empty"><div class="big">${ic("users",30)}</div><b>${S.q?"Никого не найдено":S.seg==="all"?"Пока нет клиентов":"В этой группе никого"}</b>${S.seg==="all"&&!S.q?"Нажми «+» внизу, чтобы добавить клиента.":""}</div>`;
   else body=`<div class="card" style="padding:6px 14px">${ids.map(id=>{const c=S.clients[id];
-    return `<button class="crow" data-act="openClient" data-id="${id}"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><div style="font-weight:700;font-size:16px">${esc(c.name)}</div>${c.injuries?`<div class="small" style="color:var(--stop)">${ic("alert",13)} ${esc(String(c.injuries).slice(0,40))}</div>`:c.phone?`<div class="small mute">${esc(c.phone)}</div>`:""}</div>${badgeFor(id)}</button>`}).join("")}</div>`;
+    return `<button class="crow" data-act="openClient" data-id="${id}"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><div style="font-weight:700;font-size:16px">${esc(c.name)}</div><div class="small mute">${S.seg==="all"&&segOf[id]!=="arch"?`<span class="segt ${segOf[id]}">${SEG1[segOf[id]]}</span>`:""}${c.injuries?`<span style="color:var(--stop)">${ic("alert",13)} ${esc(String(c.injuries).slice(0,30))}</span>`:""}</div></div>${badgeFor(id)}</button>`}).join("")}</div>`;
   return{top,body};
 }
 
@@ -629,7 +667,12 @@ function clientView(){
   <div class="chead"><div class="ava">${esc(initial(c.name))}</div><div class="grow"><h1>${esc(c.name)}</h1><div class="mt8">${badgeFor(id)}${c.active===false?` <span class="badge none">в архиве</span>`:""}</div></div></div>`;
   if(links.length)top+=`<div class="clinks">${links.map(l=>`<a class="clink" href="${l.href}" target="_blank" rel="noopener">${ic(l.icon,18)}${l.label}</a>`).join("")}</div>`;
   if(c.injuries)top+=`<div class="warnbox"><b>${ic("alert",14)}Травмы и ограничения</b>${esc(c.injuries)}</div>`;
-  top+=`<div class="split"><div><span>Посещений</span><b>${came}</b></div><div><span>Тебе за всё время</span><b>${money(total)}</b></div></div>`;
+  const fv=firstVisit(id);const nos=vs.filter(v=>v.status==="noshow").length;
+  const last8=vs.filter(v=>CH.includes(v.status)&&v.date>addDays(today(),-56)&&v.date<=today()).length;
+  const sg=segment(id);
+  top+=`<div class="split"><div><span>Посещений</span><b>${came}</b></div><div><span>Тебе за всё время</span><b>${money(total)}</b></div></div>
+  <div class="split three"><div><span>Ходит в неделю</span><b>${(last8/8).toLocaleString("ru-RU",{maximumFractionDigits:1})}</b></div><div><span>Неявок</span><b>${came?Math.round(nos/came*100):0}%</b></div><div><span>С нами с</span><b>${fv?short(fv):"—"}</b></div></div>
+  ${sg!=="arch"?`<div class="segline"><span class="segt ${sg}">${SEG1[sg]}</span>${c.source?`<span class="segt src">${esc(c.source)}</span>`:""}</div>`:""}`;
   let body=`<div class="acts"><button data-act="sell" data-id="${id}">${ic("ticket",26)}Продать пакет</button><button data-act="bookClient" data-id="${id}">${ic("calendar",26)}Записать</button></div>`;
   if(remaining(id)<=2&&hasAnyPkg(id))body+=`<button class="secondary btnic mt8" data-act="contact" data-id="${id}">${ic("msg",18)}Напомнить о продлении</button>`;
   body+=`<h3>Пакеты</h3><div class="card">`;
@@ -663,6 +706,7 @@ function clientView(){
 
 function payItems(m){const p=S.payouts[m];if(!p)return[];if(Array.isArray(p.items))return p.items;if(p.amount!=null)return[{amount:Number(p.amount),date:p.date||""}];return[]}
 function moneyView(){
+  if(S.mview==="an")return analyticsView();
   const m=S.month;
   const vs=monthVisits(m);
   const total=vs.reduce((s,v)=>s+earn(v),0);
@@ -674,7 +718,7 @@ function moneyView(){
   const items=payItems(m);const paid=items.reduce((s,x)=>s+(Number(x.amount)||0),0);
   const prevTotal=monthEarn(shiftMonth(m,-1));
   const delta=prevTotal>0?Math.round((total-prevTotal)/prevTotal*100):null;
-  const top=`<div class="monthnav"><button data-act="month" data-v="-1" aria-label="Прошлый месяц">${ic("chevL",22)}</button><b>${monthName(m)}</b><button data-act="month" data-v="1" aria-label="Следующий месяц">${ic("chevR",22)}</button></div>
+  const top=`${mswitch()}<div class="monthnav"><button data-act="month" data-v="-1" aria-label="Прошлый месяц">${ic("chevL",22)}</button><b>${monthName(m)}</b><button data-act="month" data-v="1" aria-label="Следующий месяц">${ic("chevR",22)}</button></div>
   <div class="bigsum">${money(total)}</div><div class="l">Твой заработок за месяц (50%)${delta!==null&&total?`, ${delta>=0?"+":""}${delta}% к прошлому`:""}</div>
   <div class="split"><div><span>Индивидуальные</span><b>${money(ind)}</b></div><div><span>Группы</span><b>${money(grp)}</b></div></div>`;
   let body=`<div class="stats"><div class="stat go"><b>${came}</b><span>посещений</span></div><div class="stat stop"><b>${nos}</b><span>неявок (оплачены)</span></div><div class="stat off"><b>${can}</b><span>отмен (без оплаты)</span></div></div>`;
@@ -701,6 +745,55 @@ function moneyView(){
   const wmx=Math.max(...wd);
   if(wmx){body+=`<h3>Загрузка по дням недели</h3><div class="card"><div class="wk">${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map((n,i)=>`<div class="wkc"><span class="wkn">${wd[i]||""}</span><i style="height:${Math.round(wd[i]/wmx*70)+4}px" class="${wd[i]===wmx?"max":""}"></i><span>${n}</span></div>`).join("")}</div><div class="note">Сколько посещений и неявок было в каждый день недели за месяц.</div></div>`}
   body+=`<h3>Выгрузка и аккаунт</h3><div class="foot" style="margin-top:0"><button class="secondary btnic" data-act="exportMonth">${ic("download",18)}Скачать ${MONN[Number(m.slice(5))-1].toLowerCase()} в Excel</button><button class="ghost btnic" data-act="export">${ic("download",18)}Скачать все данные</button><button class="ghost btnic" data-act="logout">${ic("logout",18)}Выйти${S.user&&S.user.email?" ("+esc(S.user.email)+")":""}</button></div>`;
+  return{top,body};
+}
+
+function mswitch(){return `<div class="seg2" style="margin:0 0 16px"><button class="${S.mview!=="an"?"on":""}" data-act="mview" data-v="month">Месяц</button><button class="${S.mview==="an"?"on":""}" data-act="mview" data-v="an">Аналитика</button></div>`}
+function expectedRate(v){const p=pkgFor(v.clientId,v.format,v.date);return p?rateFor(p,p.used+1):0}
+function analyticsView(){
+  const t=today(),cm=t.slice(0,7);
+  const months=[];for(let i=5;i>=0;i--)months.push(shiftMonth(cm,-i));
+  const st={};for(const m of months)st[m]={e:0,came:0,nos:0,can:0,cl:new Set(),nw:0,sales:0,sold:0};
+  const fv={};for(const cid in S.clients)fv[cid]=firstVisit(cid);
+  for(const v of visits()){const m=v.date.slice(0,7);const o=st[m];if(!o)continue;o.e+=earn(v);if(v.status==="came")o.came++;if(v.status==="noshow")o.nos++;if(v.status==="cancel")o.can++;if(CH.includes(v.status))o.cl.add(v.clientId)}
+  for(const cid in fv){const f=fv[cid];if(f&&st[f.slice(0,7)])st[f.slice(0,7)].nw++}
+  for(const id in S.packages){const p=S.packages[id];const m=(p.buyDate||"").slice(0,7);if(st[m]){st[m].sales+=Number(p.price)||0;st[m].sold++}}
+  const cur=st[cm],prev=st[months[4]];
+  // прогноз: заработано + запланированные занятия до конца месяца
+  const planned=visits().filter(v=>v.status==="booked"&&v.date>=t&&v.date.startsWith(cm));
+  const forecast=cur.e+planned.reduce((s,v)=>s+expectedRate(v),0);
+  const mx=Math.max(1,...months.map(m=>st[m].e));
+  const pct=(a,b)=>b?Math.round(a/b*100):0;
+  const dlt=(a,b)=>!b?"":`<em class="${a>=b?"up":"dn"}">${a>=b?"+":""}${Math.round((a-b)/b*100)}%</em>`;
+  // продления: пакеты, закончившиеся за 90 дней
+  const ended=Object.keys(S.packages).map(pkgInfo).filter(p=>{if(p.rem>0&&!p.expired)return false;const lastUse=visits().filter(v=>v.packageId===p.id&&CH.includes(v.status)).reduce((m,v)=>v.date>m?v.date:m,p.buyDate||"");const end=p.rem<=0?lastUse:p.until;return end&&daysBetween(end,t)<=90&&end<=t});
+  const renewed=ended.filter(p=>clientPkgs(p.clientId).some(q=>q.id!==p.id&&(q.buyDate||"")>=(p.buyDate||"")&&(q.createdAt||0)>(p.createdAt||0)));
+  // удержание: клиенты прошлого месяца, которые пришли и в этом
+  const prevSet=prev.cl,kept=[...prevSet].filter(c=>cur.cl.has(c)||(IDX.byClient[c]||[]).some(v=>v.status==="booked"&&v.date>=t)).length;
+  const segc={};for(const cid in S.clients){const sg=segment(cid);segc[sg]=(segc[sg]||0)+1}
+  const src={};for(const cid in S.clients){const s2=S.clients[cid].source||"Не указано";src[s2]=(src[s2]||0)+1}
+  const srcMax=Math.max(1,...Object.values(src));
+  const tot=cur.came+cur.nos;const avg=tot?cur.e/tot:0;
+  const top=`${mswitch()}<div class="l" style="color:var(--nightMute)">Прогноз на ${MONN[Number(cm.slice(5))-1].toLowerCase()}</div><div class="bigsum">${money(forecast)}</div>
+   <div class="l" style="color:var(--nightMute)">Уже заработано ${money(cur.e)}, ещё ${plural(planned.length,"запланированное занятие","запланированных занятия","запланированных занятий")}</div>
+   <div class="chart">${months.map(m=>`<button class="cb ${m===cm?"cur":""}" data-act="goMonth" data-v="${m}"><span class="cv">${st[m].e?Math.round(st[m].e/1000)+"к":""}</span><i style="height:${Math.round(st[m].e/mx*92)+3}px"></i><span>${MONN[Number(m.slice(5))-1].slice(0,3)}</span></button>`).join("")}</div>`;
+  let body=`<div class="kpis">
+   <div class="kpi"><span>Посещений</span><b>${cur.came}</b>${dlt(cur.came,prev.came)}</div>
+   <div class="kpi"><span>Активных клиентов</span><b>${cur.cl.size}</b>${dlt(cur.cl.size,prev.cl.size)}</div>
+   <div class="kpi"><span>Новых клиентов</span><b>${cur.nw}</b></div>
+   <div class="kpi"><span>Средний заработок с занятия</span><b>${money(avg)}</b></div>
+   <div class="kpi"><span>Неявки</span><b>${pct(cur.nos,tot)}%</b></div>
+   <div class="kpi"><span>Отмены</span><b>${pct(cur.can,tot+cur.can)}%</b></div></div>
+  <h3>Удержание клиентов</h3><div class="card">
+   <div class="kv"><span>Продлевают пакет</span><b>${ended.length?pct(renewed.length,ended.length)+"%":"—"}</b></div>
+   <div class="note" style="margin:-4px 0 8px">${ended.length?`Из ${plural(ended.length,"закончившегося пакета","закончившихся пакетов","закончившихся пакетов")} за 3 месяца купили новый: ${renewed.length}`:"Пока нет закончившихся пакетов"}</div>
+   <div class="kv"><span>Вернулись после прошлого месяца</span><b>${prevSet.size?pct(kept,prevSet.size)+"%":"—"}</b></div>
+   <div class="kv"><span>Продано пакетов в этом месяце</span><b>${cur.sold?plural(cur.sold,"пакет","пакета","пакетов")+" на "+money(cur.sales):"0"}</b></div></div>
+  <h3>Клиенты по активности</h3><div class="card">${["new","reg","risk","lost","none"].filter(k=>segc[k]).map(k=>`<button class="barrow" data-act="segGo" data-v="${k}"><span class="bl"><span class="segt ${k}">${SEG[k]}</span></span><span class="bt"><i style="width:${Math.round(segc[k]/Math.max(...Object.values(segc))*100)}%"></i></span><b>${segc[k]}</b></button>`).join("")||`<div class="mute">Пока нет клиентов.</div>`}
+   <div class="note">Постоянные: были за последние 2 недели. Пропадают: 2–6 недель назад. Давно не были: больше 6 недель.</div></div>
+  <h3>Откуда приходят клиенты</h3><div class="card">${Object.keys(src).sort((a,b)=>src[b]-src[a]).map(k=>`<div class="barrow"><span class="bl">${esc(k)}</span><span class="bt"><i style="width:${Math.round(src[k]/srcMax*100)}%"></i></span><b>${src[k]}</b></div>`).join("")}
+   <div class="note">Источник указывается в карточке клиента.</div></div>
+  <h3>По месяцам</h3><div class="card"><div class="mt"><span></span><span>Заработок</span><span>Посещ.</span><span>Нов.</span></div>${months.slice().reverse().map(m=>`<button class="mt" data-act="goMonth" data-v="${m}"><span>${MONN[Number(m.slice(5))-1]}</span><b>${money(st[m].e)}</b><span>${st[m].came}</span><span>${st[m].nw}</span></button>`).join("")}</div>`;
   return{top,body};
 }
 
@@ -826,6 +919,7 @@ function openClientForm(id,ret){
   <label class="lbl" for="cName">Имя</label><input id="cName" value="${esc(c.name)}" placeholder="Например, Аня Смирнова" autocomplete="off">
   <label class="lbl" for="cPhone">Телефон</label><input id="cPhone" type="tel" value="${esc(c.phone)}" placeholder="+7 900 000-00-00">
   <label class="lbl" for="cContact">Telegram или Instagram</label><input id="cContact" value="${esc(c.contact)}" placeholder="@username">
+  <label class="lbl">Откуда пришёл клиент</label><div class="chips" id="cSrc">${SOURCES.map(x=>`<button class="chip ${c.source===x?"on":""}" data-act="cSrc" data-v="${x}" aria-pressed="${c.source===x}">${x}</button>`).join("")}</div>
   <label class="lbl" for="cBday">День рождения</label><input id="cBday" type="date" value="${esc(c.birthday)}">
   <label class="lbl" for="cInj">Травмы и ограничения</label><textarea id="cInj" placeholder="Например: протрузия L4-L5, без скручиваний">${esc(c.injuries)}</textarea>
   <label class="lbl" for="cGoals">Цели</label><textarea id="cGoals">${esc(c.goals)}</textarea>
@@ -835,7 +929,7 @@ function openClientForm(id,ret){
 }
 async function saveClient(){
   const name=$("#cName").value.trim();if(!name){toast("Впиши имя");$("#cName").focus();return}
-  const data={name,phone:$("#cPhone").value.trim(),contact:$("#cContact").value.trim(),birthday:$("#cBday").value||"",injuries:$("#cInj").value.trim(),goals:$("#cGoals").value.trim(),notes:$("#cNotes").value.trim()};
+  const data={name,phone:$("#cPhone").value.trim(),contact:$("#cContact").value.trim(),birthday:$("#cBday").value||"",source:(document.querySelector("#cSrc .chip.on")||{}).dataset?.v||"",injuries:$("#cInj").value.trim(),goals:$("#cGoals").value.trim(),notes:$("#cNotes").value.trim()};
   try{
     if(CF.id){await db.doc("clients/"+CF.id).update(data);closeSheet();toast("Сохранено");return}
     data.active=true;data.createdAt=Date.now();
@@ -1045,6 +1139,11 @@ const A={
       paid&&S.clients[d.id].active!==false?`<button class="primary" data-act="archiveFromConfirm" data-id="${d.id}">Убрать в архив</button>`:"")},
   async archiveFromConfirm(d){closeSheet();try{await db.doc("clients/"+d.id).update({active:false});toast("Клиент в архиве")}catch(e){fail(e)}},
   cfilter(d){S.cfilter=d.v;render()},
+  segf(d){S.seg=d.v;render()},
+  segGo(d){S.seg=d.v;S.view="clients";render();window.scrollTo(0,0)},
+  mview(d){S.mview=d.v;render();window.scrollTo(0,0)},
+  goMonth(d){S.month=d.v;S.mview="month";S.openDays={};render();window.scrollTo(0,0)},
+  cSrc(d,el){const on=el.classList.contains("on");document.querySelectorAll("#cSrc .chip").forEach(b=>{b.classList.remove("on");b.setAttribute("aria-pressed","false")});if(!on){el.classList.add("on");el.setAttribute("aria-pressed","true")}},
   month(d){S.month=shiftMonth(S.month,Number(d.v));S.openDays={};render()},
   toggleDay(d){S.openDays[d.v]=!S.openDays[d.v];render()},
   async payAdd(){const n=parseAmount($("#payIn").value);if(n===null||isNaN(n)||n<=0){toast("Впиши сумму, например 18000");return}
